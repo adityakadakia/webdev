@@ -1,13 +1,49 @@
-.welcomeText{
+.welcomeText {
     text-align: justify;
 }
 
-.form-row{
-    margin-top: 10px ;
+.form-row {
+    margin-top: 10px;
     margin-left: 0px;
     white-space: nowrap;
 }
 
-.form-box{
-    border: #000000;
+.form-box {
+    border: 1px solid #dddddd;
+}
+
+.thead-row {
+    background-color: #BBBBBB;
+}
+
+.my-table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.my-table > thead > tr > th {
+    background-color: #f5f5f5;
+}
+
+.table-bordered {
+    border: 1px solid #dddddd;
+}
+
+.tab-border {
+    border: 1px solid #dddddd;
+}
+
+.icon-hide {
+    visibility: hidden;
+}
+
+.bottom-margin {
+    margin-bottom: 10px;
+}
+
+.forms-input-row {
+    background-color: #ffffff !important;
+}
+
+.forms-table-margin {
+    margin: 10px;
 }
