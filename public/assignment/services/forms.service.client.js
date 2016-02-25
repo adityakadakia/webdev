@@ -24,7 +24,7 @@
         function createFormForUser(userId, form, callback) {
             var _id = (new Date).getTime();
             var form = {
-                "_id": id,
+                "_id": _id,
                 "title": form.title,
                 "userId": userId
             };

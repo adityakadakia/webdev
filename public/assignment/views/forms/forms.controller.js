@@ -29,8 +29,6 @@
 
         function updateForm(form) {
             FormService.updateFormById(form._id, form, function (newForm) {
-                console.log("Form Updated:");
-                console.log(form);
                 $scope.selected = -1;
                 $scope.form = {};
                 updateFormsForCurrentUser();
@@ -39,8 +37,6 @@
 
         function deleteForm(formId) {
             FormService.deleteFormById(formId, function (udpatedForms) {
-                console.log("Form Deleted:");
-                console.log(formId);
                 updateFormsForCurrentUser();
             });
         }
