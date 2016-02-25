@@ -20,6 +20,7 @@
         $scope.selected = -1;
 
         function addForm(form) {
+            if (!(form === undefined))
             FormService.createFormForUser(userId, form, function (newForm) {
                 $scope.selected = -1;
                 $scope.form = {};
