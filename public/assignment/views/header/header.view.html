@@ -21,12 +21,15 @@
                 <li ng-show="user">
                     <a href="#/profile">{{user.username}}</a>
                 </li>
+                <li ng-show="user" class="visible-xs-block">
+                    <a href="#/forms">Forms</a>
+                </li>
+                <li ng-show="(user.roles.indexOf('admin') > -1)"
+                    ng-class="{'active':$location.url() == '/admin'}">
+                    <a href="#/admin">Admin</a></li>
                 <li ng-show="user" ng-click="logOut()">
                     <a href="#/home">Logout</a>
                 </li>
-                <li ng-show="(user === undefined) && (user.roles.indexOf('admin') > -1)"
-                    ng-class="{'active':$location.url() == '/admin'}">
-                    <a href="#/admin">Admin</a></li>
             </ul>
         </div>
     </div>
