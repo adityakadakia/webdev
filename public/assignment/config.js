@@ -51,7 +51,7 @@
                 templateUrl: "views/forms/fields.view.html"
             })
             .when("/admin", {
-                templateUrl: "views/users/admin.view.html"
+                templateUrl: "views/admin/admin.view.html"
             })
             .otherwise({
                 redirectTo: "/home"
