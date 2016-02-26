@@ -69,99 +69,43 @@
 </nav>
 
 <!-- Page Content -->
-<div class="container">
-
-
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="input-group custom-search-form">
-                <input type="text" class="form-control">
-                <span class="input-group-btn">
-                <button class="btn btn-default" type="button">
-                    <span class="glyphicon glyphicon-search"></span>
-                </button>
-             </span>
-            </div>
-        </div>
-    </div>
+<div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3 main" ng-controller="LoginController">
+    <h1>Register</h1>
     <hr>
-    <div class="google-maps">
-        <iframe width="100%" height="280" frameborder="0" scrolling="no"
-                src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;q=Boston&amp;gl=us&amp;ie=UTF8&amp;output=embed&amp;iwloc=near">
-        </iframe>
-    </div>
-
-    <!-- Page Features -->
-    <div class="row text-center">
-        <div class="col-md-3 col-sm-6 hero-feature">
-            <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
-                <div class="caption">
-                    <h3>Feature Label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <p>
-                        <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More
-                        Info</a>
-                    </p>
-                </div>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="username3" class="col-sm-3 control-label">Username</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="username3" placeholder="Username" ng-model="user.username">
             </div>
         </div>
-
-        <div class="col-md-3 col-sm-6 hero-feature">
-            <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
-                <div class="caption">
-                    <h3>Feature Label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <p>
-                        <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More
-                        Info</a>
-                    </p>
-                </div>
+        <div class="form-group">
+            <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
+            <div class="col-sm-9">
+                <input type="password" class="form-control" id="inputPassword3" placeholder="Password"
+                       ng-model="user.password">
             </div>
         </div>
-
-        <div class="col-md-3 col-sm-6 hero-feature">
-            <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
-                <div class="caption">
-                    <h3>Feature Label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <p>
-                        <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More
-                        Info</a>
-                    </p>
-                </div>
+        <div class="form-group">
+            <label for="inputPassword4" class="col-sm-3 control-label">Verify Password</label>
+            <div class="col-sm-9">
+                <input type="password" class="form-control" id="inputPassword4" placeholder="Verify Password">
             </div>
         </div>
-
-        <div class="col-md-3 col-sm-6 hero-feature">
-            <div class="thumbnail">
-                <img src="http://placehold.it/800x500" alt="">
-                <div class="caption">
-                    <h3>Feature Label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                    <p>
-                        <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More
-                        Info</a>
-                    </p>
-                </div>
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-3 control-label">Email</label>
+            <div class="col-sm-9">
+                <input type="email" class="form-control" id="inputEmail3" placeholder="Email" ng-model="user.email">
             </div>
         </div>
-    </div>
-    <!-- /.row -->
-
-    <hr>
-
-    <!-- Footer -->
-    <footer>
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; Your Website 2014</p>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+                <button type="submit" class="btn btn-default btn-block" ng-click="register(user)">Register</button>
             </div>
         </div>
-    </footer>
+    </form>
 </div>
+
 <!-- /.container -->
 <!-- http://startbootstrap.com/template-overviews/shop-homepage/ -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
