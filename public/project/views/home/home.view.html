@@ -2,9 +2,9 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="input-group custom-search-form">
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" ng-model="searchTerm">
                 <span class="input-group-btn">
-                <button class="btn btn-default" type="button">
+                <button class="btn btn-default" type="button" ng-click="explorePlaces(searchTerm)">
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
              </span>
@@ -77,8 +77,8 @@
         </div>
     </div>
     <!-- /.row -->
-    <hr>
     <!-- Footer -->
+    <hr>
     <footer>
         <div class="row">
             <div class="col-lg-12">

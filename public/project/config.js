@@ -1,9 +1,6 @@
 /**
  * Created by Aditya on 2/27/2016.
  */
-/**
- * Created by Aditya on 2/20/2016.
- */
 (function () {
     angular
         .module('Voyager')
@@ -12,7 +9,8 @@
     function configuration($routeProvider) {
         $routeProvider
             .when("/home", {
-                templateUrl: "views/home/home.view.html"
+                templateUrl: "views/home/home.view.html",
+                controller: "HomeController"
             })
             .when("/login", {
                 templateUrl: "views/users/login.view.html"
