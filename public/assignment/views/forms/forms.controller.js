@@ -20,15 +20,16 @@
         $scope.selected = -1;
 
         function addForm(form) {
-            if (!(form === undefined))
-            FormService.createFormForUser(userId, form, function (newForm) {
-                $scope.selected = -1;
-                $scope.form = {};
-                updateFormsForCurrentUser()
-            });
+            if (!(form == undefined))
+                FormService.createFormForUser(userId, form, function (newForm) {
+                    $scope.selected = -1;
+                    $scope.form = {};
+                    updateFormsForCurrentUser()
+                });
         }
 
         function updateForm(form) {
+            if (!(form === undefined))
             FormService.updateFormById(form._id, form, function (newForm) {
                 $scope.selected = -1;
                 $scope.form = {};

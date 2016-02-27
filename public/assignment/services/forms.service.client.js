@@ -23,12 +23,15 @@
 
         function createFormForUser(userId, form, callback) {
             var _id = (new Date).getTime();
-            var form = {
-                "_id": _id,
-                "title": form.title,
-                "userId": userId
-            };
-            forms.push(form);
+            if (!(form.title === undefined)) {
+                var form = {
+                    "_id": _id,
+                    "title": form.title,
+                    "userId": userId
+                };
+                forms.push(form);
+            }
+
             callback(form);
 
         }
@@ -56,11 +59,13 @@
 
         function updateFormById(formId, newForm, callback) {
             var i = getFormIndexByFormId(formId);
-            forms[i] = {
-                "_id": newForm._id,
-                "title": newForm.title,
-                "userId": newForm.userId
-            };
+            if (!(newForm.title === undefined)) {
+                forms[i] = {
+                    "_id": newForm._id,
+                    "title": newForm.title,
+                    "userId": newForm.userId
+                };
+            }
             callback(forms[i]);
         }
 
