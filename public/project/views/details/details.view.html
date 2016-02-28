@@ -17,7 +17,11 @@
                 <div class="caption-full">
                     <h4 class="pull-right">{{item.venue.categories[0].name}}</h4>
                     <h4><a href="#">{{item.venue.name}}</a>
+                        <button type="button" class="btn btn-default" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                        </button>
                     </h4>
+
                     <p>{{item.tips[0].text}}</p>
                     <p>{{item.venue.location.formattedAddress[0]}}
                         <br>{{item.venue.location.formattedAddress[1]}}
@@ -34,13 +38,19 @@
                         <span class="glyphicon glyphicon-star-empty"></span>
                         4.0 stars
                     </p>
+
                 </div>
             </div>
 
             <div class="well">
 
-                <div class="text-right">
-                    <a class="btn btn-success">Leave a Review</a>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-9 col-md-10">
+                        <input type="text" class="form-control" placeholder="Leave a review">
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-2 review-button">
+                        <a class="btn btn-success btn-block">Leave a Review</a>
+                    </div>
                 </div>
 
                 <hr>
@@ -97,16 +107,5 @@
 <!-- /.container -->
 
 <div class="container">
-
     <hr>
-
-    <!-- Footer -->
-    <footer>
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; Your Website 2014</p>
-            </div>
-        </div>
-    </footer>
-
 </div>
