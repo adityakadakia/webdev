@@ -17,10 +17,7 @@
                 src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;q=Boston&amp;gl=us&amp;ie=UTF8&amp;output=embed&amp;iwloc=near">
         </iframe>
     </div>
-
-    <!-- Page Features -->
     <div class="row text-center">
-
         <div class="col-md-3 col-sm-6 hero-feature" ng-repeat="item in results track by item.venue.id">
             <div class="thumbnail">
                 <img ng-src="{{item.venue.featuredPhotos.items[0].prefix}}800x500{{item.venue.featuredPhotos.items[0].suffix}}"
@@ -35,14 +32,4 @@
             </div>
         </div>
     </div>
-    <!-- /.row -->
-    <!-- Footer -->
-    <hr>
-    <footer>
-        <div class="row">
-            <div class="col-lg-12">
-                <p>Copyright &copy; Your Website 2014</p>
-            </div>
-        </div>
-    </footer>
 </div>

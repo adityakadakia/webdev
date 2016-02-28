@@ -14,6 +14,28 @@ footer {
     margin: 50px 0;
 }
 
-.google-maps {
-    margin: 20px;
+@media (max-width: 767px) {
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .google-maps {
+        padding-left: 0px;
+    }
+
+    .details-image {
+        padding-right: 0px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .google-maps {
+        padding-left: 0px;
+    }
+
+    .details-image {
+        padding-right: 0px;
+    }
 }

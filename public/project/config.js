@@ -21,6 +21,10 @@
             .when("/profile", {
                 templateUrl: "views/users/profile.view.html"
             })
+            .when("/details/:id", {
+                templateUrl: "views/details/details.view.html",
+                controller: "DetailsController"
+            })
             .otherwise({
                 redirectTo: "/home"
             });
