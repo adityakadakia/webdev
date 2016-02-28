@@ -10,10 +10,11 @@
         $scope.searchTerm;
         $scope.results;
         $scope.explorePlaces = explorePlaces;
+        $scope.imageSize = "/800X500/";
 
         function explorePlaces(searchTerm) {
             SearchService.explorePlace(searchTerm, function (places) {
-                $scope.results = places;
+                $scope.results = places.response.groups[0].items;
             })
         }
     }
