@@ -36,7 +36,8 @@
             findAllUsers: findAllUsers,
             createUser: createUser,
             deleteUserById: deleteUserById,
-            updateUser: updateUser
+            updateUser: updateUser,
+            findUserByUsername: findUserByUsername
         };
 
         return api;
@@ -49,6 +50,24 @@
                 }
             }
             callback(null);
+        }
+
+        function findUserByUsername(user, callback) {
+            console.log(user.username);
+            var currUser = null;
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].username === user.username) {
+                    currUser = users[i];
+                    console.log(user.username + "user found");
+                }
+            }
+
+            if (currUser != null) {
+                console.log("Sending Null");
+                callback(null);
+            } else {
+                callback(user);
+            }
         }
 
         function findAllUsers(callback) {
