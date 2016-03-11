@@ -10,6 +10,12 @@ body {
     margin-bottom: 30px;
 }
 
+.custom-map {
+    height: 250px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
 footer {
     margin: 50px 0;
 }
