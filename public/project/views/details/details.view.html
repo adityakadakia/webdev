@@ -71,10 +71,12 @@
                         <p>{{review.description}}</p>
                     </div>
                     <div class="col-xs-6 col-sm-2">
-                        <a class="btn btn-primary btn-block review-button" ng-click="selectReview($index)">Edit</a>
+                        <a class="btn btn-primary btn-block review-button" ng-show="user._id == review.userId"
+                           ng-click="selectReview($index)">Edit</a>
                     </div>
                     <div class="col-xs-6 col-sm-2">
-                        <a class="btn btn-danger btn-block review-button" ng-click="deleteReview($index)">Delete</a>
+                        <a class="btn btn-danger btn-block review-button" ng-show="user._id == review.userId"
+                           ng-click="deleteReview($index)">Delete</a>
                     </div>
 
                     <hr width="100%">
