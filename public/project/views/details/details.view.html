@@ -8,7 +8,7 @@
                         <img ng-src="{{item.venue.featuredPhotos.items[0].prefix}}800x500{{item.venue.featuredPhotos.items[0].suffix}}"
                              alt="" height="300px">
                     </div>
-                    <div class="col-md-6 d-maps" style="height: 300px;" id="details-map">
+                    <div class="col-md-6 " style="height: 300px;" id="details-map">
                         <!--<iframe width="100%" height="300" frameborder="0" scrolling="no"-->
                         <!--src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;q=Boston&amp;gl=us&amp;ie=UTF8&amp;output=embed&amp;iwloc=near">-->
                         <!--</iframe>-->
@@ -45,57 +45,40 @@
             <div class="well">
 
                 <div class="row">
-                    <div class="col-xs-12 col-sm-9 col-md-10">
-                        <input type="text" class="form-control" placeholder="Leave a review">
+                    <div class="col-xs-12 col-sm-6 col-md-8">
+                        <input type="text" class="form-control" placeholder="Leave a review"
+                               ng-model="review.description">
                     </div>
-                    <div class="col-xs-12 col-sm-3 col-md-2 review-button">
-                        <a class="btn btn-success btn-block">Leave a Review</a>
+                    <div class="col-xs-6 col-sm-3 col-md-2 review-button">
+                        <a class="btn btn-success btn-block" ng-click="addReview(review)">Leave Review</a>
                     </div>
-                </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        Anonymous
-                        <span class="pull-right">10 days ago</span>
-                        <p>This product was great in terms of quality. I would definitely buy another!</p>
+                    <div class="col-xs-6 col-sm-3 col-md-2 review-button">
+                        <a class="btn btn-warning btn-block">Update</a>
                     </div>
                 </div>
 
                 <hr>
 
-                <div class="row">
-                    <div class="col-md-12">
+                <div class="row" ng-repeat="review in reviews track by review._id">
+                    <div class="col-xs-12 col-sm-8">
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star-empty"></span>
-                        Anonymous
-                        <span class="pull-right">12 days ago</span>
-                        <p>I've alredy ordered another one!</p>
+                        {{review.userId}}
+                        <span class="pull-right">{{review.timestamp}}</span>
+                        <p>{{review.description}}</p>
                     </div>
-                </div>
-
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        Anonymous
-                        <span class="pull-right">15 days ago</span>
-                        <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
+                    <div class="col-xs-6 col-sm-2">
+                        <a class="btn btn-primary btn-block review-button" ng-click="selectReview($index)">Edit</a>
                     </div>
+                    <div class="col-xs-6 col-sm-2">
+                        <a class="btn btn-danger btn-block review-button" ng-click="deleteReview($index)">Delete</a>
+                    </div>
+
+                    <hr width="100%">
+
                 </div>
 
             </div>
