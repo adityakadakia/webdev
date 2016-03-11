@@ -3,7 +3,7 @@
  */
 (function () {
     angular
-        .module("Vouager")
+        .module("Voyager")
         .factory("UserService", UserService);
 
     function UserService() {
