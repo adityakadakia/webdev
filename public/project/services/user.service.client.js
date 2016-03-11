@@ -36,11 +36,18 @@
             findAllUsers: findAllUsers,
             createUser: createUser,
             deleteUserById: deleteUserById,
-            updateUser: updateUser
+            updateUser: updateUser,
+            userIdtoFullUserName: userIdtoFullUserName
         };
 
         return api;
-
+        function userIdtoFullUserName(userId) {
+            for (i in users) {
+                if (users[i]._id == userId) {
+                    return users[i].firstName + " " + users[i].lastName;
+                }
+            }
+        }
         function findUserByCredentials(username, password, callback) {
             for (i in users) {
                 if (users[i].username == username && users[i].password == password) {

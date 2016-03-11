@@ -6,13 +6,14 @@
         .module("Voyager")
         .controller("DetailsController", DetailsController);
 
-    function DetailsController($routeParams, $scope, $rootScope, SearchService, ReviewService) {
+    function DetailsController($routeParams, $scope, $rootScope, SearchService, ReviewService, UserService) {
         var id = $routeParams.id;
         var results = $rootScope.results;
         $scope.deleteReview = deleteReview;
         $scope.addReview = addReview;
         $scope.selectReview = selectReview;
         $scope.updateReview = updateReview;
+        $scope.findFullUserNamebyUserId = findFullUserNamebyUserId;
 
         for (i in results) {
             if (results[i].venue.id == id)
@@ -24,6 +25,10 @@
         console.log($scope.item.venue.id);
         findAllReviewsByPlaceId($scope.item.venue.id);
         console.log($scope.reviews);
+
+        function findFullUserNamebyUserId(userId) {
+            return UserService.userIdtoFullUserName(userId);
+        }
 
         function findAllReviewsByPlaceId(placeId) {
             ReviewService.findAllReviewsByPlaceId(placeId, function (response) {
