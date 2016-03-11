@@ -14,17 +14,20 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#/login">Sign in</a>
+                        <a ng-class="{'active':$location.url() == '/login'}" ng-show="user === undefined"
+                           href="#/login">Sign in</a>
                     </li>
                     <li>
-                        <a href="#/register">Sign up</a>
+                        <a ng-class="{'active':$location.url() == '/register'}" ng-show="user === undefined"
+                           href="#/register">Sign up</a>
                     </li>
                     <li>
-                        <a href="#/admin">Admin</a>
+                        <a ng-show="(user.roles.indexOf('admin') > -1)"
+                           ng-class="{'active':$location.url() == '/admin'}" href="#/admin">Admin</a>
                     </li>
                     <li class="dropdown" ng-show="user">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">{{user.username}}<span class="caret"></span></a>
+                           aria-expanded="false">{{user.firstName + " " + user.lastName}}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#/likes">Likes</a></li>
                             <li><a href="#/followers">Followers</a></li>
