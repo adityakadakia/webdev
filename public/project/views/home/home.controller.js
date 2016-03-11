@@ -12,6 +12,8 @@
         $scope.imageSize = "/800X500/";
         $scope.initMap = initMap;
 
+        explorePlaces("Boston");
+
         function explorePlaces(searchTerm) {
             SearchService.explorePlace(searchTerm, function (places) {
                 $rootScope.results = places.response.groups[0].items;
