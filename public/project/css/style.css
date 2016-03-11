@@ -30,7 +30,7 @@ footer {
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
-    .google-maps {
+    .d-maps {
         padding-left: 0px;
     }
 
@@ -40,7 +40,7 @@ footer {
 }
 
 @media (min-width: 1200px) {
-    .google-maps {
+    .d-maps {
         padding-left: 0px;
     }
 
