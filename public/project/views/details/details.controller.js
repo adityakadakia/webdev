@@ -12,6 +12,7 @@
         $scope.deleteReview = deleteReview;
         $scope.addReview = addReview;
         $scope.selectReview = selectReview;
+        $scope.updateReview = updateReview;
 
         for (i in results) {
             if (results[i].venue.id == id)

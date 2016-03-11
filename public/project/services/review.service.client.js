@@ -9,7 +9,7 @@
             {
                 "_id": 1,
                 "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "timestamp": "Mar 5, 2016",
+                "timestamp": new Date(2016, 2, 5),
                 "placeId": "44cf0ff8f964a5201c361fe3",
                 "userId": 123,
                 "commentIds": [1, 2, 3]
@@ -17,7 +17,7 @@
             {
                 "_id": 2,
                 "description": "Donec id elit non orci eleifend consectetur vel et elit",
-                "timestamp": "Mar 7, 2016",
+                "timestamp": new Date(2016, 2, 7),
                 "placeId": "44cf0ff8f964a5201c361fe3",
                 "userId": 234,
                 "commentIds": [4, 5]
@@ -25,7 +25,7 @@
             {
                 "_id": 3,
                 "description": "Maecenas mattis venenatis ex eget pretium.",
-                "timestamp": "Mar 8, 2016",
+                "timestamp": new Date(2016, 2, 8),
                 "placeId": "44cf0ff8f964a5201c361fe3",
                 "userId": 123,
                 "commentIds": []

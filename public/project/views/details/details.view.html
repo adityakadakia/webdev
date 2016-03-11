@@ -1,4 +1,4 @@
-<div class="container" ng-controller="DetailsController">
+<div class="container">
     <div class="row">
         <div class="col-md-12">
             <div class="thumbnail">
@@ -52,7 +52,7 @@
                     <div class="col-xs-6 col-sm-3 col-md-2 review-button">
                         <a class="btn btn-success btn-block" ng-click="addReview(review)">Leave Review</a>
                     </div>
-                    <div class="col-xs-6 col-sm-3 col-md-2 review-button">
+                    <div class="col-xs-6 col-sm-3 col-md-2 review-button" ng-click="updateReview(review)">
                         <a class="btn btn-warning btn-block">Update</a>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star-empty"></span>
                         {{review.userId}}
-                        <span class="pull-right">{{review.timestamp}}</span>
+                        <span class="pull-right">{{review.timestamp.toDateString()}}</span>
                         <p>{{review.description}}</p>
                     </div>
                     <div class="col-xs-6 col-sm-2">
