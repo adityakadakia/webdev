@@ -9,6 +9,7 @@
     function DetailsController($routeParams, $scope, $rootScope, SearchService, ReviewService, UserService) {
         var id = $routeParams.id;
         var results = $rootScope.results;
+        $scope.selectedIndex = -1;
         $scope.deleteReview = deleteReview;
         $scope.addReview = addReview;
         $scope.selectReview = selectReview;
