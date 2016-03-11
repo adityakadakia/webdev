@@ -21,7 +21,8 @@
                 controller: "RegisterController"
             })
             .when("/profile", {
-                templateUrl: "views/users/profile/profile.view.html"
+                templateUrl: "views/users/profile/profile.view.html",
+                controller: "ProfileController"
             })
             .when("/followers", {
                 templateUrl: "views/users/profile/followers.profile.view.html"
