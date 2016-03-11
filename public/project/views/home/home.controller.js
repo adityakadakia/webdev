@@ -17,12 +17,10 @@
                 $rootScope.results = places.response.groups[0].items;
                 initMap(places.response.groups[0].items);
             })
-
         }
 
         function initMap(myitems) {
             var bounds = new google.maps.LatLngBounds();
-            console.log("initMap");
             var map = new google.maps.Map(document.getElementById('map'), {
                 //zoom: 4,
                 //center: myLatLng
