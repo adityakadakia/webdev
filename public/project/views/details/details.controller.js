@@ -9,7 +9,7 @@
     function DetailsController($routeParams, $scope, $rootScope, SearchService, ReviewService, UserService) {
         var id = $routeParams.id;
         var results = $rootScope.results;
-        $scope.selectedIndex = -1;
+        $scope.selected = -1;
         $scope.deleteReview = deleteReview;
         $scope.addReview = addReview;
         $scope.selectReview = selectReview;
@@ -22,8 +22,7 @@
         }
 
         initMap();
-        console.log("item");
-        console.log($scope.item.venue.id);
+        console.log("placeId: " + $scope.item.venue.id);
         findAllReviewsByPlaceId($scope.item.venue.id);
         console.log($scope.reviews);
 
@@ -38,7 +37,7 @@
         }
 
         function selectReview(index) {
-            $scope.selectedIndex = index;
+            $scope.selected = index;
             var editReview = {
                 "_id": $scope.reviews[index]["_id"],
                 "title": $scope.reviews[index]["title"],
@@ -54,25 +53,25 @@
 
         function addReview(review) {
             ReviewService.addReview(review, $scope.item.venue.id, function () {
-                $scope.selectedIndex = -1;
                 $scope.review = {};
+                $scope.selected = -1;
                 findAllReviewsByPlaceId($scope.item.venue.id);
             });
         }
 
         function updateReview(review) {
             ReviewService.updateReview(review, function (newReview) {
-                $scope.reviews[$scope.selectedIndex] = newReview;
-                $scope.selectedIndex = -1;
+                $scope.reviews[$scope.selected] = newReview;
                 $scope.review = {};
+                $scope.selected = -1;
             });
         }
 
         function deleteReview(index) {
             var reviewId = $scope.reviews[index]._id;
             ReviewService.deleteReview(reviewId, function () {
-                $scope.selectedIndex = -1;
                 $scope.review = {};
+                $scope.selected = -1;
                 findAllReviewsByPlaceId($scope.item.venue.id);
             });
         }
