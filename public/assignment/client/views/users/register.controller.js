@@ -9,27 +9,14 @@
         model.register = register;
 
         function register(user) {
+            var users;
             console.log("RegisterController register");
             console.log(user);
-            UserService.findUserByUsername(user, doRegister);
-        }
-
-        function doRegister(user) {
-            console.log("RegisterController doRegister");
-            if (user != null) {
-                console.log(user);
-                UserService.createUser(user, redirectUserToProfileIfValid);
-            } else {
-                alert("User Already Exists");
-            }
-        }
-
-        function redirectUserToProfileIfValid(user) {
-            console.log("RegisterController redirectUserToProfileIfValid");
-            if (user != null) {
-                $rootScope.user = user;
-                $location.url("/profile")
-            }
+            UserService.register(user)
+                .then(function (response) {
+                    users = response.data;
+                    console.log(users);
+                });
         }
     }
 })();
