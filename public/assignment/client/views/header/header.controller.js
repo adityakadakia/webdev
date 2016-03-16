@@ -4,7 +4,8 @@
         .controller("HeaderController", HeaderController);
 
     function HeaderController($scope, $rootScope, $location) {
-        $scope.logOut = logOut;
+        var model = this;
+        model.logOut = logOut;
 
         function logOut() {
             console.log("logout: ");
