@@ -4,9 +4,11 @@
         .controller("LoginController",LoginController);
 
     function LoginController($scope,$rootScope, $location, UserService){
-        $scope.login = login;
+        var model = this;
+        model.login = login;
 
         function login(user){
+            console.log("LoginController login");
             UserService.findUserByCredentials(user.username, user.password,function(u){
                 if(u != null){
                     $rootScope.user = u;
