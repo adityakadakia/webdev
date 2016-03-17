@@ -1,6 +1,5 @@
 var users = require("./user.mock.json");
 
-
 module.exports = function (uuid) {
 
     var api = {
@@ -9,28 +8,37 @@ module.exports = function (uuid) {
         createUser: createUser,
         deleteUserById: deleteUserById,
         updateUser: updateUser,
-        findUserByUsername: findUserByUsername
+        findUserByUsername: findUserByUsername,
+        findUserById: findUserById
     };
 
     return api;
 
-    function findUserByCredentials(username, password, callback) {
+    function findUserById(userId) {
         for (i in users) {
-            if (users[i].username == username && users[i].password == password) {
-                callback(users[i]);
-                return;
+            if (users[i]._id == userId) {
+                return users[i];
             }
         }
         return null;
     }
 
-    function findUserByUsername(user, callback) {
-        console.log(user.username);
+    function findUserByCredentials(username, password) {
+        for (i in users) {
+            if (users[i].username == username && users[i].password == password) {
+                return (users[i]);
+            }
+        }
+        return null;
+    }
+
+    function findUserByUsername(username) {
+        console.log(username);
         var currUser = null;
         for (var i = 0; i < users.length; i++) {
-            if (users[i].username === user.username) {
+            if (users[i].username === username) {
                 currUser = users[i];
-                console.log(user.username + "user found");
+                console.log(users[i].username + "user found");
             }
         }
 
@@ -38,11 +46,11 @@ module.exports = function (uuid) {
             console.log("Sending Null");
             return null;
         } else {
-            return user;
+            return currUser;
         }
     }
 
-    function findAllUsers(callback) {
+    function findAllUsers() {
         return users;
     }
 
@@ -60,12 +68,11 @@ module.exports = function (uuid) {
         return users;
     }
 
-    function deleteUserById(userId, callback) {
+    function deleteUserById(userId) {
         for (i in users) {
             if (users[i]._id == userId) {
                 users.splice(i, 1);
-                callback(users);
-                return;
+                return (users);
             }
         }
         return users;

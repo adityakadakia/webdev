@@ -7,14 +7,16 @@
         var model = this;
         model.login = login;
 
-        function login(user){
+        function login(user) {
             console.log("LoginController login");
-            UserService.findUserByCredentials(user.username, user.password,function(u){
-                if(u != null){
-                    $rootScope.user = u;
-                    $location.url("/profile");
-                }
-            })
+            UserService.logIn(user.username, user.password)
+                .then(function (response) {
+                    var u = response.data;
+                    if (u != null) {
+                        $rootScope.user = u;
+                        $location.url("/profile");
+                    }
+                });
         }
     }
 })();

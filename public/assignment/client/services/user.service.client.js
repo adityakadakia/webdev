@@ -12,9 +12,19 @@
             getCurrentUser: getCurrentUser,
             setCurrentUser: setCurrentUser,
             getProfile: getProfile,
-            updateUser: updateUser
+            updateUser: updateUser,
+            logOut: logOut,
+            logIn: logIn
         };
         return api;
+
+        function logIn(username, password) {
+            return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
+        }
+
+        function logOut() {
+            return $http.post("/api/assignment/user/logout");
+        }
 
         function updateUser(userId, user) {
             console.log("UserService updateUser");

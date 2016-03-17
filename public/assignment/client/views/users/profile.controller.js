@@ -17,7 +17,6 @@
                 .then(function (u) {
                     console.log("ProfileController then");
                     console.log(u.data);
-                    UserService.setCurrentUser(u);
                     $rootScope.user = model.user;
                     console.log(model.user);
                 });
