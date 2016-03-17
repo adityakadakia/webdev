@@ -8,5 +8,5 @@ module.exports = function (app, uuid) {
     var userModel = require("./models/user.model.server.js")(uuid);
 
     //var formService = require("./services/forms.service.server.js")(app, formModel, userModel);
-    var userService = require("./services/user.service.server.js")(app, {}, userModel);
+    var userService = require("./services/user.service.server.js")(app, userModel);
 }

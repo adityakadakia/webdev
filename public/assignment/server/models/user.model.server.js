@@ -15,6 +15,7 @@ module.exports = function (uuid) {
     return api;
 
     function findUserById(userId) {
+        console.log("userModel findUserById");
         for (i in users) {
             if (users[i]._id == userId) {
                 return users[i];
@@ -24,6 +25,7 @@ module.exports = function (uuid) {
     }
 
     function findUserByCredentials(username, password) {
+        console.log("userModel findUserbyCredentials");
         for (i in users) {
             if (users[i].username == username && users[i].password == password) {
                 return (users[i]);
@@ -33,28 +35,25 @@ module.exports = function (uuid) {
     }
 
     function findUserByUsername(username) {
-        console.log(username);
+        console.log("userModel findUserbyUsername");
         var currUser = null;
         for (var i = 0; i < users.length; i++) {
             if (users[i].username === username) {
                 currUser = users[i];
+                return currUser;
                 console.log(users[i].username + "user found");
             }
         }
-
-        if (currUser != null) {
-            console.log("Sending Null");
-            return null;
-        } else {
-            return currUser;
-        }
+        return null;
     }
 
     function findAllUsers() {
+        console.log("userModel findAllUsers")
         return users;
     }
 
     function createUser(user) {
+        console.log("userModel createUser");
         var u;
         u = {
             "_id": (new Date).getTime(),
@@ -69,6 +68,7 @@ module.exports = function (uuid) {
     }
 
     function deleteUserById(userId) {
+        console.log("userModel deleteUserById");
         for (i in users) {
             if (users[i]._id == userId) {
                 users.splice(i, 1);
@@ -79,6 +79,7 @@ module.exports = function (uuid) {
     }
 
     function updateUser(userId, user, callback) {
+        console.log("userModel updateUser");
         for (i in users) {
             if (users[i]._id == userId) {
                 users[i]._id = user._id;

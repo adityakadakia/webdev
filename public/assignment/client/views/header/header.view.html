@@ -12,10 +12,10 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li ng-class="{'active':$location.url() == '/register'}" ng-show="user === undefined">
+                <li ng-class="{'active':$location.url() == '/register'}" ng-show="!user">
                     <a href="#/register">Register</a>
                 </li>
-                <li ng-show="user === undefined" ng-class="{'active':$location.url() == '/login'}">
+                <li ng-show="!user" ng-class="{'active':$location.url() == '/login'}">
                     <a href="#/login">Login</a>
                 </li>
                 <li ng-show="user">

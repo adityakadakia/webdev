@@ -11,17 +11,22 @@
         function register(user) {
             var users;
             console.log("RegisterController register");
-            console.log(user);
+            console.log("Submitted user: " + JSON.stringify(user));
             UserService.register(user)
                 .then(function (response) {
                     users = response.data;
-                    console.log(users);
-                    for (i in users) {
-                        if (users[i].username == user.username) {
-                            $rootScope.user = users[i];
-                        }
+                    if (users) {
+                        UserService
+                            .findUserByUsername(user.username)
+                            .then(function (res) {
+                                var usr = res.data;
+                                console.log("Registered user: " + JSON.stringify(usr));
+                                if (usr) {
+                                    UserService.setCurrentUser(usr);
+                                    $location.url("/profile");
+                                }
+                            });
                     }
-                    $location.url("/profile");
                 });
         }
     }

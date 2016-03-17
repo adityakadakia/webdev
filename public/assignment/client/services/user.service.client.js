@@ -8,6 +8,7 @@
 
     function UserService($http, $rootScope) {
         var api = {
+            findUserByUsername: findUserByUsername,
             register: register,
             getCurrentUser: getCurrentUser,
             setCurrentUser: setCurrentUser,
@@ -17,6 +18,10 @@
             logIn: logIn
         };
         return api;
+
+        function findUserByUsername(username) {
+            return $http.get("/api/assignment/user?username=" + username);
+        }
 
         function logIn(username, password) {
             return $http.get("/api/assignment/user?username=" + username + "&password=" + password);

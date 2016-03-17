@@ -4,21 +4,30 @@
         .module("FormBuilderApp")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($scope, $rootScope, UserService) {
+    function ProfileController(UserService) {
         var model = this;
-
-        model.user = $rootScope.user;
         model.update = update;
+        function init() {
+            console.log("ProfileController init");
+            UserService
+                .getCurrentUser()
+                .then(function (response) {
+                    var user = response.data;
+                    if (user) {
+                        UserService.setCurrentUser(user);
+                        console.log("initial user: " + JSON.stringify(user));
+                    }
+                });
+        }
 
+        init();
         function update(user) {
             console.log("ProfileController update");
-            console.log(model.user._id);
-            UserService.updateUser(model.user._id, model.user)
+            console.log("submitted user: " + JSON.stringify(user));
+            UserService.updateUser(user._id, user)
                 .then(function (u) {
-                    console.log("ProfileController then");
-                    console.log(u.data);
-                    $rootScope.user = model.user;
-                    console.log(model.user);
+                    console.log("updated user: " + JSON.stringify(u.data));
+                    UserService.setCurrentUser(u.data);
                 });
         }
     }

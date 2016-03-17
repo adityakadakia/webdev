@@ -1,4 +1,4 @@
-module.exports = function (app, formModel, userModel) {
+module.exports = function (app, userModel) {
 
     app.post("/api/assignment/user", register);
     app.get("/api/assignment/user/loggedin", loggedin);
@@ -13,6 +13,7 @@ module.exports = function (app, formModel, userModel) {
     var userService = this;
 
     function logOut(req, res) {
+        console.log("UserService logOut");
         req.session.destroy();
         res.send(200);
     }
@@ -40,7 +41,7 @@ module.exports = function (app, formModel, userModel) {
             var user = userModel.findUserByCredentials(username, password);
             res.json(user);
         } else if (username != null) {
-            var user = userModel.findUserByUsername(username)
+            var user = userModel.findUserByUsername(username);
             res.json(user);
         } else {
             var users = userModel.findAllUsers();
@@ -52,11 +53,12 @@ module.exports = function (app, formModel, userModel) {
         console.log("UserService register");
         var user = req.body;
         var users = userModel.createUser(user);
-        req.session.currentUser = user;
+        req.session.currentUser = userModel.findUserByUsername(user.username);
         res.json(users);
     }
 
     function loggedin(req, res) {
+        console.log("loggedin current user: " + JSON.stringify(req.session.currentUser));
         res.json(req.session.currentUser);
     }
 
@@ -65,13 +67,10 @@ module.exports = function (app, formModel, userModel) {
         var user = req.body;
         var userId = req.params.id;
         var users = userModel.updateUser(userId, user);
-        console.log(users);
-        for (var i = 0; i < users.length; i += 1) {
-            user = users[i];
-            if (user._id === userId) {
-                res.json(user);
-            }
-        }
+        var user = userModel.findUserById(userId);
+        req.session.currentUser = user;
+        console.log("updated current user: " + JSON.stringify(req.session.currentUser));
+        res.json(user);
     }
 
     function findUserByCredentials(req, res) {

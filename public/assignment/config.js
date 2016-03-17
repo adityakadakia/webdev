@@ -4,32 +4,15 @@
 (function () {
     angular
         .module('FormBuilderApp')
-        .config(configuration)
-        .run(redirect);
-
-    function redirect($rootScope, $location) {
-
-        // register listener to watch route changes
-        $rootScope.$on("$routeChangeStart", function (event, next, current) {
-            if ($rootScope.user == null) {
-                // no logged user, we should be going to #login
-                var url1 = next.templateUrl == "client/views/home/home.view.html";
-                var url2 = next.templateUrl == "client/views/users/register.view.html";
-                var url3 = next.templateUrl == "client/views/users/login.view.html";
-                if (url1 || url2 || url3) {
-                    // already going to #login, no redirect needed
-                } else {
-                    // not going to #login, we should redirect now
-                    $location.path("/home");
-                }
-            }
-        });
-    }
+        .config(configuration);
 
     function configuration($routeProvider) {
         $routeProvider
             .when("/home", {
-                templateUrl: "client/views/home/home.view.html"
+                templateUrl: "client/views/home/home.view.html",
+                resolve: {
+                    getLoggedIn: getLoggedIn
+                }
             })
             .when("/register", {
                 templateUrl: "client/views/users/register.view.html",
@@ -44,22 +27,68 @@
             .when("/profile", {
                 templateUrl: "client/views/users/profile.view.html",
                 controller: "ProfileController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
             })
             .when("/forms", {
                 templateUrl: "client/views/forms/forms.view.html",
                 controller: "FormController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
             })
             .when("/fields", {
-                templateUrl: "client/views/forms/fields.view.html"
+                templateUrl: "client/views/forms/fields.view.html",
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
             })
             .when("/admin", {
-                templateUrl: "client/views/admin/admin.view.html"
+                templateUrl: "client/views/admin/admin.view.html",
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
             })
             .otherwise({
                 redirectTo: "/home"
             });
+    }
+
+    function getLoggedIn(UserService, $q) {
+        var deferred = $q.defer();
+
+        UserService
+            .getCurrentUser()
+            .then(function (response) {
+                var currentUser = response.data;
+                UserService.setCurrentUser(currentUser);
+                deferred.resolve();
+            });
+
+        return deferred.promise;
+    }
+
+    function checkLoggedIn(UserService, $q, $location) {
+
+        var deferred = $q.defer();
+
+        UserService
+            .getCurrentUser()
+            .then(function (response) {
+                var currentUser = response.data;
+                if (currentUser) {
+                    UserService.setCurrentUser(currentUser);
+                    deferred.resolve();
+                } else {
+                    deferred.reject();
+                    $location.url("/home");
+                }
+            });
+
+        return deferred.promise;
     }
 
 })();
