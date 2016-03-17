@@ -15,15 +15,17 @@
                 <tbody>
                 <tr class="forms-input-row">
                     <td>
-                        <input type="text" class="form-control" id="formname" placeholder="Name" ng-model="form.title">
+                        <input type="text" class="form-control" id="formname" placeholder="Name"
+                               ng-model="model.form.title">
                     </td>
                     <td>
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true" ng-click="model.addForm(form)"></span>
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"
+                              ng-click="model.addForm(model.form)"></span>
                         <span class="glyphicon glyphicon-ok" aria-hidden="true"
-                              ng-click="model.updateForm(form)"></span>
+                              ng-click="model.updateForm(model.form)"></span>
                     </td>
                 </tr>
-                <tr ng-repeat="form in forms" ng-class="{'selected-form': $index == model.selected}">
+                <tr ng-repeat="form in model.forms" ng-class="{'selected-form': $index == model.selected}">
                     <td><a href="fields.view.html">{{form.title}}</a></td>
                     <td>
                         <a ng-click="model.deleteForm(form._id)"><span class="glyphicon glyphicon-remove"

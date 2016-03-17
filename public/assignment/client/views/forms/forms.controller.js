@@ -3,15 +3,23 @@
         .module("FormBuilderApp")
         .controller("FormController", FormController);
 
-    function FormController($scope, $rootScope, FormService) {
+    function FormController(FormService, UserService) {
 
-        var loggedInUser = $rootScope.user;
-        var userId = -1;
         var model = this;
+        init();
 
-        if (loggedInUser != undefined) {
-            userId = loggedInUser._id;
-            updateFormsForCurrentUser();
+        function init() {
+            console.log("FormController init");
+            UserService
+                .getCurrentUser()
+                .then(function (response) {
+                    var user = response.data;
+                    if (user) {
+                        UserService.setCurrentUser(user);
+                        console.log("current user: " + JSON.stringify(user));
+                        updateFormsForCurrentUser(user._id);
+                    }
+                });
         }
 
         model.addForm = addForm;
@@ -22,47 +30,65 @@
 
         function addForm(form) {
             console.log("FormController addForm");
-            if (!(form == undefined))
-                FormService.createFormForUser(userId, form, function (newForm) {
-                    $scope.selected = -1;
-                    $scope.form = {};
-                    updateFormsForCurrentUser()
-                });
+            if (form) {
+                console.log(JSON.stringify(form));
+                UserService
+                    .getCurrentUser()
+                    .then(function (response) {
+                        var user = response.data;
+                        console.log("current userId: " + user._id + JSON.stringify(form));
+                        if (user) {
+                            FormService
+                                .createFormForUser(user._id, form)
+                                .then(function (response) {
+                                    updateFormsForCurrentUser();
+                                });
+                        }
+                    });
+            }
         }
 
         function updateForm(form) {
             console.log("FormController updateForm");
-            if (!(form === undefined))
-            FormService.updateFormById(form._id, form, function (newForm) {
-                $scope.selected = -1;
-                $scope.form = {};
-                updateFormsForCurrentUser();
-            });
+            if (form) {
+                FormService
+                    .updateFormById(form._id, form)
+                    .then(function (response) {
+                        updateFormsForCurrentUser();
+                    })
+            }
         }
 
         function deleteForm(formId) {
             console.log("FormController deleteForm");
-            FormService.deleteFormById(formId, function (udpatedForms) {
-                updateFormsForCurrentUser();
-            });
+            FormService
+                .deleteFormById(formId)
+                .then(function (response) {
+                    updateFormsForCurrentUser();
+                })
         }
 
         function selectForm(index) {
             console.log("FormController selectForm");
             var editForm = {
-                "_id": $scope.forms[index]["_id"],
-                "userId": $scope.forms[index]["userId"],
-                "title": $scope.forms[index]["title"]
+                "_id": model.forms[index]["_id"],
+                "userId": model.forms[index]["userId"],
+                "title": model.forms[index]["title"]
             };
-            $scope.form = editForm;
-            $scope.selected = index;
+            model.form = editForm;
+            model.selected = index;
         }
 
         function updateFormsForCurrentUser() {
             console.log("FormController updateFormsForCurrentUser");
-            FormService.findAllFormsForUser(userId, function (formsByUserId) {
-                $scope.forms = formsByUserId;
-            });
+            UserService.getCurrentUser().then(function (response) {
+                var userId = response.data._id;
+                FormService.findAllFormsForUser(userId).then(function (response) {
+                    model.forms = response.data;
+                    model.form = null;
+                    console.log(JSON.stringify(response.data));
+                })
+            })
         }
     }
 })();
