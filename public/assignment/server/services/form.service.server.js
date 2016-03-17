@@ -33,7 +33,7 @@ module.exports = function (app, formModel) {
     }
 
     function createFormByUserId(req, res) {
-        var userId = req.param.userId;
+        var userId = req.params.userId;
         var form = req.body;
         var forms = formModel.createFormByUserId(form, userId);
         res.json(forms);
