@@ -27,7 +27,7 @@ module.exports = function (uuid) {
     }
 
     function findFormByUserId(userId) {
-        var f;
+        var f = [];
         for (i in forms) {
             if (userId == forms[i].userId) {
                 f.push(forms[i]);
