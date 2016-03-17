@@ -39,6 +39,8 @@ module.exports = function (app, userModel) {
         console.log("password: " + password);
         if (username != null && password != null) {
             var user = userModel.findUserByCredentials(username, password);
+            if (user)
+                req.session.currentUser = user;
             res.json(user);
         } else if (username != null) {
             var user = userModel.findUserByUsername(username);

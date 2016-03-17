@@ -12,8 +12,9 @@
             UserService.logIn(user.username, user.password)
                 .then(function (response) {
                     var u = response.data;
+                    console.log("login response: " + JSON.stringify(u));
                     if (u != null) {
-                        $rootScope.user = u;
+                        UserService.setCurrentUser(u);
                         $location.url("/profile");
                     }
                 });
