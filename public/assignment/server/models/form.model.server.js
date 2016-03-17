@@ -3,7 +3,7 @@ var forms = require('./form.mock.json');
 module.exports = function (uuid) {
 
     var api = {
-        createForm: createForm,
+        createFormByUserId: createFormByUserId,
         findAllForms: findAllForms,
         findFormByUserId: findFormByUserId,
         findFormById: findFormById,
@@ -14,7 +14,7 @@ module.exports = function (uuid) {
 
     return api;
 
-    function createForm(form, userId) {
+    function createFormByUserId(form, userId) {
         form._id = uuid.v4();
         form.userId = userId;
         forms.push(form);
