@@ -1,3 +1,4 @@
+"use strict";
 (function () {
     angular
         .module("FormBuilderApp")
@@ -11,9 +12,15 @@
 
         function update(user) {
             console.log("ProfileController update");
-            UserService.updateUser(user._id, user, function (u) {
-                $rootScope.user = u;
-            })
+            console.log(model.user._id);
+            UserService.updateUser(model.user._id, model.user)
+                .then(function (u) {
+                    console.log("ProfileController then");
+                    console.log(u.data);
+                    UserService.setCurrentUser(u);
+                    $rootScope.user = model.user;
+                    console.log(model.user);
+                });
         }
     }
 })();

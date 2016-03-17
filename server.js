@@ -8,10 +8,14 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(multer());
-app.use(session({secret: "ParthBansal"}));
+app.use(session({
+    resave: true,
+    saveUninitialized: true,
+    secret: 'ak'
+}));
 app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
+var port = process.env.OPENSHIFT_NODEJS_PORT || 3001;
 require("./public/assignment/server/app.js")(app, uuid);
 app.listen(port, ipaddress);
