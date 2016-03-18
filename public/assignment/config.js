@@ -40,8 +40,10 @@
                     checkLoggedIn: checkLoggedIn
                 }
             })
-            .when("/fields", {
+            .when("/forms/:formId/fields", {
                 templateUrl: "client/views/forms/fields.view.html",
+                controller: "FieldController",
+                controllerAs: "model",
                 resolve: {
                     checkLoggedIn: checkLoggedIn
                 }

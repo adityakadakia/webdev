@@ -26,11 +26,11 @@
         }
 
         function deleteFieldIdFormId(formId, fieldId) {
-            return $http.delete(" /api/assignment/form/" + formId + "/field/" + fieldId);
+            return $http.delete("/api/assignment/form/" + formId + "/field/" + fieldId);
         }
 
         function createFieldByFormId(formId, field) {
-            return $http.post("api/assignment/form/" + formId + "/field", field);
+            return $http.post("/api/assignment/form/" + formId + "/field", field);
         }
 
         function updateFieldIdFormId(formId, fieldId, field) {

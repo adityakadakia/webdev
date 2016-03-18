@@ -26,7 +26,7 @@
                     </td>
                 </tr>
                 <tr ng-repeat="form in model.forms" ng-class="{'selected-form': $index == model.selected}">
-                    <td><a href="fields.view.html">{{form.title}}</a></td>
+                    <td><a href="#/forms/{{form._id}}/fields">{{form.title}}</a></td>
                     <td>
                         <a ng-click="model.deleteForm(form._id)"><span class="glyphicon glyphicon-remove"
                                                                        aria-hidden="true"></span></a>
