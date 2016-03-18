@@ -56,7 +56,7 @@ module.exports = function (uuid) {
         console.log("userModel createUser");
         var u;
         u = {
-            "_id": (new Date).getTime(),
+            "_id": uuid.v4(),
             "firstName": "",
             "lastName": "",
             "username": user.username,
