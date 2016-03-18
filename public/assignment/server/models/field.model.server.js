@@ -1,6 +1,7 @@
 var forms = require("./form.mock.json");
 
 module.exports = function (uuid) {
+
     var api = {
         findAllFieldsByFormId: findAllFieldsByFormId,
         findFieldIdFormId: findFieldIdFormId,
@@ -57,6 +58,7 @@ module.exports = function (uuid) {
     function createFieldByFormId(formId, field) {
         for (i in forms) {
             if (forms[i]._id == formId) {
+                field._id = uuid.v4();
                 forms[i].fields.push(field);
                 return forms[i].fields
             }
@@ -79,5 +81,4 @@ module.exports = function (uuid) {
         }
         return null;
     }
-
 }
