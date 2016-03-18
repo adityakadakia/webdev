@@ -61,6 +61,7 @@ module.exports = function (uuid) {
         for (var i in forms) {
             if (formId == forms[i]._id) {
                 forms[i] = form;
+                forms[i].fields = form.fields;
                 console.log(forms);
                 return forms;
             }

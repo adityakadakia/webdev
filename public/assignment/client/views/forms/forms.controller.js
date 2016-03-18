@@ -73,7 +73,8 @@
             var editForm = {
                 "_id": model.forms[index]["_id"],
                 "userId": model.forms[index]["userId"],
-                "title": model.forms[index]["title"]
+                "title": model.forms[index]["title"],
+                "fields": model.forms[index]["fields"]
             };
             model.form = editForm;
             model.selected = index;

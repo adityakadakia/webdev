@@ -59,6 +59,8 @@ module.exports = function (uuid) {
         for (i in forms) {
             if (forms[i]._id == formId) {
                 field._id = uuid.v4();
+                if (!forms[i].fields)
+                    forms[i].fields = [];
                 forms[i].fields.push(field);
                 return forms[i].fields
             }
