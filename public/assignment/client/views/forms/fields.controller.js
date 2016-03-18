@@ -8,6 +8,9 @@
         model.addField = addField;
         model.removeField = removeField;
         model.cloneField = cloneField;
+        model.editFields = editFields;
+        model.updateField = updateField;
+        model.reset = reset;
 
         var fieldTypesDefault = [
             {"_id": null, "label": "New Text Field", "type": "TEXT", "placeholder": "New Field"},
@@ -98,6 +101,64 @@
                         model.fields = response.data;
                     }
                 });
+        }
+
+        function editFields(field) {
+            console.log("editField");
+            model.editField = JSON.parse(JSON.stringify(field));
+            model.editFieldType = model.fieldTypes[getFieldIndex(model.editField.type)];
+            model.options = toStringArray(model.editField.options);
+            if (model.editField.options)
+                model.rows = model.editField.options.length;
+        }
+
+        function toStringArray(options) {
+            var stringArray = [];
+            for (var index in options)
+                stringArray.push(options[index].label + " : " + options[index].value);
+            return stringArray;
+        }
+
+        function getFieldIndex(fieldType) {
+            var index = 0;
+            for (var i = 0; i < fieldTypesDefault.length; i++) {
+                if (fieldTypesDefault[i].type === fieldType) {
+                    return index;
+                }
+                index++;
+            }
+        }
+
+        function updateField(field) {
+            if (model.options) {
+                var jsonArray = getJSON(model.options);
+                field.options = jsonArray;
+
+            }
+
+            FieldService
+                .updateFieldIdFormId(model.formId, field._id, field)
+                .then(function (response) {
+                    if (response.data) {
+                        model.fields = response.data;
+                    }
+                });
+        }
+
+        function getJSON(stringArray) {
+            var options = [];
+            for (var index in stringArray) {
+                var pairs = stringArray[index].split(' : ');
+                options.push({"label": pairs[0], "value": pairs[1]});
+            }
+            console.log(options);
+            return options;
+        }
+
+        function reset() {
+            console.log("reset editField");
+            model.editField = null;
+            model.editFieldType = null;
         }
     }
 })();
