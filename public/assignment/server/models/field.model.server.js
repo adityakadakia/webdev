@@ -7,7 +7,9 @@ module.exports = function (uuid) {
         findFieldIdFormId: findFieldIdFormId,
         deleteFieldIdFormId: deleteFieldIdFormId,
         createFieldByFormId: createFieldByFormId,
-        updateFieldIdFormId: updateFieldIdFormId
+        updateFieldIdFormId: updateFieldIdFormId,
+        sortFields: sortFields,
+        findFormIndexById: findFormIndexById
     }
 
     return api;
@@ -79,6 +81,25 @@ module.exports = function (uuid) {
                         return forms[i].fields;
                     }
                 }
+            }
+        }
+        return null;
+    }
+
+    function sortFields(formId, start, end) {
+        var fields = findAllFieldsByFormId(formId);
+        fields.splice(end, 0, fields.splice(start, 1)[0]);
+        var formIndex = findFormIndexById(formId);
+        console.log(formIndex);
+        forms[formIndex].fields = fields;
+        console.log(fields);
+        return fields;
+    }
+
+    function findFormIndexById(formId) {
+        for (var i in forms) {
+            if (forms[i]._id == formId) {
+                return i;
             }
         }
         return null;

@@ -6,7 +6,7 @@
     </ul>
     <form role="form">
         <div class="form-box">
-            <div class="bottom-margin">
+            <div class="bottom-margin" sortable axis="y">
                 <div class="row form-row" ng-repeat="field in model.fields">
                     <div class="col-xs-12">
                         <label>{{field.label}}</label>
@@ -48,10 +48,12 @@
                                   ng-click="model.cloneField(field)"> </span>
                             <span class="glyphicon glyphicon-remove" aria-hidden="true"
                                   ng-click="model.removeField(field._id)"> </span>
-                            <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-align-justify handle" aria-hidden="true"></span>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="bottom-margin">
                 <hr/>
                 <div class="row form-row">
                     <div class="row col-xs-12">

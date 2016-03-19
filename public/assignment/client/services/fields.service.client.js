@@ -12,7 +12,8 @@
             findFieldIdFormId: findFieldIdFormId,
             deleteFieldIdFormId: deleteFieldIdFormId,
             createFieldByFormId: createFieldByFormId,
-            updateFieldIdFormId: updateFieldIdFormId
+            updateFieldIdFormId: updateFieldIdFormId,
+            sortFields: sortFields
         }
 
         return api;
@@ -35,6 +36,10 @@
 
         function updateFieldIdFormId(formId, fieldId, field) {
             return $http.put("/api/assignment/form/" + formId + "/field/" + fieldId, field);
+        }
+
+        function sortFields(formId, start, end) {
+            return $http.put("/api/assignment/form/" + formId + "/field/" + start + "/" + end);
         }
     }
 })();
