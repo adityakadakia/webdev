@@ -115,7 +115,7 @@
         function toStringArray(options) {
             var stringArray = [];
             for (var index in options)
-                stringArray.push(options[index].label + " : " + options[index].value);
+                stringArray.push(options[index].label + ":" + options[index].value);
             return stringArray;
         }
 
@@ -148,8 +148,10 @@
         function getJSON(stringArray) {
             var options = [];
             for (var index in stringArray) {
-                var pairs = stringArray[index].split(' : ');
-                options.push({"label": pairs[0], "value": pairs[1]});
+                if (stringArray[index].indexOf(':') > -1) {
+                    var pairs = stringArray[index].split(':');
+                    options.push({"label": pairs[0], "value": pairs[1]});
+                }
             }
             console.log(options);
             return options;
