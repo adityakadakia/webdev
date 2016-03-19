@@ -55,6 +55,9 @@ module.exports = function (uuid) {
     function createUser(user) {
         console.log("userModel createUser");
         var u;
+        var usernames = listUsernames();
+        if (usernames.indexOf(user.username) > -1)
+            return null;
         u = {
             "_id": uuid.v4(),
             "firstName": "",
@@ -65,6 +68,14 @@ module.exports = function (uuid) {
         };
         users.push(u);
         return users;
+    }
+
+    function listUsernames() {
+        var usernames = [];
+        for (i in users) {
+            usernames.push(users[i].username);
+        }
+        return usernames;
     }
 
     function deleteUserById(userId) {
