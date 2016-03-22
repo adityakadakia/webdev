@@ -5,7 +5,7 @@
                 <div class="row details-row">
                     <div class="col-md-6 details-image details-col">
                         <!--<img class="img-responsive" src="http://placehold.it/800x300" height="285" alt="">-->
-                        <img ng-src="{{item.venue.featuredPhotos.items[0].prefix}}800x500{{item.venue.featuredPhotos.items[0].suffix}}"
+                        <img ng-src="{{model.item.venue.featuredPhotos.items[0].prefix}}800x500{{model.item.venue.featuredPhotos.items[0].suffix}}"
                              alt="" class="details-height">
                     </div>
                     <div class="col-md-6 details-col details-height" id="details-map">
@@ -15,18 +15,18 @@
                     </div>
                 </div>
                 <div class="caption-full">
-                    <h4 class="pull-right">{{item.venue.categories[0].name}}</h4>
-                    <h4><a href="#">{{item.venue.name}}</a>
+                    <h4 class="pull-right">{{model.item.venue.categories[0].name}}</h4>
+                    <h4><a href="#">{{model.item.venue.name}}</a>
                         <button type="button" class="btn btn-default" aria-label="Left Align">
                             <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                         </button>
                     </h4>
 
-                    <p>{{item.tips[0].text}}</p>
-                    <p>{{item.venue.location.formattedAddress[0]}}
-                        <br>{{item.venue.location.formattedAddress[1]}}
-                        <br>{{item.venue.location.formattedAddress[2]}}
-                        <br>{{item.venue.location.formattedAddress[3]}}</p>
+                    <p>{{model.item.tips[0].text}}</p>
+                    <p>{{model.item.venue.location.formattedAddress[0]}}
+                        <br>{{model.item.venue.location.formattedAddress[1]}}
+                        <br>{{model.item.venue.location.formattedAddress[2]}}
+                        <br>{{model.item.venue.location.formattedAddress[3]}}</p>
                 </div>
                 <div class="ratings">
                     <p class="pull-right">3 reviews</p>
@@ -47,46 +47,41 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-8">
                         <input type="text" class="form-control" placeholder="Leave a review"
-                               ng-model="review.description">
+                               ng-model="model.review.description">
                     </div>
                     <div class="col-xs-6 col-sm-3 col-md-2 review-button">
-                        <a class="btn btn-success btn-block" ng-click="addReview(review)">Leave Review</a>
+                        <a class="btn btn-success btn-block" ng-click="model.addReview(model.review)">Leave Review</a>
                     </div>
-                    <div class="col-xs-6 col-sm-3 col-md-2 review-button" ng-click="updateReview(review)">
-                        <a class="btn btn-warning btn-block" ng-show="selected != -1">Update</a>
+                    <div class="col-xs-6 col-sm-3 col-md-2 review-button" ng-click="model.updateReview(model.review)">
+                        <a class="btn btn-warning btn-block" ng-show="model.selected != -1">Update</a>
                     </div>
                 </div>
 
                 <hr>
 
-                <div class="row" ng-repeat="review in reviews track by review._id">
+                <div class="row" ng-repeat="review in model.reviews track by review._id">
                     <div class="col-xs-12 col-sm-8">
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star-empty"></span>
-                        {{findFullUserNamebyUserId(review.userId)}}
+                        {{model.findFullUserNamebyUserId(review.userId)}}
                         <span class="pull-right">{{review.timestamp.toDateString()}}</span>
                         <p>{{review.description}}</p>
                     </div>
                     <div class="col-xs-6 col-sm-2">
                         <a class="btn btn-primary btn-block review-button" ng-show="user._id == review.userId"
-                           ng-click="selectReview($index)">Edit</a>
+                           ng-click="model.selectReview($index)">Edit</a>
                     </div>
                     <div class="col-xs-6 col-sm-2">
                         <a class="btn btn-danger btn-block review-button" ng-show="user._id == review.userId"
-                           ng-click="deleteReview($index)">Delete</a>
+                           ng-click="model.deleteReview($index)">Delete</a>
                     </div>
-
                     <hr width="100%">
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
 </div>
 <!-- /.container -->
