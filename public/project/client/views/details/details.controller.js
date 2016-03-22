@@ -26,7 +26,7 @@
         initMap();
         console.log("placeId: " + model.item.venue.id);
         findAllReviewsByPlaceId(model.item.venue.id);
-        console.log(model.reviews);
+        console.log("reviews: " + JSON.stringify(model.reviews));
 
         function findFullUserNamebyUserId(userId) {
             return UserService.userIdtoFullUserName(userId);
