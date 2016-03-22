@@ -8,8 +8,8 @@
         .controller("RegisterController", RegisterController);
 
     function RegisterController($scope, $location, $rootScope, UserService) {
-
-        $scope.register = register;
+        var model = this;
+        model.register = register;
 
         function register(user) {
             console.log(user);
