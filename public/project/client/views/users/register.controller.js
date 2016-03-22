@@ -1,6 +1,7 @@
 /**
  * Created by Aditya on 3/11/2016.
  */
+"use strict";
 (function () {
     angular
         .module("Voyager")

@@ -1,6 +1,7 @@
 /**
  * Created by Aditya on 2/27/2016.
  */
+"use strict";
 (function () {
     angular
         .module("Voyager")
@@ -16,7 +17,7 @@
         $scope.updateReview = updateReview;
         $scope.findFullUserNamebyUserId = findFullUserNamebyUserId;
 
-        for (i in results) {
+        for (var i in results) {
             if (results[i].venue.id == id)
                 $scope.item = results[i];
         }

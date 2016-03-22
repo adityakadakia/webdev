@@ -1,6 +1,7 @@
 /**
  * Created by Aditya on 2/27/2016.
  */
+"use strict";
 (function () {
     angular
         .module("Voyager")
@@ -62,14 +63,14 @@
         }
 
         function userIdtoFullUserName(userId) {
-            for (i in users) {
+            for (var i in users) {
                 if (users[i]._id == userId) {
                     return users[i].firstName + " " + users[i].lastName;
                 }
             }
         }
         function findUserByCredentials(username, password, callback) {
-            for (i in users) {
+            for (var i in users) {
                 if (users[i].username == username && users[i].password == password) {
                     callback(users[i]);
                     return;
@@ -97,7 +98,7 @@
         }
 
         function deleteUserById(userId, callback) {
-            for (i in users) {
+            for (var i in users) {
                 if (users[i]._id == userId) {
                     users.splice(i, 1);
                     callback(users);
@@ -108,7 +109,7 @@
         }
 
         function updateUser(userId, user, callback) {
-            for (i in users) {
+            for (var i in users) {
                 if (users[i]._id == userId) {
                     users[i]._id = user._id;
                     users[i].firstName = user.firstName;

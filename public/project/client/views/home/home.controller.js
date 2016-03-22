@@ -1,6 +1,7 @@
 /**
  * Created by Aditya on 2/27/2016.
  */
+"use strict";
 (function () {
     angular
         .module("Voyager")
@@ -29,7 +30,7 @@
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
 
-            for (i = 0; i < myitems.length; i++) {
+            for (var i = 0; i < myitems.length; i++) {
                 var marker = new google.maps.Marker({
                     position: {lat: myitems[i].venue.location.lat, lng: myitems[i].venue.location.lng},
                     map: map,
