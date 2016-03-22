@@ -8,9 +8,9 @@
     <meta name="author" content="">
     <title>Voyager</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/details.css" rel="stylesheet">
-    <link href="css/profile.css" rel="stylesheet">
+    <link href="client/css/style.css" rel="stylesheet">
+    <link href="client/css/details.css" rel="stylesheet">
+    <link href="client/css/profile.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -20,7 +20,7 @@
 </head>
 <body ng-controller="MainController">
 <!-- Navigation -->
-<div ng-include="'views/header/header.view.html'"></div>
+<div ng-include="'client/views/header/header.view.html'"></div>
 <!-- Page Content -->
 <div ng-view></div>
 <!-- /.container -->
@@ -30,17 +30,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
-<script src="app.js"></script>
+<script src="client/app.js"></script>
 <script src="config.js"></script>
-<script src="views/main/main.controller.js"></script>
-<script src="views/home/home.controller.js"></script>
-<script src="views/details/details.controller.js"></script>
-<script src="views/users/login.controller.js"></script>
-<script src="views/users/register.controller.js"></script>
-<script src="views/users/profile/profile.controller.js"></script>
-<script src="services/search.service.client.js"></script>
-<script src="services/user.service.client.js"></script>
-<script src="services/review.service.client.js"></script>
+<script src="client/views/main/main.controller.js"></script>
+<script src="client/views/home/home.controller.js"></script>
+<script src="client/views/details/details.controller.js"></script>
+<script src="client/views/users/login.controller.js"></script>
+<script src="client/views/users/register.controller.js"></script>
+<script src="client/views/users/profile/profile.controller.js"></script>
+<script src="client/services/search.service.client.js"></script>
+<script src="client/services/user.service.client.js"></script>
+<script src="client/services/review.service.client.js"></script>
 </body>
 
 </html>

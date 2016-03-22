@@ -9,36 +9,36 @@
     function configuration($routeProvider) {
         $routeProvider
             .when("/home", {
-                templateUrl: "views/home/home.view.html",
+                templateUrl: "client/views/home/home.view.html",
                 controller: "HomeController"
             })
             .when("/login", {
-                templateUrl: "views/users/login.view.html",
+                templateUrl: "client/views/users/login.view.html",
                 controller: "LoginController"
             })
             .when("/register", {
-                templateUrl: "views/users/register.view.html",
+                templateUrl: "client/views/users/register.view.html",
                 controller: "RegisterController"
             })
             .when("/profile", {
-                templateUrl: "views/users/profile/profile.view.html",
+                templateUrl: "client/views/users/profile/profile.view.html",
                 controller: "ProfileController"
             })
             .when("/followers", {
-                templateUrl: "views/users/profile/followers.profile.view.html"
+                templateUrl: "client/views/users/profile/followers.profile.view.html"
             })
             .when("/following", {
-                templateUrl: "views/users/profile/following.profile.view.html"
+                templateUrl: "client/views/users/profile/following.profile.view.html"
             })
             .when("/likes", {
-                templateUrl: "views/users/profile/likes.profile.view.html"
+                templateUrl: "client/views/users/profile/likes.profile.view.html"
             })
             .when("/details/:id", {
-                templateUrl: "views/details/details.view.html",
+                templateUrl: "client/views/details/details.view.html",
                 controller: "DetailsController"
             })
             .when("/admin", {
-                templateUrl: "views/admin/admin.view.html"
+                templateUrl: "client/views/admin/admin.view.html"
             })
             .otherwise({
                 redirectTo: "/home"
