@@ -1,6 +1,7 @@
 /**
  * Created by Aditya on 3/15/2016.
  */
+"use strict";
 module.exports = function (app, uuid) {
 
     // pass db and mongoose reference to model

@@ -1,6 +1,7 @@
 /**
  * Created by Aditya on 2/24/2016.
  */
+"use strict";
 (function () {
     angular
         .module("FormBuilderApp")
