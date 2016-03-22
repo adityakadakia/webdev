@@ -7,19 +7,26 @@
         .module("Voyager")
         .controller("HomeController", HomeController);
 
-    function HomeController($scope, SearchService, $rootScope) {
-        $scope.searchTerm;
-        $scope.explorePlaces = explorePlaces;
-        $scope.imageSize = "/800X500/";
-        $scope.initMap = initMap;
+    function HomeController(SearchService, $routeParams, $location, $rootScope) {
+        var model = this;
+        model.searchTerm;
+        model.explorePlaces = explorePlaces;
+        model.imageSize = "/800X500/";
+        model.initMap = initMap;
 
-        explorePlaces("Boston");
+        if ($routeParams.placeQuery) {
+            explorePlaces($routeParams.placeQuery);
+        } else {
+            explorePlaces("Boston");
+        }
 
         function explorePlaces(searchTerm) {
             SearchService.explorePlace(searchTerm, function (places) {
                 $rootScope.results = places.response.groups[0].items;
                 initMap(places.response.groups[0].items);
             })
+            model.searchTerm = searchTerm;
+            $location.url("/home/" + searchTerm);
         }
 
         function initMap(myitems) {
