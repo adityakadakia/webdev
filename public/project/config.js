@@ -11,19 +11,28 @@
         $routeProvider
             .when("/home", {
                 templateUrl: "client/views/home/home.view.html",
-                controller: "HomeController"
+                controller: "HomeController",
+                controllerAs: "model"
+            })
+            .when("/home/:placeQuery", {
+                templateUrl: "client/views/home/home.view.html",
+                controller: "HomeController",
+                controllerAs: "model"
             })
             .when("/login", {
                 templateUrl: "client/views/users/login.view.html",
-                controller: "LoginController"
+                controller: "LoginController",
+                controllerAs: "model"
             })
             .when("/register", {
                 templateUrl: "client/views/users/register.view.html",
-                controller: "RegisterController"
+                controller: "RegisterController",
+                controllerAs: "model"
             })
             .when("/profile", {
                 templateUrl: "client/views/users/profile/profile.view.html",
-                controller: "ProfileController"
+                controller: "ProfileController",
+                controllerAs: "model"
             })
             .when("/followers", {
                 templateUrl: "client/views/users/profile/followers.profile.view.html"
@@ -36,7 +45,8 @@
             })
             .when("/details/:id", {
                 templateUrl: "client/views/details/details.view.html",
-                controller: "DetailsController"
+                controller: "DetailsController",
+                controllerAs: "model"
             })
             .when("/admin", {
                 templateUrl: "client/views/admin/admin.view.html"
