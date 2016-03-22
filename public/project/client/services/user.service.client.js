@@ -11,23 +11,23 @@
         var users = [
             {
                 "_id": 123, "firstName": "Alice", "lastName": "Wonderland",
-                "username": "alice", "password": "alice", "roles": ["user"]
+                "username": "alice", "password": "alice", "roles": ["user"], "email": ""
             },
             {
                 "_id": 234, "firstName": "Bob", "lastName": "Hope",
-                "username": "bob", "password": "bob", "roles": ["admin"]
+                "username": "bob", "password": "bob", "roles": ["admin"], "email": ""
             },
             {
                 "_id": 345, "firstName": "Charlie", "lastName": "Brown",
-                "username": "charlie", "password": "charlie", "roles": ["user"]
+                "username": "charlie", "password": "charlie", "roles": ["user"], "email": ""
             },
             {
                 "_id": 456, "firstName": "Dan", "lastName": "Craig",
-                "username": "dan", "password": "dan", "roles": ["user", "admin"]
+                "username": "dan", "password": "dan", "roles": ["user", "admin"], "email": ""
             },
             {
                 "_id": 567, "firstName": "Edward", "lastName": "Norton",
-                "username": "ed", "password": "ed", "roles": ["user"]
+                "username": "ed", "password": "ed", "roles": ["user"], "email": ""
             }
         ];
 
@@ -93,6 +93,7 @@
                 "password": user.password,
                 "email": user.email
             };
+            console.log("Email: " + user.email)
             users.push(u);
             callback(u);
         }
