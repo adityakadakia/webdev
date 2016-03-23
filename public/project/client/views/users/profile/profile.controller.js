@@ -7,19 +7,30 @@
         .module("Voyager")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($rootScope, $scope, UserService) {
+    function ProfileController(UserService) {
         var model = this;
-
         model.update = update;
-        model.userprofile = $rootScope.user;
+        init();
 
-        console.log("ProfileController" + JSON.stringify(model.userprofile));
+        function init() {
+            console.log("ProfileController init");
+            UserService
+                .getCurrentUser()
+                .then(function (response) {
+                    if (response.data) {
+                        model.userprofile = response.data;
+                    }
+                });
+        }
 
-        function update(userprofile) {
-            UserService.updateUser(userprofile._id, userprofile, function (users) {
-                if (users != null)
-                    $rootScope.user = model.userprofile
-            });
+        function update(user) {
+            console.log("ProfileController update");
+            console.log("submitted user: " + JSON.stringify(user));
+            UserService.updateUser(user._id, user)
+                .then(function (u) {
+                    console.log("updated user: " + JSON.stringify(u.data));
+                    UserService.setCurrentUser(u.data);
+                });
         }
     }
 })();
