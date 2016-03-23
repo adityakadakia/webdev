@@ -14,11 +14,11 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a ng-class="{'active':$location.url() == '/login'}" ng-show="user === undefined"
+                        <a ng-class="{'active':$location.url() == '/login'}" ng-show="!user"
                            href="#/login">Sign in</a>
                     </li>
                     <li>
-                        <a ng-class="{'active':$location.url() == '/register'}" ng-show="user === undefined"
+                        <a ng-class="{'active':$location.url() == '/register'}" ng-show="!user"
                            href="#/register">Sign up</a>
                     </li>
                     <li>
