@@ -27,9 +27,20 @@
         console.log("placeId: " + model.item.venue.id);
         findAllReviewsByPlaceId(model.item.venue.id);
         console.log("reviews: " + JSON.stringify(model.reviews));
+        console.log("findFullUserNamebyUserId 123: " + findFullUserNamebyUserId(123));
 
         function findFullUserNamebyUserId(userId) {
-            return UserService.userIdtoFullUserName(userId);
+            var fullName;
+            UserService
+                .userIdtoUser(userId)
+                .then(function (response) {
+                    if (response.data) {
+                        var u = response.data;
+                        fullName = u.firstName + " " + u.lastName;
+                        console.log("User full name: " + fullName);
+                    }
+                });
+            return fullName;
         }
 
         function findAllReviewsByPlaceId(placeId) {

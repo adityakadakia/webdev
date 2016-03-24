@@ -3,15 +3,15 @@
  */
 module.exports = function (app, userModel) {
 
-    app.post("/api/assignment/user", register);
-    app.get("/api/assignment/user/loggedin", loggedin);
-    app.put("/api/assignment/user/:id", update);
-    app.get("/api/assignment/user", findAllUsers);
-    app.get("/api/assignment/user/:id", findUserById);
-    app.get("/api/assignment/user?username=username", findUserByUsername);
-    app.get("/api/assignment/user?username=alice&password=wonderland", findUserByCredentials);
-    app.delete("/api/assignment/user/:id", deleteUserById);
-    app.post("/api/assignment/user/logout", logOut);
+    app.post("/api/project/user", register);
+    app.get("/api/project/user/loggedin", loggedin);
+    app.put("/api/project/user/:id", update);
+    app.get("/api/project/user", findAllUsers);
+    app.get("/api/project/user/:id", findUserById);
+    app.get("/api/project/user?username=username", findUserByUsername);
+    app.get("/api/project/user?username=alice&password=wonderland", findUserByCredentials);
+    app.delete("/api/project/user/:id", deleteUserById);
+    app.post("/api/project/user/logout", logOut);
 
     var userService = this;
 
@@ -32,6 +32,8 @@ module.exports = function (app, userModel) {
         console.log("UserService findUserById");
         var userId = req.params.id;
         var user = userModel.findUserById(userId);
+        console.log("user found: " + JSON.stringify(user));
+        res.json(user);
     }
 
     function findAllUsers(req, res) {

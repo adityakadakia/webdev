@@ -16,34 +16,35 @@
             getProfile: getProfile,
             updateUser: updateUser,
             logOut: logOut,
-            logIn: logIn
+            logIn: logIn,
+            userIdtoUser: userIdtoUser
         };
         return api;
 
         function findUserByUsername(username) {
-            return $http.get("/api/assignment/user?username=" + username);
+            return $http.get("/api/project/user?username=" + username);
         }
 
         function logIn(username, password) {
-            return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
+            return $http.get("/api/project/user?username=" + username + "&password=" + password);
         }
 
         function logOut() {
-            return $http.post("/api/assignment/user/logout");
+            return $http.post("/api/project/user/logout");
         }
 
         function updateUser(userId, user) {
             console.log("UserService updateUser");
             console.log(userId);
-            return $http.put("/api/assignment/user/" + userId, user);
+            return $http.put("/api/project/user/" + userId, user);
         }
 
         function register(user) {
-            return $http.post("/api/assignment/user", user);
+            return $http.post("/api/project/user", user);
         }
 
         function getCurrentUser() {
-            return $http.get("/api/assignment/user/loggedin");
+            return $http.get("/api/project/user/loggedin");
         }
 
         function setCurrentUser(user) {
@@ -51,7 +52,11 @@
         }
 
         function getProfile() {
-            return $http.get("/api/assignment/user/" + $rootScope.user._id);
+            return $http.get("/api/project/user/" + $rootScope.user._id);
+        }
+
+        function userIdtoUser(userId) {
+            return $http.get("/api/project/user/" + userId);
         }
     }
 })();
