@@ -44,9 +44,11 @@
         }
 
         function findAllReviewsByPlaceId(placeId) {
-            ReviewService.findAllReviewsByPlaceId(placeId, function (response) {
-                model.reviews = response;
-            });
+            ReviewService
+                .findAllReviewsByPlaceId(placeId)
+                .then(function (response) {
+                    model.reviews = response.data;
+                });
         }
 
         function selectReview(index) {
@@ -66,28 +68,37 @@
 
         function addReview(review) {
             review.title = "";
-            ReviewService.addReview(review, model.item.venue.id, function () {
-                model.review = {};
-                model.selected = -1;
-                findAllReviewsByPlaceId(model.item.venue.id);
-            });
+            review.userId = $rootScope.user._id;
+            console.log("addReview: " + JSON.stringify(review));
+            ReviewService
+                .addReview(review, $routeParams.id)
+                .then(function (response) {
+                    model.reviews = response.data;
+                    console.log(model.reviews);
+                });
         }
 
         function updateReview(review) {
-            ReviewService.updateReview(review, function (newReview) {
-                model.reviews[model.selected] = newReview;
-                model.review = {};
-                model.selected = -1;
-            });
+            ReviewService
+                .updateReview(review)
+                .then(function (response) {
+                    model.reviews = response.data;
+                    model.review = {};
+                    model.selected = -1;
+                });
         }
 
         function deleteReview(index) {
             var reviewId = model.reviews[index]._id;
-            ReviewService.deleteReview(reviewId, function () {
-                model.review = {};
-                model.selected = -1;
-                findAllReviewsByPlaceId(model.item.venue.id);
-            });
+            ReviewService
+                .deleteReview(reviewId)
+                .then(function (response) {
+                    if (response.data) {
+                        model.reviews = response.data;
+                        model.review = {};
+                        model.selected = -1;
+                    }
+                });
         }
 
         function initMap() {
