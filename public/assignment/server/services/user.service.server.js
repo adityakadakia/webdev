@@ -54,9 +54,22 @@ module.exports = function (app, userModel) {
     function register(req, res) {
         console.log("UserService register");
         var user = req.body;
-        var users = userModel.createUser(user);
-        req.session.currentUser = userModel.findUserByUsername(user.username);
-        res.json(users);
+        user = userModel.createUser(user)
+            // handle model promise
+            .then(
+                // login user if promise resolved
+                function (doc) {
+                    req.session.currentUser = doc;
+                    res.json(user);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+        //var users = userModel.createUser(user);
+        //req.session.currentUser = userModel.findUserByUsername(user.username);
+        //res.json(users);
     }
 
     function loggedin(req, res) {
