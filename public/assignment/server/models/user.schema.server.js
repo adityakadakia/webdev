@@ -14,6 +14,6 @@ module.exports = function (mongoose) {
         roles: [String]
         // collection property sets
         // collection name to 'user'
-    }, {collection: 'user'});
+    }, {collection: 'assignment.user'});
     return userSchema;
 };
