@@ -57,20 +57,25 @@ module.exports = function (db, mongoose) {
 
     function createUser(user) {
         console.log("userModel createUser");
-        var u;
-        var usernames = listUsernames();
-        if (usernames.indexOf(user.username) > -1)
-            return null;
-        u = {
-            "_id": uuid.v4(),
-            "firstName": "",
-            "lastName": "",
-            "username": user.username,
-            "password": user.password,
-            "email": user.email
-        };
-        users.push(u);
-        return users;
+
+        userModel.create(user, function (err, doc) {
+            console.log("doc: ");
+            console.log(doc);
+        });
+        //var u;
+        //var usernames = listUsernames();
+        //if (usernames.indexOf(user.username) > -1)
+        //    return null;
+        //u = {
+        //    "_id": uuid.v4(),
+        //    "firstName": "",
+        //    "lastName": "",
+        //    "username": user.username,
+        //    "password": user.password,
+        //    "email": user.email
+        //};
+        //users.push(u);
+        //return users;
     }
 
     function listUsernames() {
