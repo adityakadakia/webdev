@@ -1,4 +1,5 @@
 var users = require("./user.mock.json");
+var q = require("q");
 
 module.exports = function (db, mongoose) {
 
@@ -58,10 +59,20 @@ module.exports = function (db, mongoose) {
     function createUser(user) {
         console.log("userModel createUser");
 
+        var deferred = q.defer();
+        // insert new user with mongoose user model's create()
         userModel.create(user, function (err, doc) {
-            console.log("doc: ");
-            console.log(doc);
+            if (err) {
+                // reject promise if error
+                deferred.reject(err);
+            } else {
+                // resolve promise
+                console.log("doc: ");
+                console.log(doc);
+                deferred.resolve(doc);
+            }
         });
+
         //var u;
         //var usernames = listUsernames();
         //if (usernames.indexOf(user.username) > -1)
