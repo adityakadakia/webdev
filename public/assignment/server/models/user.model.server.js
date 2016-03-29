@@ -1,6 +1,6 @@
 var users = require("./user.mock.json");
 
-module.exports = function (uuid) {
+module.exports = function (db, mongoose) {
 
     var api = {
         findUserByCredentials: findUserByCredentials,
@@ -89,7 +89,7 @@ module.exports = function (uuid) {
         return users;
     }
 
-    function updateUser(userId, user, callback) {
+    function updateUser(userId, user) {
         console.log("userModel updateUser");
         for (i in users) {
             if (users[i]._id == userId) {
