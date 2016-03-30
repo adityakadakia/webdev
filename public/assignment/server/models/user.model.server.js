@@ -40,15 +40,18 @@ module.exports = function (db, mongoose) {
 
     function findUserByUsername(username) {
         console.log("userModel findUserbyUsername");
-        var currUser = null;
-        for (var i = 0; i < users.length; i++) {
-            if (users[i].username === username) {
-                currUser = users[i];
-                return currUser;
-                console.log(users[i].username + "user found");
+        var deferred = q.defer();
+        userModel.findOne({username: username}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                // resolve promise
+                console.log("findUserbyUsername doc: ");
+                console.log(doc);
+                deferred.resolve(doc);
             }
-        }
-        return null;
+        });
+        return deferred.promise;
     }
 
     function findAllUsers() {
@@ -73,20 +76,6 @@ module.exports = function (db, mongoose) {
             }
         });
         return deferred.promise;
-        //var u;
-        //var usernames = listUsernames();
-        //if (usernames.indexOf(user.username) > -1)
-        //    return null;
-        //u = {
-        //    "_id": uuid.v4(),
-        //    "firstName": "",
-        //    "lastName": "",
-        //    "username": user.username,
-        //    "password": user.password,
-        //    "email": user.email
-        //};
-        //users.push(u);
-        //return users;
     }
 
     function listUsernames() {
