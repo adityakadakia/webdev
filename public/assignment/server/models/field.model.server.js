@@ -1,6 +1,6 @@
 var forms = require("./form.mock.json");
 
-module.exports = function (uuid) {
+module.exports = function (db, mongoose, uuid) {
 
     var api = {
         findAllFieldsByFormId: findAllFieldsByFormId,

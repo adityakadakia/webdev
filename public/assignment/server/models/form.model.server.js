@@ -1,6 +1,8 @@
 var forms = require('./form.mock.json');
 
-module.exports = function (uuid) {
+module.exports = function (db, mongoose, uuid) {
+    var formSchema = require("./form.schema.server.js")(mongoose);
+    var formModel = mongoose.model('Form', formSchema);
 
     var api = {
         createFormByUserId: createFormByUserId,
@@ -15,18 +17,9 @@ module.exports = function (uuid) {
     return api;
 
     function createFormByUserId(form, userId) {
-        form._id = uuid.v4();
         form.userId = userId;
         form.fields = [];
-        var titles = findFormTitlesByUserId(userId);
-        if (titles.length > 0) {
-            if (titles.indexOf(form.title) > -1) {
-                return forms;
-            }
-        }
-        forms.push(form);
-        console.log(forms);
-        return forms;
+        return formModel.create(form);
     }
 
     function findAllForms() {
@@ -43,13 +36,7 @@ module.exports = function (uuid) {
     }
 
     function findFormByUserId(userId) {
-        var f = [];
-        for (i in forms) {
-            if (userId == forms[i].userId) {
-                f.push(forms[i]);
-            }
-        }
-        return f;
+        return formModel.find({"userId": userId});
     }
 
     function findFormById(formId) {
