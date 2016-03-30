@@ -36,8 +36,24 @@ module.exports = function (app, formModel) {
 
     function deleteFormById(req, res) {
         var formId = req.params.formId;
-        var forms = formModel.deleteFormById(formId);
-        res.json(forms);
+        formModel
+            .deleteFormById(formId)
+            .then(
+                function (resolve) {
+                    return formModel.findFormByUserId(req.session.currentUser._id);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (forms) {
+                    res.json(forms);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function createFormByUserId(req, res) {
@@ -65,7 +81,23 @@ module.exports = function (app, formModel) {
     function updateFormById(req, res) {
         var formId = req.params.formId;
         var form = req.body;
-        var forms = formModel.updateFormById(formId, form);
-        res.json(forms);
+        formModel
+            .updateFormById(formId, form)
+            .then(
+                function (resolve) {
+                    return formModel.findFormByUserId(req.session.currentUser._id);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (forms) {
+                    res.json(forms);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 }

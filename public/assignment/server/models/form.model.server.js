@@ -1,4 +1,5 @@
 var forms = require('./form.mock.json');
+var q = require("q");
 
 module.exports = function (db, mongoose, uuid) {
     var formSchema = require("./form.schema.server.js")(mongoose);
@@ -19,6 +20,8 @@ module.exports = function (db, mongoose, uuid) {
     function createFormByUserId(form, userId) {
         form.userId = userId;
         form.fields = [];
+        form.created = new Date();
+        form.updated = new Date();
         return formModel.create(form);
     }
 
@@ -27,12 +30,19 @@ module.exports = function (db, mongoose, uuid) {
     }
 
     function findFormTitlesByUserId(userId) {
-        var userForms = findFormByUserId(userId);
-        var titles = [];
-        for (var i in userForms) {
-            titles.push(userForms[i].title);
-        }
-        return titles;
+        var deferred = q.defer();
+        findFormByUserId(userId)
+            .then(function (userForms) {
+                var titles = [];
+                for (var i in userForms) {
+                    titles.push(userForms[i].title);
+                }
+                console.log("titles: " + titles);
+                q.resolve(titles);
+            }, function (err) {
+                q.reject();
+            });
+        return deferred.promise;
     }
 
     function findFormByUserId(userId) {
@@ -60,32 +70,11 @@ module.exports = function (db, mongoose, uuid) {
     }
 
     function updateFormById(formId, form) {
-        var titles = findFormTitlesByUserId(form.userId);
-        if (titles.length > 0) {
-            if (titles.indexOf(form.title) > -1) {
-                return forms;
-            }
-        }
-        for (var i in forms) {
-            if (formId == forms[i]._id) {
-                forms[i] = form;
-                forms[i].fields = form.fields;
-                console.log(forms);
-                return forms;
-            }
-        }
-        return null;
+        if (form.title != "")
+            return formModel.update({_id: formId}, {$set: form});
     }
 
     function deleteFormById(formId) {
-        var index;
-        for (var i in forms) {
-            if (formId == forms[i]._id) {
-                index = i;
-            }
-        }
-        forms.splice(index, 1);
-        //console.log(forms);
-        return forms;
+        return formModel.remove({_id: formId});
     }
 }
