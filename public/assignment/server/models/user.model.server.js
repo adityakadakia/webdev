@@ -20,82 +20,27 @@ module.exports = function (db, mongoose) {
 
     function findUserById(userId) {
         console.log("userModel findUserById");
-        var deferred = q.defer();
-        userModel.findById(userId, function (err, doc) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                // resolve promise
-                console.log("findUserById doc: ");
-                deferred.resolve(doc);
-            }
-        });
-        return deferred.promise;
+        return userModel.findById(userId);
     }
 
     function findUserByCredentials(username, password) {
         console.log("userModel findUserbyCredentials");
-        var deferred = q.defer();
-        userModel.findOne({username: username, password: password}, function (err, doc) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                // resolve promise
-                console.log("findUserbyCredentials doc: ");
-                console.log(doc);
-                deferred.resolve(doc);
-            }
-        });
-        return deferred.promise;
+        return userModel.findOne({username: username, password: password});
     }
 
     function findUserByUsername(username) {
         console.log("userModel findUserbyUsername");
-        var deferred = q.defer();
-        userModel.findOne({username: username}, function (err, doc) {
-            if (err) {
-                deferred.reject(err);
-            } else {
-                // resolve promise
-                console.log("findUserbyUsername doc: ");
-                console.log(doc);
-                deferred.resolve(doc);
-            }
-        });
-        return deferred.promise;
+        return userModel.findOne({username: username});
     }
 
     function findAllUsers() {
         console.log("userModel findAllUsers");
-        var deferred = q.defer();
-        userModel.find(function (err, doc) {
-            if (err) {
-                // reject promise if error
-                deferred.reject(err);
-            } else {
-                // resolve promise
-                deferred.resolve(doc);
-            }
-        });
-        return deferred.promise;
+        return userModel.find();
     }
 
     function createUser(user) {
         console.log("userModel createUser");
-        var deferred = q.defer();
-        // insert new user with mongoose user model's create()
-        userModel.create(user, function (err, doc) {
-            if (err) {
-                // reject promise if error
-                deferred.reject(err);
-            } else {
-                // resolve promise
-                console.log("doc: ");
-                console.log(doc);
-                deferred.resolve(doc);
-            }
-        });
-        return deferred.promise;
+        return userModel.create(user);
     }
 
     function listUsernames() {
@@ -108,34 +53,11 @@ module.exports = function (db, mongoose) {
 
     function deleteUserById(userId) {
         console.log("userModel deleteUserById");
-        var deferred = q.defer();
-        userModel.remove({_id: userId}, function (err, doc) {
-            if (err) {
-                // reject promise if error
-                deferred.reject(err);
-            } else {
-                // resolve promise
-                console.log("doc: ");
-                console.log(doc);
-                deferred.resolve(doc);
-            }
-        });
-        return deferred.promise;
+        return userModel.remove({_id: userId});
     }
 
     function updateUser(userId, user) {
         console.log("userModel updateUser");
-        var deferred = q.defer();
-        userModel.update({_id: userId},
-            {$set: user},
-            function (err, doc) {
-                if (err) {
-                    deferred.reject(err);
-                } else {
-                    console.log("doc: ");
-                    deferred.resolve(doc);
-                }
-            });
-        return deferred.promise;
+        return userModel.update({_id: userId}, {$set: user});
     }
 }

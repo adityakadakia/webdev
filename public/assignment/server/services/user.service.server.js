@@ -121,17 +121,17 @@ module.exports = function (app, userModel) {
         var userId = req.params.id;
         var users = userModel
             .updateUser(userId, user)
-            .then(function (doc) {
-                    userModel
-                        .findUserById(userId)
-                        .then(
-                            function (doc) {
-                                req.session.currentUser = doc;
-                                res.json(user);
-                            },
-                            function (err) {
-                                res.status(400).send(err);
-                            })
+            .then(
+                function (doc) {
+                    return userModel.findUserById(userId);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                })
+            .then(
+                function (doc) {
+                    req.session.currentUser = doc;
+                    res.json(user);
                 },
                 function (err) {
                     res.status(400).send(err);
