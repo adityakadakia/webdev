@@ -101,7 +101,7 @@ module.exports = function (app, userModel) {
                 // login user if promise resolved
                 function (doc) {
                     req.session.currentUser = doc;
-                    res.json(user);
+                    res.json(doc);
                 },
                 // send error if promise rejected
                 function (err) {
