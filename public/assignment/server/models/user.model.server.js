@@ -30,12 +30,18 @@ module.exports = function (db, mongoose) {
 
     function findUserByCredentials(username, password) {
         console.log("userModel findUserbyCredentials");
-        for (i in users) {
-            if (users[i].username == username && users[i].password == password) {
-                return (users[i]);
+        var deferred = q.defer();
+        userModel.findOne({username: username, password: password}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                // resolve promise
+                console.log("findUserbyCredentials doc: ");
+                console.log(doc);
+                deferred.resolve(doc);
             }
-        }
-        return null;
+        });
+        return deferred.promise;
     }
 
     function findUserByUsername(username) {
