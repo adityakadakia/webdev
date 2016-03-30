@@ -60,7 +60,13 @@ module.exports = function (app, formModel) {
         var userId = req.params.userId;
         var form = req.body;
         formModel
-            .createFormByUserId(form, userId)
+            .findFormByTitle(form.title, userId)
+            .then(
+                function (f) {
+                    if (!f)
+                        return formModel.createFormByUserId(form, userId);
+                }
+            )
             .then(
                 function (doc) {
                     return formModel.findFormByUserId(userId);
