@@ -38,21 +38,36 @@ module.exports = function (app, userModel) {
         console.log("username: " + username);
         console.log("password: " + password);
         if (username != null && password != null) {
-            var user = userModel.findUserByCredentials(username, password)
+            userModel
+                .findUserByCredentials(username, password)
                 .then(
                     function (doc) {
                         req.session.currentUser = doc;
-                        res.json(user);
+                        res.json(doc);
                     },
                     function (err) {
                         res.status(400).send(err);
                     })
         } else if (username != null) {
-            var user = userModel.findUserByUsername(username);
-            res.json(user);
+            userModel
+                .findUserByUsername(username)
+                .then(
+                    function (doc) {
+                        res.json(doc);
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    })
         } else {
-            var users = userModel.findAllUsers();
-            res.json(users);
+            userModel
+                .findAllUsers()
+                .then(
+                    function (doc) {
+                        res.json(doc);
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    })
         }
     }
 

@@ -61,13 +61,22 @@ module.exports = function (db, mongoose) {
     }
 
     function findAllUsers() {
-        console.log("userModel findAllUsers")
-        return users;
+        console.log("userModel findAllUsers");
+        var deferred = q.defer();
+        userModel.find(function (err, doc) {
+            if (err) {
+                // reject promise if error
+                deferred.reject(err);
+            } else {
+                // resolve promise
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function createUser(user) {
         console.log("userModel createUser");
-
         var deferred = q.defer();
         // insert new user with mongoose user model's create()
         userModel.create(user, function (err, doc) {
