@@ -59,17 +59,11 @@ module.exports = function (db, mongoose, uuid) {
     }
 
     function findFormByTitle(title, userId) {
-        var form;
-        for (var i in forms) {
-            if (forms[i].title == title && forms[i].userId == userId) {
-                form = forms[i];
-                console.log(form);
-                return (form);
-            }
-        }
+        return formModel.findOne({userId: userId, title: title});
     }
 
     function updateFormById(formId, form) {
+        form.updated = new Date();
         if (form.title != "")
             return formModel.update({_id: formId}, {$set: form});
     }

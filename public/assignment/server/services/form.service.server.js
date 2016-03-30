@@ -82,7 +82,13 @@ module.exports = function (app, formModel) {
         var formId = req.params.formId;
         var form = req.body;
         formModel
-            .updateFormById(formId, form)
+            .findFormByTitle(form.title, form.userId)
+            .then(
+                function (f) {
+                    if (!f)
+                        return formModel.updateFormById(formId, form);
+                }
+            )
             .then(
                 function (resolve) {
                     return formModel.findFormByUserId(req.session.currentUser._id);
