@@ -89,6 +89,8 @@
                     model.forms = response.data;
                     model.form = null;
                     console.log(JSON.stringify(response.data));
+                }, function (err) {
+                    console.log(err);
                 })
             })
         }
