@@ -21,14 +21,29 @@ module.exports = function (app, userModel) {
     function deleteUserById(req, res) {
         console.log("UserService deleteUserById");
         var userId = req.params.id;
-        var users = userModel.deleteUserById(userId);
+        var users = userModel
+            .deleteUserById(userId)
+            .then(function (doc) {
+                    findAllUsers(req, res);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                })
         res.json(users);
     }
 
     function findUserById(req, res) {
         console.log("UserService findUserById");
         var userId = req.params.id;
-        var user = userModel.findUserById(userId);
+        userModel
+            .findUserById(userId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
     }
 
     function findAllUsers(req, res) {
@@ -87,9 +102,6 @@ module.exports = function (app, userModel) {
                     res.status(400).send(err);
                 }
             );
-        //var users = userModel.createUser(user);
-        //req.session.currentUser = userModel.findUserByUsername(user.username);
-        //res.json(users);
     }
 
     function loggedin(req, res) {
@@ -101,11 +113,24 @@ module.exports = function (app, userModel) {
         console.log("UserService update");
         var user = req.body;
         var userId = req.params.id;
-        var users = userModel.updateUser(userId, user);
-        var user = userModel.findUserById(userId);
-        req.session.currentUser = user;
+        var users = userModel
+            .updateUser(userId, user)
+            .then(function (doc) {
+                    userModel
+                        .findUserById(userId)
+                        .then(
+                            function (doc) {
+                                req.session.currentUser = doc;
+                                res.json(user);
+                            },
+                            function (err) {
+                                res.status(400).send(err);
+                            })
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
         console.log("updated current user: " + JSON.stringify(req.session.currentUser));
-        res.json(user);
     }
 
     function findUserByCredentials(req, res) {

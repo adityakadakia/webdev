@@ -20,12 +20,17 @@ module.exports = function (db, mongoose) {
 
     function findUserById(userId) {
         console.log("userModel findUserById");
-        for (i in users) {
-            if (users[i]._id == userId) {
-                return users[i];
+        var deferred = q.defer();
+        userModel.findById(userId, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                // resolve promise
+                console.log("findUserById doc: ");
+                deferred.resolve(doc);
             }
-        }
-        return null;
+        });
+        return deferred.promise;
     }
 
     function findUserByCredentials(username, password) {
@@ -103,28 +108,34 @@ module.exports = function (db, mongoose) {
 
     function deleteUserById(userId) {
         console.log("userModel deleteUserById");
-        for (i in users) {
-            if (users[i]._id == userId) {
-                users.splice(i, 1);
-                return (users);
+        var deferred = q.defer();
+        userModel.remove({_id: userId}, function (err, doc) {
+            if (err) {
+                // reject promise if error
+                deferred.reject(err);
+            } else {
+                // resolve promise
+                console.log("doc: ");
+                console.log(doc);
+                deferred.resolve(doc);
             }
-        }
-        return users;
+        });
+        return deferred.promise;
     }
 
     function updateUser(userId, user) {
         console.log("userModel updateUser");
-        for (i in users) {
-            if (users[i]._id == userId) {
-                users[i]._id = user._id;
-                users[i].firstName = user.firstName;
-                users[i].lastName = user.lastName;
-                users[i].username = user.username;
-                users[i].password = user.password;
-                users[i].email = user.email;
-                return users;
-            }
-        }
-        return null;
+        var deferred = q.defer();
+        userModel.update({_id: userId},
+            {$set: user},
+            function (err, doc) {
+                if (err) {
+                    deferred.reject(err);
+                } else {
+                    console.log("doc: ");
+                    deferred.resolve(doc);
+                }
+            });
+        return deferred.promise;
     }
 }
