@@ -72,7 +72,7 @@ module.exports = function (db, mongoose) {
                 deferred.resolve(doc);
             }
         });
-
+        return deferred.promise;
         //var u;
         //var usernames = listUsernames();
         //if (usernames.indexOf(user.username) > -1)
