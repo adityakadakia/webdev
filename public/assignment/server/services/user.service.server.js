@@ -24,12 +24,18 @@ module.exports = function (app, userModel) {
         var users = userModel
             .deleteUserById(userId)
             .then(function (doc) {
-                    findAllUsers(req, res);
+                    userModel
+                        .findAllUsers()
+                        .then(function (doc1) {
+                                res.json(doc1);
+                            },
+                            function (err) {
+                                res.status(400).send(err);
+                            })
                 },
                 function (err) {
                     res.status(400).send(err);
-                })
-        res.json(users);
+                });
     }
 
     function findUserById(req, res) {
