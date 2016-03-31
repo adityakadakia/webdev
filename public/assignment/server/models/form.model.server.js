@@ -64,6 +64,7 @@ module.exports = function (db, mongoose) {
 
     function updateFormById(formId, form) {
         form.updated = new Date();
+        delete form._id;
         if (form.title != "")
             return formModel.update({_id: formId}, {$set: form});
     }
