@@ -28,21 +28,15 @@ module.exports = function (db, mongoose, FormModel, uuid) {
     }
 
     function deleteFieldIdFormId(formId, fieldId) {
-        var formIndex;
-        var fieldIndex;
-        for (i in forms) {
-            if (forms[i]._id == formId) {
-                for (j in forms[i].fields) {
-                    if (forms[i].fields[j]._id == fieldId) {
-                        formIndex = i;
-                        fieldIndex = j;
-                    }
+        return formModel
+            .findById(formId)
+            .then(
+                function (form) {
+                    console.log(JSON.stringify(form.fields));
+                    form.fields.id(fieldId).remove();
+                    return form.save();
                 }
-            }
-        }
-        forms[formIndex].fields.splice(fieldIndex, 1);
-        console.log(JSON.stringify(forms));
-        return forms[formIndex].fields;
+            );
     }
 
     function createFieldByFormId(formId, field) {
@@ -53,16 +47,6 @@ module.exports = function (db, mongoose, FormModel, uuid) {
                     return form.save();
                 }
             );
-        //for (i in forms) {
-        //    if (forms[i]._id == formId) {
-        //        field._id = uuid.v4();
-        //        if (!forms[i].fields)
-        //            forms[i].fields = [];
-        //        forms[i].fields.push(field);
-        //        return forms[i].fields
-        //    }
-        //}
-        //return null;
     }
 
     function updateFieldIdFormId(formId, fieldId, field) {

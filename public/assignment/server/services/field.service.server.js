@@ -28,8 +28,14 @@ module.exports = function (app, fieldModel) {
     function deleteFieldIdFormId(req, res) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
-        var fields = fieldModel.deleteFieldIdFormId(formId, fieldId);
-        res.json(fields);
+        fieldModel
+            .deleteFieldIdFormId(formId, fieldId)
+            .then(function (form) {
+                res.json(form.fields);
+            }, function (err) {
+                console.log(err);
+                res.status(400).send(err);
+            });
     }
 
     function createFieldByFormId(req, res) {
