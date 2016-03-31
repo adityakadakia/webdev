@@ -54,8 +54,13 @@ module.exports = function (app, fieldModel) {
         var formId = req.params.formId;
         var fieldId = req.params.fieldId;
         var field = req.body;
-        var fields = fieldModel.updateFieldIdFormId(formId, fieldId, field);
-        res.json(fields);
+        var fields = fieldModel
+            .updateFieldIdFormId(formId, fieldId, field)
+            .then(function (form) {
+                res.json(form.fields);
+            }, function (err) {
+                res.status(400).send(err);
+            });
     }
 
     function sortFields(req, res) {

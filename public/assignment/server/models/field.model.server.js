@@ -50,19 +50,18 @@ module.exports = function (db, mongoose, FormModel, uuid) {
     }
 
     function updateFieldIdFormId(formId, fieldId, field) {
-        for (i in forms) {
-            if (forms[i]._id == formId) {
-                for (j in forms[i].fields) {
-                    if (forms[i].fields[j]._id == fieldId) {
-                        console.log(JSON.stringify(field));
-                        forms[i].fields[j] = field;
-                        console.log(JSON.stringify(forms));
-                        return forms[i].fields;
-                    }
+        return formModel
+            .findById(formId)
+            .then(
+                function (form) {
+                    form.updated = new Date();
+                    var f = form.fields.id(field._id);
+                    f.label = field.label;
+                    f.placeholder = field.placeholder;
+                    f.options = field.options;
+                    return form.save();
                 }
-            }
-        }
-        return null;
+            );
     }
 
     function sortFields(formId, start, end) {
