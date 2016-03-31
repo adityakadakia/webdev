@@ -23,8 +23,12 @@ module.exports = function (app, formModel) {
 
     function findFormById(req, res) {
         var formId = req.params.formId;
-        var form = formModel.findFormById(formId);
-        res.json(form);
+        var form = formModel.findFormById(formId)
+            .then(function (form) {
+                res.json(form);
+            }, function (err) {
+                res.status(400).send(err);
+            });
     }
 
     function findFormByTitle(req, res) {

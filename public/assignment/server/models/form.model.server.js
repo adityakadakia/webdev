@@ -12,10 +12,15 @@ module.exports = function (db, mongoose) {
         findFormById: findFormById,
         updateFormById: updateFormById,
         deleteFormById: deleteFormById,
-        findFormByTitle: findFormByTitle
+        findFormByTitle: findFormByTitle,
+        getFormModel: getFormModel
     };
 
     return api;
+
+    function getFormModel() {
+        return formModel;
+    }
 
     function createFormByUserId(form, userId) {
         form.userId = userId;
@@ -50,12 +55,7 @@ module.exports = function (db, mongoose) {
     }
 
     function findFormById(formId) {
-        for (i in forms) {
-            if (formId == forms[i]._id) {
-                return forms[i];
-            }
-        }
-        return null;
+        return formModel.findOne({_id: formId});
     }
 
     function findFormByTitle(title, userId) {
