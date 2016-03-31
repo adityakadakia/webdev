@@ -18,7 +18,7 @@
             {"label": "New Text Field", "type": "TEXTAREA", "placeholder": "New Field"},
             {"label": "New Date Field", "type": "DATE"},
             {
-                "_id": null, "label": "New Dropdown", "type": "OPTIONS", "options": [
+                "label": "New Dropdown", "type": "OPTIONS", "options": [
                 {"label": "Option 1", "value": "OPTION_1"},
                 {"label": "Option 2", "value": "OPTION_2"},
                 {"label": "Option 3", "value": "OPTION_3"}
@@ -131,7 +131,7 @@
         }
 
         function updateField(field) {
-            if (model.options) {
+            if (model.options.length > 0) {
                 var jsonArray = getJSON(model.options);
                 field.options = jsonArray;
 
