@@ -5,8 +5,8 @@
 module.exports = function (app, db, mongoose, uuid) {
 
     // pass db and mongoose reference to model
-    var fieldModel = require("./models/field.model.server.js")(db, mongoose, uuid);
     var formModel = require("./models/form.model.server.js")(db, mongoose);
+    var fieldModel = require("./models/field.model.server.js")(db, mongoose, formModel, uuid);
     var userModel = require("./models/user.model.server.js")(db, mongoose);
 
     var formService = require("./services/field.service.server.js")(app, fieldModel);
