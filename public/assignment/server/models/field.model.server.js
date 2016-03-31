@@ -65,13 +65,14 @@ module.exports = function (db, mongoose, FormModel, uuid) {
     }
 
     function sortFields(formId, start, end) {
-        var fields = findAllFieldsByFormId(formId);
-        fields.splice(end, 0, fields.splice(start, 1)[0]);
-        var formIndex = findFormIndexById(formId);
-        console.log(formIndex);
-        forms[formIndex].fields = fields;
-        console.log(fields);
-        return fields;
+        return formModel
+            .findById(formId)
+            .then(
+                function (form) {
+                    form.fields.splice(end, 0, form.fields.splice(start, 1)[0]);
+                    form.save();
+                }
+            );
     }
 
     function findFormIndexById(formId) {
