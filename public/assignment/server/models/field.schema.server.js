@@ -11,7 +11,7 @@ module.exports = function (mongoose) {
         "placeholder": String,
         options: [{
             label: String,
-            Value: String
+            value: String
         }]
     }, {collection: 'assignment.field'});
     return fieldSchema;
