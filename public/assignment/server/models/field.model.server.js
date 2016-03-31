@@ -1,6 +1,8 @@
 var forms = require("./form.mock.json");
 
-module.exports = function (db, mongoose, uuid) {
+module.exports = function (db, mongoose, FormModel, uuid) {
+
+    formModel = FormModel.getFormModel();
 
     var api = {
         findAllFieldsByFormId: findAllFieldsByFormId,
@@ -15,28 +17,14 @@ module.exports = function (db, mongoose, uuid) {
     return api;
 
     function findAllFieldsByFormId(formId) {
-        var fields;
-        for (i in forms) {
-            if (forms[i]._id == formId) {
-                fields = forms[i].fields;
-                return fields;
-            }
-        }
-        return null;
+        return formModel.findById(formId).select("fields");
     }
 
     function findFieldIdFormId(formId, fieldId) {
-        var field;
-        for (i in forms) {
-            if (forms[i]._id == formId) {
-                for (j in forms[i].fields) {
-                    if (forms[i].fields[j]._id == fieldId) {
-                        return forms[i].fields[j];
-                    }
-                }
-            }
-        }
-        return null;
+        findAllFieldsByFormId(formId)
+            .then(function (form) {
+                return form.fields.id(fieldId);
+            });
     }
 
     function deleteFieldIdFormId(formId, fieldId) {
@@ -58,16 +46,23 @@ module.exports = function (db, mongoose, uuid) {
     }
 
     function createFieldByFormId(formId, field) {
-        for (i in forms) {
-            if (forms[i]._id == formId) {
-                field._id = uuid.v4();
-                if (!forms[i].fields)
-                    forms[i].fields = [];
-                forms[i].fields.push(field);
-                return forms[i].fields
-            }
-        }
-        return null;
+        return formModel.findById(formId)
+            .then(
+                function (form) {
+                    form.fields.push(field);
+                    return form.save();
+                }
+            );
+        //for (i in forms) {
+        //    if (forms[i]._id == formId) {
+        //        field._id = uuid.v4();
+        //        if (!forms[i].fields)
+        //            forms[i].fields = [];
+        //        forms[i].fields.push(field);
+        //        return forms[i].fields
+        //    }
+        //}
+        //return null;
     }
 
     function updateFieldIdFormId(formId, fieldId, field) {

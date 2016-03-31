@@ -8,8 +8,14 @@ module.exports = function (app, fieldModel) {
 
     function findAllFieldsByFormId(req, res) {
         var formId = req.params.formId;
-        var fields = fieldModel.findAllFieldsByFormId(formId);
-        res.json(fields);
+        var fields = fieldModel
+            .findAllFieldsByFormId(formId)
+            .then(function (form) {
+                    res.json(form.fields);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
     }
 
     function findFieldIdFormId(req, res) {
@@ -29,8 +35,13 @@ module.exports = function (app, fieldModel) {
     function createFieldByFormId(req, res) {
         var formId = req.params.formId;
         var field = req.body;
-        var fields = fieldModel.createFieldByFormId(formId, field);
-        res.json(fields);
+        fieldModel
+            .createFieldByFormId(formId, field)
+            .then(function (form) {
+                res.json(form.fields);
+            }, function (err) {
+                res.status(400).send(err);
+            });
     }
 
     function updateFieldIdFormId(req, res) {
