@@ -38,6 +38,10 @@
                                     </label>
                                 </div>
                             </div>
+                            <input type="email" class="form-control" placeholder="{{field.placeholder}}"
+                                   ng-switch-when="EMAIL">
+                            <input type="password" class="form-control" placeholder="{{field.placeholder}}"
+                                   ng-switch-when="PASSWORD">
                             <input type="text" class="form-control" placeholder="{{field.placeholder}}"
                                    ng-switch-default>
                         </div>
@@ -132,6 +136,18 @@
                                   rows="{{model.rows}}"
                                   ng-list="&#10;"
                                   ng-trim="false"></textarea>
+                    </div>
+                    <div class="form-group" ng-switch-when="EMAIL">
+                        <label for="placeholder">Placeholder:</label>
+                        <input type="text" class="form-control" id="placeholder"
+                               value="{{model.editField.placeholder}}"
+                               ng-model="model.editField.placeholder">
+                    </div>
+                    <div class="form-group" ng-switch-when="PASSWORD">
+                        <label for="placeholder">Placeholder:</label>
+                        <input type="text" class="form-control" id="placeholder"
+                               value="{{model.editField.placeholder}}"
+                               ng-model="model.editField.placeholder">
                     </div>
                 </form>
             </div>

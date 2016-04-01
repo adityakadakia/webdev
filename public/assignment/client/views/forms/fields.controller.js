@@ -37,11 +37,13 @@
                 {"label": "Option Y", "value": "OPTION_Y"},
                 {"label": "Option Z", "value": "OPTION_Z"}
             ]
-            }
+            },
+            {"label": "New Email Field", "type": "EMAIL", "placeholder": "New Field"},
+            {"label": "New Password Field", "type": "PASSWORD", "placeholder": "New Field"}
         ];
 
         function init() {
-            model.fieldTypes = ["Single Line Text Field", "Multi Line Text Field", "Date Field", "Dropdown Field", "Checkboxes Field", "Radio Buttons Field"];
+            model.fieldTypes = ["Single Line Text Field", "Multi Line Text Field", "Date Field", "Dropdown Field", "Checkboxes Field", "Radio Buttons Field", "Email Field", "Password Field"];
             model.fieldType = -1;
             model.formId = $routeParams.formId;
 
@@ -131,10 +133,17 @@
         }
 
         function updateField(field) {
+            //field cannot have zero options
             if (model.options.length > 0) {
                 var jsonArray = getJSON(model.options);
                 field.options = jsonArray;
 
+            }
+            //field must have a label
+            if (!model.editField.label) {
+                reset();
+                alert("label cannot be empty");
+                return;
             }
 
             FieldService
