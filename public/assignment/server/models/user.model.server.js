@@ -58,6 +58,10 @@ module.exports = function (db, mongoose) {
 
     function updateUser(userId, user) {
         console.log("userModel updateUser");
+        var phones = user.phones.toString().split(",");
+        user.phones = phones;
+        var emails = user.emails.toString().split(",");
+        user.emails = emails;
         return userModel.update({_id: userId}, {$set: user});
     }
 }
