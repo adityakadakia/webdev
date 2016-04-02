@@ -136,31 +136,39 @@
             }
         }
 
-        function updateField(field) {
+        function updateConstraints(field) {
             //field cannot have zero options
+            var flag = true;
             if (model.options.length == 0 &&
                 (field.type == 'OPTIONS' || field.type == 'RADIOS' || field.type == 'CHECKBOXES')) {
                 model.emptyOptions = true;
+                flag = flag && false;
             }
             if (model.options.length > 0) {
                 var jsonArray = getJSON(model.options);
                 field.options = jsonArray;
-
+                flag = flag && true;
             }
             //field must have a label
             if (!model.editField.label) {
                 reset();
+                console.log("Label empty");
                 model.emptyLabel = true;
-                return;
+                flag = flag && false;
             }
+            return flag;
+        }
 
-            FieldService
-                .updateFieldIdFormId(model.formId, field._id, field)
-                .then(function (response) {
-                    if (response.data) {
-                        model.fields = response.data;
-                    }
-                });
+        function updateField(field) {
+            var flag = updateConstraints(field);
+            if (flag)
+                FieldService
+                    .updateFieldIdFormId(model.formId, field._id, field)
+                    .then(function (response) {
+                        if (response.data) {
+                            model.fields = response.data;
+                        }
+                    });
         }
 
         function getJSON(stringArray) {
