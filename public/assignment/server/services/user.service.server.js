@@ -95,10 +95,20 @@ module.exports = function (app, userModel) {
     function register(req, res) {
         console.log("UserService register");
         var user = req.body;
-        user = userModel.createUser(user)
-            // handle model promise
+        console.log("Register: " + JSON.stringify(user));
+        userModel.findUserByUsername(user.username)
             .then(
-                // login user if promise resolved
+                function (u) {
+                    if (!u)
+                        return userModel.createUser(user);
+                    else
+                        res.status(400).send("Duplicate User");
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
                 function (doc) {
                     req.session.currentUser = doc;
                     res.json(doc);
