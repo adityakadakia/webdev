@@ -133,7 +133,7 @@ module.exports = function (app, userModel) {
             .updateUser(userId, user)
             .then(
                 function (doc) {
-                    return userModel.findUserById(userId);
+                    return userModel.findUserById(req.session.currentUser._id);
                 },
                 function (err) {
                     res.status(400).send(err);
@@ -141,7 +141,7 @@ module.exports = function (app, userModel) {
             .then(
                 function (doc) {
                     req.session.currentUser = doc;
-                    res.json(user);
+                    res.json(doc);
                 },
                 function (err) {
                     res.status(400).send(err);
