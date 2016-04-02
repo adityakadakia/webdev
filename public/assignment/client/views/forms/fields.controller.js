@@ -12,6 +12,8 @@
         model.editFields = editFields;
         model.updateField = updateField;
         model.reset = reset;
+        model.resetEmptyLabel = resetEmptyLabel;
+        model.resetEmptyOptions = resetEmptyOptions;
 
         var fieldTypesDefault = [
             {"label": "New Text Field", "type": "TEXT", "placeholder": "New Field"},
@@ -46,6 +48,8 @@
             model.fieldTypes = ["Single Line Text Field", "Multi Line Text Field", "Date Field", "Dropdown Field", "Checkboxes Field", "Radio Buttons Field", "Email Field", "Password Field"];
             model.fieldType = -1;
             model.formId = $routeParams.formId;
+            model.emptyLabel = false;
+            model.emptyOptions = false;
 
             FormService
                 .findFormById(model.formId)
@@ -62,7 +66,7 @@
                     var fields = response.data;
                     if (fields) {
                         model.fields = fields;
-                        console.log(model.fields);
+                        console.log(JSON.stringify(model.fields));
                     }
                 });
         }
@@ -134,6 +138,10 @@
 
         function updateField(field) {
             //field cannot have zero options
+            if (model.options.length == 0) {
+                model.emptyOptions = true;
+
+            }
             if (model.options.length > 0) {
                 var jsonArray = getJSON(model.options);
                 field.options = jsonArray;
@@ -142,7 +150,7 @@
             //field must have a label
             if (!model.editField.label) {
                 reset();
-                alert("label cannot be empty");
+                model.emptyLabel = true;
                 return;
             }
 
@@ -171,6 +179,14 @@
             console.log("reset editField");
             model.editField = null;
             model.editFieldType = null;
+        }
+
+        function resetEmptyLabel() {
+            model.emptyLabel = false;
+        }
+
+        function resetEmptyOptions() {
+            model.emptyOptions = false;
         }
     }
 })();
