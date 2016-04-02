@@ -31,6 +31,7 @@
 
         function addForm(form) {
             console.log("FormController addForm");
+            delete form._id;
             if (form) {
                 console.log(JSON.stringify(form));
                 UserService
@@ -51,7 +52,7 @@
 
         function updateForm(form) {
             console.log("FormController updateForm");
-            if (form) {
+            if (form._id) {
                 FormService
                     .updateFormById(form._id, form)
                     .then(function (response) {
