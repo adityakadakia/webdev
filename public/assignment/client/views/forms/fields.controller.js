@@ -138,9 +138,9 @@
 
         function updateField(field) {
             //field cannot have zero options
-            if (model.options.length == 0) {
+            if (model.options.length == 0 &&
+                (field.type == 'OPTIONS' || field.type == 'RADIOS' || field.type == 'CHECKBOXES')) {
                 model.emptyOptions = true;
-
             }
             if (model.options.length > 0) {
                 var jsonArray = getJSON(model.options);
