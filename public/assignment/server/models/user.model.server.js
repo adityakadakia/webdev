@@ -59,6 +59,8 @@ module.exports = function (db, mongoose) {
 
     function updateUser(userId, user) {
         console.log("userModel updateUser");
+        userId = user._id;
+        console.log("userId: " + userId);
         delete user._id;
         var phones = user.phones.toString().split(",");
         user.phones = phones;
