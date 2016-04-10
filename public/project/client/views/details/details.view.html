@@ -16,8 +16,12 @@
                 </div>
                 <div class="caption-full">
                     <h4 class="pull-right">{{model.item.venue.categories[0].name}}</h4>
-                    <h4><a href="#">{{model.item.venue.name}}</a>
-                        <button type="button" class="btn btn-default" aria-label="Left Align">
+                    <h4><a href="">{{model.item.venue.name}}</a>
+                        <button type="button"
+                                class="btn btn-default"
+                                ng-class="{'active': model.isLiked == true}"
+                                aria-label="Left Align"
+                                ng-click="model.toggleLike()">
                             <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                         </button>
                     </h4>

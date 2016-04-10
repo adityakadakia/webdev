@@ -17,9 +17,19 @@
             updateUser: updateUser,
             logOut: logOut,
             logIn: logIn,
-            userIdtoUser: userIdtoUser
+            userIdtoUser: userIdtoUser,
+            likePlace: likePlace,
+            unlikePlace: unlikePlace
         };
         return api;
+
+        function likePlace(placeId) {
+            return $http.post("/api/project/user/like/" + placeId);
+        }
+
+        function unlikePlace(placeId) {
+            return $http.delete("/api/project/user/like/" + placeId);
+        }
 
         function findUserByUsername(username) {
             return $http.get("/api/project/user?username=" + username);

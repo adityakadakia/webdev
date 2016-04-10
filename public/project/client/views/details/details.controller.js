@@ -16,6 +16,44 @@
         model.selectReview = selectReview;
         model.updateReview = updateReview;
         model.findFullUserNamebyUserId = findFullUserNamebyUserId;
+        model.toggleLike = toggleLike;
+        model.isLiked = false;
+
+        checkLiked();
+        findAllReviewsByPlaceId(id);
+
+        function checkLiked() {
+            UserService
+                .getCurrentUser()
+                .then(function (u) {
+                    var user = u.data;
+                    console.log("user: " + JSON.stringify(user));
+                    if (user.likes.indexOf(id) > -1)
+                        model.isLiked = true;
+                });
+        }
+
+        function toggleLike() {
+            if (model.isLiked == false) {
+                UserService
+                    .likePlace(id)
+                    .then(function (res) {
+                        if (res.status == 200)
+                            model.isLiked = true;
+                    }, function (err) {
+                        console.log(err);
+                    });
+            } else {
+                UserService
+                    .unlikePlace(id)
+                    .then(function (res) {
+                        if (res.status == 200)
+                            model.isLiked = false;
+                    }, function (err) {
+                        console.log(err);
+                    });
+            }
+        }
 
         SearchService
             .findPlaceDetailsByPlaceId(id)
@@ -27,8 +65,6 @@
             }, function (err) {
                 console.log(err);
             });
-
-        findAllReviewsByPlaceId(id);
 
         function findFullUserNamebyUserId(userId) {
             var fullName;

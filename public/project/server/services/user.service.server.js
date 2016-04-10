@@ -12,8 +12,62 @@ module.exports = function (app, userModel) {
     app.get("/api/project/user?username=alice&password=wonderland", findUserByCredentials);
     app.delete("/api/project/user/:id", deleteUserById);
     app.post("/api/project/user/logout", logOut);
+    app.post("/api/project/user/like/:placeId", likePlace);
+    app.delete("/api/project/user/like/:placeId", unlikePlace);
 
     var userService = this;
+
+    function unlikePlace(req, res) {
+        var placeId = req.params.placeId;
+        if (req.session.currentUser) {
+            var userId = req.session.currentUser._id;
+            userModel
+                .findUserById(userId)
+                .then(function (user) {
+                    if (user.likes.indexOf(placeId) > -1) {
+                        console.log("UserService unlikePlace");
+                        user.likes.splice(user.likes.indexOf(placeId), 1);
+                        return userModel.updateUser(userId, user);
+                    }
+                    else
+                        res.json(req.session.currentUser);
+                }, function (err) {
+                    res.status(400).send(err);
+                })
+                .then(function (response) {
+                    return userModel.findUserById(userId);
+                })
+                .then(function (response) {
+                    res.json(response);
+                });
+        }
+    }
+
+    function likePlace(req, res) {
+        var placeId = req.params.placeId;
+        if (req.session.currentUser) {
+            var userId = req.session.currentUser._id;
+            userModel
+                .findUserById(userId)
+                .then(function (user) {
+                    if (user.likes.indexOf(placeId) == -1) {
+                        console.log("UserService likePlace");
+                        user.likes.push(placeId);
+                        return userModel.updateUser(userId, user);
+                    }
+                    else
+                        res.json(req.session.currentUser);
+                }, function (err) {
+                    res.status(400).send(err);
+                })
+                .then(function (response) {
+                    return userModel.findUserById(userId);
+                })
+                .then(function (response) {
+                    res.json(response);
+                });
+        }
+    }
 
     function logOut(req, res) {
         console.log("UserService logOut");
