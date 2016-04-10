@@ -27,7 +27,6 @@
         console.log("placeId: " + model.item.venue.id);
         findAllReviewsByPlaceId(model.item.venue.id);
         console.log("reviews: " + JSON.stringify(model.reviews));
-        console.log("findFullUserNamebyUserId 123: " + findFullUserNamebyUserId(123));
 
         function findFullUserNamebyUserId(userId) {
             var fullName;

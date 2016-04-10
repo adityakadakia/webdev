@@ -1,6 +1,9 @@
 var reviews = require("./review.mock.json");
+var q = require("q");
 
-module.exports = function (uuid) {
+module.exports = function (db, mongoose, uuid) {
+    var reviewSchema = require("./review.schema.server.js")(mongoose);
+    var reviewModel = mongoose.model('Review', reviewSchema);
 
     var api = {
         findReviewByPlaceId: findReviewByPlaceId,
@@ -13,13 +16,8 @@ module.exports = function (uuid) {
     return api;
 
     function findReviewByPlaceId(placeId) {
-        var r = [];
-        for (var i in reviews) {
-            if (reviews[i].placeId == placeId) {
-                r.push(reviews[i]);
-            }
-        }
-        return r;
+        console.log("reviewModel findReviewByPlaceId");
+        return reviewModel.find({placeId: placeId});
     }
 
     function findAllReviews() {
@@ -28,12 +26,11 @@ module.exports = function (uuid) {
 
     function addReview(review, userId, placeId) {
         var r = review;
-        r._id = uuid.v4();
         r.userId = userId;
         r.placeId = placeId;
         r.timestamp = new Date();
-        reviews.push(review);
-        return reviews;
+        console.log("reviewModel addReview: " + JSON.stringify(review));
+        return reviewModel.create(r);
     }
 
     function deleteReview(reviewId) {
