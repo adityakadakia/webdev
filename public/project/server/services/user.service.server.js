@@ -24,16 +24,35 @@ module.exports = function (app, userModel) {
     function deleteUserById(req, res) {
         console.log("UserService deleteUserById");
         var userId = req.params.id;
-        var users = userModel.deleteUserById(userId);
-        res.json(users);
+        var users = userModel
+            .deleteUserById(userId)
+            .then(function (doc) {
+                    userModel
+                        .findAllUsers()
+                        .then(function (doc1) {
+                                res.json(doc1);
+                            },
+                            function (err) {
+                                res.status(400).send(err);
+                            })
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
     }
 
     function findUserById(req, res) {
         console.log("UserService findUserById");
         var userId = req.params.id;
-        var user = userModel.findUserById(userId);
-        console.log("user found: " + JSON.stringify(user));
-        res.json(user);
+        userModel
+            .findUserById(userId)
+            .then(
+                function (doc) {
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
     }
 
     function findAllUsers(req, res) {
@@ -43,25 +62,65 @@ module.exports = function (app, userModel) {
         console.log("username: " + username);
         console.log("password: " + password);
         if (username != null && password != null) {
-            var user = userModel.findUserByCredentials(username, password);
-            if (user)
-                req.session.currentUser = user;
-            res.json(user);
+            userModel
+                .findUserByCredentials(username, password)
+                .then(
+                    function (doc) {
+                        req.session.currentUser = doc;
+                        res.json(doc);
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    })
         } else if (username != null) {
-            var user = userModel.findUserByUsername(username);
-            res.json(user);
+            userModel
+                .findUserByUsername(username)
+                .then(
+                    function (doc) {
+                        res.json(doc);
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    })
         } else {
-            var users = userModel.findAllUsers();
-            res.json(users);
+            userModel
+                .findAllUsers()
+                .then(
+                    function (doc) {
+                        res.json(doc);
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    })
         }
     }
 
     function register(req, res) {
         console.log("UserService register");
         var user = req.body;
-        var users = userModel.createUser(user);
-        req.session.currentUser = userModel.findUserByUsername(user.username);
-        res.json(users);
+        console.log("Register: " + JSON.stringify(user));
+        userModel.findUserByUsername(user.username)
+            .then(
+                function (u) {
+                    if (!u)
+                        return userModel.createUser(user);
+                    else
+                        res.status(400).send("Duplicate User");
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (doc) {
+                    req.session.currentUser = doc;
+                    res.json(doc);
+                },
+                // send error if promise rejected
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 
     function loggedin(req, res) {
@@ -73,11 +132,24 @@ module.exports = function (app, userModel) {
         console.log("UserService update");
         var user = req.body;
         var userId = req.params.id;
-        var users = userModel.updateUser(userId, user);
-        var user = userModel.findUserById(userId);
-        req.session.currentUser = user;
+        var users = userModel
+            .updateUser(userId, user)
+            .then(
+                function (doc) {
+                    return userModel.findUserById(req.session.currentUser._id);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                })
+            .then(
+                function (doc) {
+                    req.session.currentUser = doc;
+                    res.json(doc);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                });
         console.log("updated current user: " + JSON.stringify(req.session.currentUser));
-        res.json(user);
     }
 
     function findUserByCredentials(req, res) {
