@@ -32,7 +32,6 @@ module.exports = function (app, reviewModel) {
         reviewModel
             .addReview(review, userId, placeId)
             .then(function (res) {
-                console.log(placeId);
                 return reviewModel.findReviewByPlaceId(placeId);
             }, function (err) {
                 res.status(401).send(err);
@@ -47,8 +46,13 @@ module.exports = function (app, reviewModel) {
 
     function deleteReview(req, res) {
         var reviewId = req.params.id;
-        var reviews = reviewModel.deleteReview(reviewId);
-        res.json(reviews);
+        reviewModel
+            .deleteReview(reviewId)
+            .then(function (response) {
+                res.json(response);
+            }, function (err) {
+                res.status(400).send(err);
+            });
     }
 
     function updateReview(req, res) {

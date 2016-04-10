@@ -92,6 +92,9 @@
             ReviewService
                 .deleteReview(reviewId)
                 .then(function (response) {
+                    return ReviewService.findAllReviewsByPlaceId(id);
+                })
+                .then(function (response) {
                     if (response.data) {
                         model.reviews = response.data;
                         model.review = {};
