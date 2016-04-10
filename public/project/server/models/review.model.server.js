@@ -34,25 +34,14 @@ module.exports = function (db, mongoose, uuid) {
     }
 
     function deleteReview(reviewId) {
-        //for (i in reviews) {
-        //    if (reviews[i]._id == reviewId) {
-        //        reviews.splice(i, 1);
-        //        return (reviews);
-        //    }
-        //}
-        //return reviews;
         console.log("reviewModel deleteReview");
         return reviewModel.remove({_id: reviewId});
     }
 
     function updateReview(reviewId, review) {
         console.log("reviewModel updateReview");
-        for (var i in reviews) {
-            if (reviews[i]._id == reviewId) {
-                reviews[i].description = review.description
-                return reviews;
-            }
-        }
-        return null;
+        delete review._id;
+        review.timestamp = new Date();
+        return reviewModel.update({_id: reviewId}, {$set: review});
     }
 }

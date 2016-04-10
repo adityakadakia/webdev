@@ -58,7 +58,18 @@ module.exports = function (app, reviewModel) {
     function updateReview(req, res) {
         var reviewId = req.params.id;
         var review = req.body;
-        var reviews = reviewModel.updateReview(reviewId, review);
-        res.json(reviews);
+        var placeId = review.placeId;
+        reviewModel
+            .updateReview(reviewId, review)
+            .then(function (response) {
+                return reviewModel.findReviewByPlaceId(placeId);
+            }, function (err) {
+                res.status(400).send(err);
+            })
+            .then(function (response) {
+                res.json(response);
+            }, function (err) {
+                res.status(401).send(err);
+            });
     }
 }
