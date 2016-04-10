@@ -27,9 +27,13 @@
                         <br>{{model.item.venue.location.formattedAddress[1]}}
                         <br>{{model.item.venue.location.formattedAddress[2]}}
                         <br>{{model.item.venue.location.formattedAddress[3]}}</p>
+                    <p>{{model.item.venue.contact.formattedPhone}}
+                        <br><a href={{model.item.venue.url}}>{{model.item.venue.url}}
+                        </a>
+                    </p>
                 </div>
                 <div class="ratings">
-                    <p class="pull-right">3 reviews</p>
+                    <p class="pull-right">{{model.reviews.length}} reviews</p>
                     <p>
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star"></span>
