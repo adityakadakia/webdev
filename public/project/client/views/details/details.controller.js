@@ -10,7 +10,6 @@
     function DetailsController($routeParams, $rootScope, SearchService, ReviewService, UserService) {
         var model = this;
         var id = $routeParams.id;
-        var results = $rootScope.results;
         model.selected = -1;
         model.deleteReview = deleteReview;
         model.addReview = addReview;
@@ -18,15 +17,18 @@
         model.updateReview = updateReview;
         model.findFullUserNamebyUserId = findFullUserNamebyUserId;
 
-        for (var i in results) {
-            if (results[i].venue.id == id)
-                model.item = results[i];
-        }
+        SearchService
+            .findPlaceDetailsByPlaceId(id)
+            .then(function (res) {
+                var venueObject = res.data;
+                model.item = venueObject.response;
+                console.log("placeId: " + model.item.venue.id);
+                initMap();
+            }, function (err) {
+                console.log(err);
+            });
 
-        initMap();
-        console.log("placeId: " + model.item.venue.id);
-        findAllReviewsByPlaceId(model.item.venue.id);
-        console.log("reviews: " + JSON.stringify(model.reviews));
+        findAllReviewsByPlaceId(id);
 
         function findFullUserNamebyUserId(userId) {
             var fullName;
@@ -47,6 +49,7 @@
                 .findAllReviewsByPlaceId(placeId)
                 .then(function (response) {
                     model.reviews = response.data;
+                    console.log("reviews: " + JSON.stringify(model.reviews));
                 });
         }
 
@@ -123,3 +126,9 @@
         }
     }
 })();
+
+
+//for (var i in results) {
+//    if (results[i].venue.id == id)
+//        model.item = results[i];
+//}
