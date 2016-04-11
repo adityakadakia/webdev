@@ -1,7 +1,7 @@
 var reviews = require("./review.mock.json");
 var q = require("q");
 
-module.exports = function (db, mongoose, uuid) {
+module.exports = function (db, mongoose) {
     var reviewSchema = require("./review.schema.server.js")(mongoose);
     var reviewModel = mongoose.model('Review', reviewSchema);
 
