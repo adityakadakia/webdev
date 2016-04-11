@@ -38,6 +38,7 @@ module.exports = function (app, userModel) {
                     return userModel.findUserById(userId);
                 })
                 .then(function (response) {
+                    req.session.currentUser = response;
                     res.json(response);
                 });
         }
@@ -64,6 +65,7 @@ module.exports = function (app, userModel) {
                     return userModel.findUserById(userId);
                 })
                 .then(function (response) {
+                    req.session.currentUser = response;
                     res.json(response);
                 });
         }

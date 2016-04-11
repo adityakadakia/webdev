@@ -27,9 +27,11 @@
                 .getCurrentUser()
                 .then(function (u) {
                     var user = u.data;
-                    console.log("user: " + JSON.stringify(user));
-                    if (user.likes.indexOf(id) > -1)
-                        model.isLiked = true;
+                    if (user) {
+                        console.log("checkLiked user: " + JSON.stringify(user));
+                        if (user.likes.indexOf(id) > -1)
+                            model.isLiked = true;
+                    }
                 });
         }
 
