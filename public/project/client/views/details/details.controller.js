@@ -7,7 +7,7 @@
         .module("Voyager")
         .controller("DetailsController", DetailsController);
 
-    function DetailsController($routeParams, $rootScope, SearchService, ReviewService, UserService, VenueService) {
+    function DetailsController($routeParams, $rootScope, SearchService, ReviewService, UserService, VenueService, WikipediaService) {
         var model = this;
         var id = $routeParams.id;
         model.selected = -1;
@@ -21,6 +21,26 @@
 
         checkLiked();
         findAllReviewsByPlaceId(id);
+
+        SearchService
+            .findPlaceDetailsByPlaceId(id)
+            .then(function (res) {
+                var venueObject = res.data;
+                model.item = venueObject.response;
+                console.log("placeId: " + model.item.venue.id);
+                initMap();
+                findPlaceDescription();
+            }, function (err) {
+                console.log(err);
+            });
+
+        function findPlaceDescription() {
+            WikipediaService
+                .findPlaceDescription(model.item.venue.name)
+                .then(function (response) {
+                    model.wiki = response.data.extract;
+                });
+        }
 
         function checkLiked() {
             UserService
@@ -57,17 +77,6 @@
             }
             addVenue();
         }
-
-        SearchService
-            .findPlaceDetailsByPlaceId(id)
-            .then(function (res) {
-                var venueObject = res.data;
-                model.item = venueObject.response;
-                console.log("placeId: " + model.item.venue.id);
-                initMap();
-            }, function (err) {
-                console.log(err);
-            });
 
         function findFullUserNamebyUserId(userId) {
             var fullName;
