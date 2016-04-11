@@ -26,8 +26,8 @@
             return $http.get("/api/project/venue/" + foursquareId);
         }
 
-        function addVenue(foursquareId, venue) {
-            return $http.post("/api/project/venue/" + foursquareId, venue);
+        function addVenue(venue) {
+            return $http.post("/api/project/venue/", venue);
         }
     }
 })();

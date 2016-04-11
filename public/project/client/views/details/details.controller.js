@@ -7,7 +7,7 @@
         .module("Voyager")
         .controller("DetailsController", DetailsController);
 
-    function DetailsController($routeParams, $rootScope, SearchService, ReviewService, UserService) {
+    function DetailsController($routeParams, $rootScope, SearchService, ReviewService, UserService, VenueService) {
         var model = this;
         var id = $routeParams.id;
         model.selected = -1;
@@ -53,6 +53,7 @@
                         console.log(err);
                     });
             }
+            addVenue();
         }
 
         SearchService
@@ -114,6 +115,7 @@
                     model.reviews = response.data;
                     console.log(model.reviews);
                 });
+            addVenue();
         }
 
         function updateReview(review) {
@@ -159,6 +161,16 @@
 
             bounds.extend(marker.getPosition());
             //map.fitBounds(bounds);
+        }
+
+        function addVenue() {
+            var v = {};
+            v.foursquareId = model.item.venue.id;
+            v.name = model.item.venue.name;
+            v.category = model.item.venue.categories[0].name;
+            v.prefix = model.item.venue.bestPhoto.prefix;
+            v.suffix = model.item.venue.bestPhoto.suffix;
+            VenueService.addVenue(v);
         }
     }
 })();
