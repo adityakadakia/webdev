@@ -4,72 +4,18 @@
     </div>
     <div class="col-lg-10 col-md-10 col-sm-9">
         <div class="col-md-12 col-lg-12">
-            <h1 class="page-header">Likes</h1>
+            <h1 class="page-header">Likes of {{model.userProfile.firstName}} {{model.userProfile.lastName}}</h1>
         </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-            </a>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="thumbnail" href="#">
-                <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+        <div class="col-lg-3 col-md-4 col-xs-6 thumb" ng-repeat="venue in model.venues track by venue.foursquareId">
+            <a class="thumbnail btn" href="#/details/{{venue.foursquareId}}">
+                <img class="img-responsive" ng-src="{{venue.prefix}}400x300{{venue.suffix}}" alt="">
+                {{venue.name}}
             </a>
         </div>
         <hr>
         <footer>
-            <div class="col-lg-9">
-                <p>Voyager</p>
+            <div class="col-xs-12">
+                <a href="#/">Voyager</a>
             </div>
         </footer>
     </div>

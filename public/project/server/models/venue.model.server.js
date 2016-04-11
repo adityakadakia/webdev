@@ -21,7 +21,7 @@ module.exports = function (db, mongoose) {
 
     function findVenueByFoursquareId(foursquareId) {
         console.log("venueModel findVenueByFoursquareId");
-        return venueModel.find({foursquareId: foursquareId});
+        return venueModel.findOne({foursquareId: foursquareId});
     }
 
     function findAllVenues() {

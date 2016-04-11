@@ -57,6 +57,16 @@
             })
             .when("/likes", {
                 templateUrl: "client/views/users/profile/likes.profile.view.html",
+                controller: "LikesController",
+                controllerAs: "model",
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
+            })
+            .when("/likes/:userId", {
+                templateUrl: "client/views/users/profile/likes.profile.view.html",
+                controller: "LikesController",
+                controllerAs: "model",
                 resolve: {
                     checkLoggedIn: checkLoggedIn
                 }
