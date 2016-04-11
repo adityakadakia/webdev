@@ -7,20 +7,34 @@
         .module("Voyager")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController(UserService) {
+    function ProfileController($routeParams, $location, UserService) {
         var model = this;
         model.update = update;
+        var userId = $routeParams.userId;
+        model.previlege = false;
         init();
 
         function init() {
             console.log("ProfileController init");
-            UserService
-                .getCurrentUser()
-                .then(function (response) {
-                    if (response.data) {
+            if (userId) {
+                UserService
+                    .userIdtoUser(userId)
+                    .then(function (response) {
                         model.userprofile = response.data;
-                    }
-                });
+                        return UserService.getCurrentUser();
+                    })
+                    .then(function (response) {
+                        var u = response.data;
+                        if (u._id == model.userprofile._id)
+                            model.previlege = true;
+                    });
+            } else {
+                console.log("User unspecified: fetching current user information.");
+                UserService.getCurrentUser()
+                    .then(function (response) {
+                        $location.url('/profile/' + response.data._id);
+                    });
+            }
         }
 
         function update(user) {

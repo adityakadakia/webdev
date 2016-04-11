@@ -43,6 +43,14 @@
                     checkLoggedIn: checkLoggedIn
                 }
             })
+            .when("/profile/:userId", {
+                templateUrl: "client/views/users/profile/profile.view.html",
+                controller: "ProfileController",
+                controllerAs: "model",
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
+            })
             .when("/followers", {
                 templateUrl: "client/views/users/profile/followers.profile.view.html",
                 resolve: {
