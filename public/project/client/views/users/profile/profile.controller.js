@@ -24,8 +24,8 @@
                         return UserService.getCurrentUser();
                     })
                     .then(function (response) {
-                        var u = response.data;
-                        if (u._id == model.userprofile._id)
+                        model.currUser = response.data;
+                        if (model.currUser._id == model.userprofile._id)
                             model.previlege = true;
                     });
             } else {
