@@ -75,7 +75,7 @@
                     checkLoggedIn: checkLoggedIn
                 }
             })
-            .when("/following", {
+            .when("/following/:userId", {
                 templateUrl: "client/views/users/profile/following.profile.view.html",
                 controller: "FollowingController",
                 controllerAs: "model",
