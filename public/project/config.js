@@ -53,12 +53,32 @@
             })
             .when("/followers", {
                 templateUrl: "client/views/users/profile/followers.profile.view.html",
+                controller: "FollowerController",
+                controllerAs: "model",
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
+            })
+            .when("/followers/:userId", {
+                templateUrl: "client/views/users/profile/followers.profile.view.html",
+                controller: "FollowerController",
+                controllerAs: "model",
                 resolve: {
                     checkLoggedIn: checkLoggedIn
                 }
             })
             .when("/following", {
                 templateUrl: "client/views/users/profile/following.profile.view.html",
+                controller: "FollowingController",
+                controllerAs: "model",
+                resolve: {
+                    checkLoggedIn: checkLoggedIn
+                }
+            })
+            .when("/following", {
+                templateUrl: "client/views/users/profile/following.profile.view.html",
+                controller: "FollowingController",
+                controllerAs: "model",
                 resolve: {
                     checkLoggedIn: checkLoggedIn
                 }
