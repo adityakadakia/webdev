@@ -3,6 +3,26 @@
         <div ng-include="'client/views/users/profile/sidebar.profile.view.html'"></div>
     </div>
     <div class="col-lg-10 col-md-10 col-sm-9">
+        <div class="col-md-3 col-lg-3">
+            <a href="" class="btn btn-info btn-block">
+                Follow
+            </a>
+        </div>
+        <div class="col-md-3 col-lg-3">
+            <a href="#/followers/{{model.userprofile._id}}" class="btn btn-info btn-block">
+                Followers
+            </a>
+        </div>
+        <div class="col-md-3 col-lg-3">
+            <a href="#/following/{{model.userprofile._id}}" class="btn btn-info btn-block">
+                Following
+            </a>
+        </div>
+        <div class="col-md-3 col-lg-3">
+            <a href="#/likes/{{model.userprofile._id}}" class="btn btn-info btn-block">
+                Likes
+            </a>
+        </div>
         <div class="col-md-12 col-lg-12">
             <h1 class="page-header">Profile</h1>
         </div>
