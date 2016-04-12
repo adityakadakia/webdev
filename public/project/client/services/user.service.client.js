@@ -19,9 +19,19 @@
             logIn: logIn,
             userIdtoUser: userIdtoUser,
             likePlace: likePlace,
-            unlikePlace: unlikePlace
+            unlikePlace: unlikePlace,
+            followUser: followUser,
+            unfollowUser: unfollowUser
         };
         return api;
+
+        function followUser(followId) {
+            return $http.post("/api/project/user/follow/" + followId);
+        }
+
+        function unfollowUser(followId) {
+            return $http.delete("/api/project/user/follow/" + followId);
+        }
 
         function likePlace(placeId) {
             return $http.post("/api/project/user/like/" + placeId);

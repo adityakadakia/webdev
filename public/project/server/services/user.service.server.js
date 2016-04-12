@@ -14,8 +14,76 @@ module.exports = function (app, userModel) {
     app.post("/api/project/user/logout", logOut);
     app.post("/api/project/user/like/:placeId", likePlace);
     app.delete("/api/project/user/like/:placeId", unlikePlace);
+    app.post("/api/project/user/follow/:followId", followUser);
+    app.delete("/api/project/user/follow/:followId", unfollowUser);
 
     var userService = this;
+
+    function followUser(req, res) {
+        var followId = req.params.followId;
+        if (req.session.currentUser) {
+            var userId = req.session.currentUser._id;
+            if (userId != followId)
+                userModel
+                    .findUserById(userId)
+                    .then(function (user) {
+                        if (user.following.indexOf(followId) == -1) {
+                            user.following.push(followId);
+                            return userModel.updateUser(userId, user);
+                        } else res.json(req.session.currentUser);
+                    }, function (err) {
+                        res.status(400).send(err);
+                    })
+                    .then(function (response) {
+                        return userModel.findUserById(followId);
+                    })
+                    .then(function (response) {
+                        var followUser = response;
+                        followUser.followers.push(userId);
+                        return userModel.updateUser(followId, followUser);
+                    })
+                    .then(function (response) {
+                        return userModel.findUserById(userId);
+                    })
+                    .then(function (response) {
+                        req.session.currentUser = response;
+                        res.json(response);
+                    });
+        }
+    }
+
+    function unfollowUser(req, res) {
+        var followId = req.params.followId;
+        if (req.session.currentUser) {
+            var userId = req.session.currentUser._id;
+            if (userId != followId)
+                userModel
+                    .findUserById(userId)
+                    .then(function (user) {
+                        if (user.following.indexOf(followId) > -1) {
+                            user.following.splice(user.following.indexOf(followId), 1);
+                            return userModel.updateUser(userId, user);
+                        } else res.json(req.session.currentUser);
+                    }, function (err) {
+                        res.status(400).send(err);
+                    })
+                    .then(function (response) {
+                        return userModel.findUserById(followId);
+                    })
+                    .then(function (response) {
+                        var followUser = response;
+                        followUser.followers.splice(followUser.followers.indexOf(userId), 1);
+                        return userModel.updateUser(followId, followUser);
+                    })
+                    .then(function (response) {
+                        return userModel.findUserById(userId);
+                    })
+                    .then(function (response) {
+                        req.session.currentUser = response;
+                        res.json(response);
+                    });
+        }
+    }
 
     function unlikePlace(req, res) {
         var placeId = req.params.placeId;
