@@ -74,7 +74,7 @@
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star-empty"></span>
-                        {{review.userId}}
+                        <a href="#/profile/{{review.userId}}">{{review.userId}}</a>
                         <span class="pull-right">{{ review.timestamp | date : 'mediumDate'}}</span>
                         <p>{{review.description}}</p>
                     </div>
