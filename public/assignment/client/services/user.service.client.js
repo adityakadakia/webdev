@@ -19,9 +19,14 @@
             logIn: logIn,
             createUser: createUser,
             findAllUsers: findAllUsers,
-            deleteUser: deleteUser
+            deleteUser: deleteUser,
+            updateUserAdmin: updateUserAdmin
         };
         return api;
+
+        function updateUserAdmin(userId, user) {
+            return $http.put('/api/assignment/admin/user/' + userId, user);
+        }
 
         function deleteUser(userId) {
             return $http.delete('/api/assignment/admin/user/' + userId);

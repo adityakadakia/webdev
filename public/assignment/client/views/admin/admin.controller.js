@@ -28,7 +28,7 @@
 
         function update(user) {
             UserService
-                .updateUser(user._id, user)
+                .updateUserAdmin(user._id, user)
                 .then(handleSuccess, handleError);
         }
 
@@ -39,7 +39,7 @@
         }
 
         function select(user) {
-            model.user = angular.copy(user);
+            model.inputUser = angular.copy(user);
         }
 
         function handleSuccess(response) {

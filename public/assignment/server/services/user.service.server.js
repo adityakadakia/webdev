@@ -16,12 +16,42 @@ module.exports = function (app, userModel) {
     app.post('/api/assignment/admin/user', auth, createUser);
     app.get('/api/assignment/admin/user', auth, findAllUsersAdmin);
     app.delete('/api/assignment/admin/user/:userId', auth, deleteUser);
+    app.put('/api/assignment/admin/user/:userId', auth, updateUser);
 
     var userService = this;
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
+
+    function updateUser(req, res) {
+        var newUser = req.body;
+        if (!isAdmin(req.user)) {
+            delete newUser.roles;
+        }
+        if (typeof newUser.roles == "string") {
+            newUser.roles = newUser.roles.split(",");
+        }
+
+        userModel
+            .updateUser(req.params.userId, newUser)
+            .then(
+                function (user) {
+                    return userModel.findAllUsers();
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (users) {
+                    res.json(users);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
 
     function deleteUser(req, res) {
         if (isAdmin(req.user)) {
@@ -292,6 +322,7 @@ module.exports = function (app, userModel) {
         console.log("UserService update");
         var user = req.body;
         var userId = req.params.id;
+
         var users = userModel
             .updateUser(userId, user)
             .then(
