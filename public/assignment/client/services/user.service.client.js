@@ -16,9 +16,20 @@
             getProfile: getProfile,
             updateUser: updateUser,
             logOut: logOut,
-            logIn: logIn
+            logIn: logIn,
+            createUser: createUser,
+            findAllUsers: findAllUsers,
+            deleteUser: deleteUser
         };
         return api;
+
+        function deleteUser(userId) {
+            return $http.delete('/api/assignment/admin/user/' + userId);
+        }
+
+        function findAllUsers() {
+            return $http.get("/api/assignment/admin/user");
+        }
 
         function findUserByUsername(username) {
             return $http.get("/api/assignment/user?username=" + username);
@@ -52,6 +63,10 @@
 
         function getProfile() {
             return $http.get("/api/assignment/user/" + $rootScope.user._id);
+        }
+
+        function createUser(user) {
+            return $http.post('/api/assignment/admin/user', user);
         }
     }
 })();

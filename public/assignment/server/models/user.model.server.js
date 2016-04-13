@@ -40,7 +40,8 @@ module.exports = function (db, mongoose) {
 
     function createUser(user) {
         console.log("userModel createUser: " + JSON.stringify(user));
-        user.emails = user.emails.toString().split(",");
+        if (user.emails)
+            user.emails = user.emails.toString().split(",");
         return userModel.create(user);
     }
 
