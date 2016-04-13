@@ -8,6 +8,8 @@
             <tr class="thead-row">
                 <th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Username</th>
                 <th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Password</th>
+                <th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> First Name</th>
+                <th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Last Name</th>
                 <th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Role</th>
                 <th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Action</th>
             </tr>
@@ -20,6 +22,14 @@
                 <td>
                     <input type="password" class="form-control" id="password" placeholder="password"
                            ng-model="model.inputUser.password">
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="firstName" placeholder="First Name"
+                           ng-model="model.inputUser.firstName">
+                </td>
+                <td>
+                    <input type="text" class="form-control" id="lastName" placeholder="Last Name"
+                           ng-model="model.inputUser.lastName">
                 </td>
                 <td>
                     <input type="text" class="form-control" id="role" placeholder="role1, role2"
@@ -36,6 +46,8 @@
             <tr ng-repeat="u in model.users">
                 <td>{{u.username}}</td>
                 <td></td>
+                <td>{{u.firstName}}</td>
+                <td>{{u.lastName}}</td>
                 <td>{{u.roles}}</td>
                 <td>
                     <span class="glyphicon glyphicon-remove" ng-click="model.remove(u)" aria-hidden="true"></span>
