@@ -24,8 +24,8 @@
             return $http.get("/api/assignment/user?username=" + username);
         }
 
-        function logIn(username, password) {
-            return $http.get("/api/assignment/user?username=" + username + "&password=" + password);
+        function logIn(user) {
+            return $http.post("/api/assignment/login", user);
         }
 
         function logOut() {

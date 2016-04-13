@@ -13,9 +13,11 @@
             UserService
                 .logOut()
                 .then(function (response) {
-                    console.log(response.data);
-                    $rootScope.user = undefined;
-                    $location.url("/home");
+                    console.log("logOut: " + response.status + " " + response.data);
+                    if (response.status == 200) {
+                        $rootScope.user = undefined;
+                        $location.url("/home");
+                    }
                 });
         }
     }

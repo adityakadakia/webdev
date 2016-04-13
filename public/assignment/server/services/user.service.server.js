@@ -1,4 +1,7 @@
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 module.exports = function (app, userModel) {
+    var auth = authorized;
 
     app.post("/api/assignment/user", register);
     app.get("/api/assignment/user/loggedin", loggedin);
@@ -9,12 +12,68 @@ module.exports = function (app, userModel) {
     app.get("/api/assignment/user?username=alice&password=wonderland", findUserByCredentials);
     app.delete("/api/assignment/user/:id", deleteUserById);
     app.post("/api/assignment/user/logout", logOut);
+    app.post("/api/assignment/login", passport.authenticate('local'), login);
 
     var userService = this;
 
+    passport.use(new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+
+    function localStrategy(username, password, done) {
+        console.log("userService localStrategy: " + username + " " + password);
+        userModel
+            .findUserByCredentials(username, password)
+            .then(
+                function (user) {
+                    if (!user) {
+                        return done(null, false);
+                    }
+                    return done(null, user);
+                },
+                function (err) {
+                    if (err) {
+                        return done(err);
+                    }
+                }
+            );
+    }
+
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+    function deserializeUser(user, done) {
+        userModel
+            .findUserById(user._id)
+            .then(
+                function (user) {
+                    done(null, user);
+                },
+                function (err) {
+                    done(err, null);
+                }
+            );
+    }
+
+
+    function authorized(req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.send(401);
+        } else {
+            next();
+        }
+    };
+
+    function login(req, res) {
+        var user = req.user;
+        res.json(user);
+    }
+
     function logOut(req, res) {
         console.log("UserService logOut");
-        req.session.destroy();
+        //req.session.destroy();
+        req.logOut();
         res.send(200);
     }
 
@@ -122,7 +181,8 @@ module.exports = function (app, userModel) {
 
     function loggedin(req, res) {
         console.log("loggedin current user: " + JSON.stringify(req.session.currentUser));
-        res.json(req.session.currentUser);
+        //res.json(req.session.currentUser);
+        res.send(req.isAuthenticated() ? req.user : '');
     }
 
     function update(req, res) {
