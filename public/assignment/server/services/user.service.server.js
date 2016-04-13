@@ -13,6 +13,7 @@ module.exports = function (app, userModel) {
     app.delete("/api/assignment/user/:id", deleteUserById);
     app.post("/api/assignment/user/logout", logOut);
     app.post("/api/assignment/login", passport.authenticate('local'), login);
+    //app.post  ('/api/assignment/user', auth, createUser);
 
     var userService = this;
 
@@ -154,6 +155,7 @@ module.exports = function (app, userModel) {
     function register(req, res) {
         console.log("UserService register");
         var user = req.body;
+        user.roles = ['student'];
         console.log("Register: " + JSON.stringify(user));
         userModel.findUserByUsername(user.username)
             .then(
@@ -168,11 +170,17 @@ module.exports = function (app, userModel) {
                 }
             )
             .then(
-                function (doc) {
-                    req.session.currentUser = doc;
-                    res.json(doc);
+                function (user) {
+                    if (user) {
+                        req.login(user, function (err) {
+                            if (err) {
+                                res.status(400).send(err);
+                            } else {
+                                res.json(user);
+                            }
+                        });
+                    }
                 },
-                // send error if promise rejected
                 function (err) {
                     res.status(400).send(err);
                 }
