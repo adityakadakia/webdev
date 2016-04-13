@@ -6,12 +6,30 @@
         <table class="table table-bordered table-striped my-table">
             <thead>
             <tr class="thead-row">
-                <th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Username</th>
-                <th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Password</th>
-                <th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> First Name</th>
-                <th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Last Name</th>
-                <th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Role</th>
-                <th><span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span> Action</th>
+                <th ng-click="model.order('username')">
+                    <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"
+                          ng-show="(model.predicate == 'username') && (model.reverse == true)"></span>
+                    <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"
+                          ng-show="(model.predicate == 'username') && (model.reverse == false)"></span>
+                    Username
+                </th>
+                <th>Password</th>
+                <th ng-click="model.order('firstName')">
+                    <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"
+                          ng-show="(model.predicate == 'firstName') && (model.reverse == true)"></span>
+                    <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"
+                          ng-show="(model.predicate == 'firstName') && (model.reverse == false)"></span>
+                    First Name
+                </th>
+                <th ng-click="model.order('lastName')">
+                    <span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"
+                          ng-show="(model.predicate == 'lastName') && (model.reverse == true)"></span>
+                    <span class="glyphicon glyphicon-triangle-top" aria-hidden="true"
+                          ng-show="(model.predicate == 'lastName') && (model.reverse == false)"></span>
+                    Last Name
+                </th>
+                <th>Role</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tr class="forms-input-row">
@@ -43,7 +61,7 @@
                 </td>
             </tr>
             <tbody>
-            <tr ng-repeat="u in model.users">
+            <tr ng-repeat="u in model.users | orderBy:model.predicate:model.reverse">
                 <td>{{u.username}}</td>
                 <td></td>
                 <td>{{u.firstName}}</td>

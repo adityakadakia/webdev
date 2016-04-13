@@ -4,7 +4,7 @@
         .module("FormBuilderApp")
         .controller("AdminController", AdminController);
 
-    function AdminController(UserService) {
+    function AdminController($scope, UserService) {
         var model = this;
 
         model.remove = remove;
@@ -19,6 +19,12 @@
         }
 
         init();
+        model.predicate = 'username';
+        model.reverse = true;
+        model.order = function (predicate) {
+            model.reverse = (model.predicate === predicate) ? !model.reverse : false;
+            model.predicate = predicate;
+        };
 
         function remove(user) {
             UserService
