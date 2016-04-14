@@ -30,6 +30,7 @@ module.exports = function (db, mongoose) {
 
     function addVenue(venue) {
         console.log("venueModel addVenue: " + JSON.stringify(venue));
+        venue._id = venue.foursquareId;
         return venueModel.create(venue);
     }
 
