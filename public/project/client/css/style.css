@@ -111,3 +111,31 @@ footer {
 .top-pad {
     padding-top: 50px
 }
+
+.myicon-orange {
+    color: coral
+}
+
+.myicon-green {
+    color: forestgreen;
+}
+
+.myicon-yellow {
+    color: #c2ae17;
+}
+
+.myicon-blue {
+    color: dodgerblue;
+}
+
+.myicon-red {
+    color: darkred;
+}
+
+.mynavcolor > li > a {
+    color: #eeeeee !important;
+}
+
+.mynavbar-brand-color {
+    color: white !important;
+}

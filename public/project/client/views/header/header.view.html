@@ -14,16 +14,16 @@
                    ng-show="isToggleMenuVisible">
                     <span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span>
                 </a>
-                <a class="navbar-brand" href="#/home">Voyager</a>
+                <a class="navbar-brand mynavbar-brand-color" href="#/home">Voyager</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a ng-class="{'active':$location.url() == '/login'}" ng-show="!user"
+                <ul class="mynavcolor nav navbar-nav navbar-right">
+                    <li ng-class="{'active':$location.url() == '/login'}">
+                        <a ng-show="!user"
                            href="#/login">Sign in</a>
                     </li>
-                    <li>
-                        <a ng-class="{'active':$location.url() == '/register'}" ng-show="!user"
+                    <li ng-class="{'active':$location.url() == '/register'}">
+                        <a ng-show="!user"
                            href="#/register">Sign up</a>
                     </li>
                     <li>
@@ -34,13 +34,19 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">{{user.firstName + " " + user.lastName}}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#/likes">Likes</a></li>
-                            <li><a href="#/followers">Followers</a></li>
-                            <li><a href="#/following">Following</a></li>
-                            <li><a href="#/profile">Update Profile</a></li>
+                            <li><a href="#/likes"><i class="fa fa-thumbs-up myicon-blue" aria-hidden="true"></i>
+                                Likes</a></li>
+                            <li><a href="#/followers"><i class="fa fa-users myicon-green" aria-hidden="true"></i>
+                                Followers</a></li>
+                            <li><a href="#/following"><i class="fa fa-users myicon-yellow" aria-hidden="true"></i>
+                                Following</a></li>
+                            <li><a href="#/profile"><i class="glyphicon glyphicon-user myicon-orange"
+                                                       aria-hidden="true"></i> Update Profile</a></li>
                             <li role="separator" class="divider"></li>
                             <li>
-                                <a ng-show="user" ng-click="model.logOut()" href="#">Sign Out</a>
+                                <a ng-show="user" ng-click="model.logOut()" href="#">
+                                    <i class="fa fa-sign-out myicon-red" aria-hidden="true"></i>
+                                    Sign Out</a>
                             </li>
                         </ul>
                     </li>
