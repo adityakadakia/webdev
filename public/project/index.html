@@ -8,6 +8,7 @@
     <meta name="author" content="">
     <title>Voyager</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="client/css/simple-sidebar.css" rel="stylesheet">
     <link href="client/css/style.css" rel="stylesheet">
     <link href="client/css/details.css" rel="stylesheet">
     <link href="client/css/profile.css" rel="stylesheet">
@@ -18,7 +19,7 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body ng-controller="MainController">
+<body ng-controller="MainController as model" style="padding-top: 50px">
 <!-- Navigation -->
 <div ng-include="'client/views/header/header.view.html'"></div>
 <!-- Page Content -->

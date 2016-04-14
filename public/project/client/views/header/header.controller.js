@@ -10,6 +10,11 @@
     function HeaderController($scope, $rootScope, $location, UserService) {
         var model = this;
         model.logOut = logOut;
+        model.toggleMenu = toggleMenu;
+
+        function toggleMenu() {
+            $("#wrapper").toggleClass("toggled");
+        }
 
         function logOut() {
             console.log("HeaderController logOut");
