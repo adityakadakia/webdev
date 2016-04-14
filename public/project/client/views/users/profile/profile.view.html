@@ -5,32 +5,22 @@
                 <div ng-include="'client/views/users/profile/sidebar.profile.view.html'"></div>
             </div>
             <div id="page-content-wrapper">
-                <div class="col-lg-10 col-md-10 col-sm-9">
-                    <div class="col-md-3 col-lg-3">
-                        <a href="#/followers/{{model.userprofile._id}}" class="btn btn-info btn-block">
-                            Followers
-                        </a>
-                    </div>
-                    <div class="col-md-3 col-lg-3">
-                        <a href="#/following/{{model.userprofile._id}}" class="btn btn-info btn-block">
-                            Following
-                        </a>
-                    </div>
-                    <div class="col-md-3 col-lg-3">
-                        <a href="#/likes/{{model.userprofile._id}}" class="btn btn-info btn-block">
-                            Likes
-                        </a>
-                    </div>
-                    <div class="col-md-3 col-lg-3">
-                        <a href="" class="btn btn-info btn-block"
-                           ng-click="model.toggleFollow()"
-                           ng-show="!model.previlege"
-                           ng-class="{'active': model.isFollows == true}">
-                            Follow
-                        </a>
-                    </div>
+                <div class="col-xs-12">
                     <div class="col-md-12 col-lg-12">
-                        <h1 class="page-header">Profile</h1>
+                        <h3 class="page-header">
+                            Profile
+                            <i class="fa fa-user-plus pull-right myicon-green"
+                               ng-hide="model.previlege || model.isFollows" ng-click="model.toggleFollow()"></i>
+                            <i class="fa fa-user-times pull-right myicon-red"
+                               ng-hide="model.previlege || !model.isFollows"
+                               ng-click="model.toggleFollow()"></i>
+                            <a href="#/following/{{model.userprofile._id}}">
+                                <i class="fa fa-users myicon-yellow pull-right"></i></a>
+                            <a href="#/followers/{{model.userprofile._id}}">
+                                <i class="fa fa-users myicon-green pull-right"></i></a>
+                            <a href="#/likes/{{model.userprofile._id}}">
+                                <i class="fa fa-thumbs-up myicon-blue pull-right"></i></a>
+                        </h3>
                     </div>
                     <div class="col-md-12">
                         <form class="form-horizontal">
