@@ -60,7 +60,8 @@
                 UserService
                     .likePlace(id)
                     .then(function (res) {
-                        if (res.status == 200)
+                        console.log(res);
+                        if (res.data)
                             model.isLiked = true;
                     }, function (err) {
                         console.log(err);
@@ -69,7 +70,7 @@
                 UserService
                     .unlikePlace(id)
                     .then(function (res) {
-                        if (res.status == 200)
+                        if (res.data)
                             model.isLiked = false;
                     }, function (err) {
                         console.log(err);

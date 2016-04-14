@@ -139,25 +139,28 @@ module.exports = function (app, userModel) {
             var userId = req.session.currentUser._id;
             userModel
                 .findUserById(userId)
-                .then(function (user) {
-                    if (user.likes.indexOf(placeId) == -1) {
-                        console.log("UserService likePlace");
-                        user.likes.push(placeId);
-                        return userModel.updateUser(userId, user);
-                    }
-                    else
-                        res.json(req.session.currentUser);
-                }, function (err) {
-                    res.status(400).send(err);
-                })
-                .then(function (response) {
-                    return userModel.findUserById(userId);
-                })
-                .then(function (response) {
-                    req.session.currentUser = response;
-                    console.log("like: current user: " + JSON.stringify(req.session.currentUser.username) + " " + JSON.stringify(req.session.currentUser.likes));
-                    res.json(response);
-                });
+                .then(
+                    function (user) {
+                        if (user.likes.indexOf(placeId) == -1) {
+                            console.log("UserService likePlace");
+                            user.likes.push(placeId);
+                            return userModel.updateUser(userId, user);
+                        }
+                        else
+                            res.json(req.session.currentUser);
+                    }, function (err) {
+                        res.status(400).send(err);
+                    })
+                .then(
+                    function (response) {
+                        return userModel.findUserById(userId);
+                    })
+                .then(
+                    function (response) {
+                        req.session.currentUser = response;
+                        console.log("like: current user: " + JSON.stringify(req.session.currentUser.username) + " " + JSON.stringify(req.session.currentUser.likes));
+                        res.json(response);
+                    });
         }
     }
 
