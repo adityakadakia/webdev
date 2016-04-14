@@ -69,7 +69,7 @@
             $rootScope.errorMessage = null;
             // User is Authenticated
             if (user != '' && user.roles.indexOf('admin') != -1) {
-                $rootScope.currentUser = user;
+                $rootScope.user = user;
                 deferred.resolve();
             }
         });
