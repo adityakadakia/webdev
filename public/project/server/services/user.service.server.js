@@ -65,22 +65,35 @@ module.exports = function (app, userModel) {
                             return userModel.updateUser(userId, user);
                         } else res.json(req.session.currentUser);
                     }, function (err) {
+                        console.log(err);
                         res.status(400).send(err);
                     })
                     .then(function (response) {
                         return userModel.findUserById(followId);
+                    }, function (err) {
+                        console.log(err);
+                        res.status(401).send(err);
                     })
                     .then(function (response) {
                         var followUser = response;
                         followUser.followers.splice(followUser.followers.indexOf(userId), 1);
                         return userModel.updateUser(followId, followUser);
+                    }, function (err) {
+                        console.log(err);
+                        res.status(402).send(err);
                     })
                     .then(function (response) {
                         return userModel.findUserById(userId);
+                    }, function (err) {
+                        console.log(err);
+                        res.status(403).send(err);
                     })
                     .then(function (response) {
                         req.session.currentUser = response;
                         res.json(response);
+                    }, function (err) {
+                        console.log(err);
+                        res.status(404).send(err);
                     });
         }
     }
@@ -100,16 +113,23 @@ module.exports = function (app, userModel) {
                     else
                         res.json(req.session.currentUser);
                 }, function (err) {
+                    console.log(err);
                     res.status(400).send(err);
                 })
                 .then(function (response) {
                     return userModel.findUserById(userId);
+                }, function (err) {
+                    console.log(err);
+                    res.status(401).send(err);
                 })
                 .then(function (response) {
                     req.session.currentUser = response;
+                    console.log("unlike: current user: " + JSON.stringify(req.session.currentUser.username) + " " + JSON.stringify(req.session.currentUser.likes));
                     res.json(response);
+                }, function (err) {
+                    console.log(err);
+                    res.status(402).send(err);
                 });
-            console.log("unlike: current user: " + JSON.stringify(req.session.currentUser.username) + " " + JSON.stringify(req.session.currentUser.likes));
         }
     }
 
@@ -135,9 +155,9 @@ module.exports = function (app, userModel) {
                 })
                 .then(function (response) {
                     req.session.currentUser = response;
+                    console.log("like: current user: " + JSON.stringify(req.session.currentUser.username) + " " + JSON.stringify(req.session.currentUser.likes));
                     res.json(response);
                 });
-            console.log("like: current user: " + JSON.stringify(req.session.currentUser.username) + " " + JSON.stringify(req.session.currentUser.likes));
         }
     }
 
