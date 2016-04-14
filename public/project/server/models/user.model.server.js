@@ -69,6 +69,6 @@ module.exports = function (db, mongoose) {
         user.phones = phones;
         var emails = user.emails.toString().split(",");
         user.emails = emails;
-        return userModel.update({_id: userId}, {$set: user});
+        return userModel.update({_id: userId}, {$set: user}, {upsert: true});
     }
 }
