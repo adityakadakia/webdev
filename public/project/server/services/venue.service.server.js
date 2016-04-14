@@ -31,22 +31,32 @@ module.exports = function (app, venueModel) {
     }
 
     function addVenue(req, res) {
-        console.log("venueService addVenue");
         var venue = req.body;
+        console.log("venueService addVenue: " + JSON.stringify(venue));
         venueModel
             .findVenueByFoursquareId(venue.foursquareId)
             .then(function (response) {
-                if (response.length > 0) {
+                if (response) {
                     console.log("venueService addVenue - venue found: " + JSON.stringify(response))
                     return res.json(response);
                 }
-                else return venueModel.addVenue(venue);
+                else
+                    return venueModel.addVenue(venue);
+            }, function (err) {
+                console.log(err);
+                res.status(400).send(err);
             })
             .then(function (response) {
+                return venueModel.findVenueByFoursquareId(venue.foursquareId);
+            }, function (err) {
+                console.log(err);
                 return venueModel.findVenueByFoursquareId(venue.foursquareId);
             })
             .then(function (response) {
                 res.json(response);
+            }, function (err) {
+                console.log(err);
+                res.status(402).send(err);
             });
     }
 }
