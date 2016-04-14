@@ -1,5 +1,6 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var bcrypt = require('bcrypt-nodejs');
 module.exports = function (app, userModel) {
     var auth = authorized;
 
@@ -97,22 +98,20 @@ module.exports = function (app, userModel) {
     }
 
     function localStrategy(username, password, done) {
-        console.log("userService localStrategy: " + username + " " + password);
         userModel
-            .findUserByCredentials(username, password)
-            .then(
-                function (user) {
-                    if (!user) {
+            .findUserByUsername(username)
+            .then(function (user) {
+                    if (user && bcrypt.compareSync(password, user.password)) {
+                        return done(null, user);
+                    } else {
                         return done(null, false);
                     }
-                    return done(null, user);
                 },
                 function (err) {
                     if (err) {
                         return done(err);
                     }
-                }
-            );
+                });
     }
 
     function serializeUser(user, done) {
@@ -167,6 +166,7 @@ module.exports = function (app, userModel) {
                     // if the user does not already exist
                     if (user == null) {
                         // create a new user
+                        newUser.password = bcrypt.hashSync(newUser.password);
                         return userModel.createUser(newUser)
                             .then(
                                 // fetch all the users
@@ -285,8 +285,10 @@ module.exports = function (app, userModel) {
         userModel.findUserByUsername(user.username)
             .then(
                 function (u) {
-                    if (!u)
+                    if (!u) {
+                        user.password = bcrypt.hashSync(user.password);
                         return userModel.createUser(user);
+                    }
                     else
                         res.status(400).send("Duplicate User");
                 },
