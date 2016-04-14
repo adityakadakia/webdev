@@ -109,6 +109,7 @@ module.exports = function (app, userModel) {
                     req.session.currentUser = response;
                     res.json(response);
                 });
+            console.log("unlike: current user: " + JSON.stringify(req.session.currentUser.username) + " " + JSON.stringify(req.session.currentUser.likes));
         }
     }
 
@@ -136,6 +137,7 @@ module.exports = function (app, userModel) {
                     req.session.currentUser = response;
                     res.json(response);
                 });
+            console.log("like: current user: " + JSON.stringify(req.session.currentUser.username) + " " + JSON.stringify(req.session.currentUser.likes));
         }
     }
 
