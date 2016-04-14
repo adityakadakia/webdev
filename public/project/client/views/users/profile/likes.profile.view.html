@@ -1,22 +1,30 @@
-<div class="container">
-    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-1">
-        <div ng-include="'client/views/users/profile/sidebar.profile.view.html'"></div>
-    </div>
-    <div class="col-lg-10 col-md-10 col-sm-9">
-        <div class="col-md-12 col-lg-12">
-            <h1 class="page-header">Likes of {{model.userProfile.firstName}} {{model.userProfile.lastName}}</h1>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb" ng-repeat="venue in model.venues track by venue.foursquareId">
-            <a class="thumbnail btn" href="#/details/{{venue.foursquareId}}">
-                <img class="img-responsive" ng-src="{{venue.prefix}}400x300{{venue.suffix}}" alt="">
-                {{venue.name}}
-            </a>
-        </div>
-        <footer>
-            <div class="col-xs-12">
-                <hr>
-                <a href="#/">Voyager</a>
+<div class="container-fluid">
+    <div id="wrapper">
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-1">
+                <div ng-include="'client/views/users/profile/sidebar.profile.view.html'"></div>
             </div>
-        </footer>
+            <div id="page-content-wrapper">
+                <div class="col-lg-10 col-md-10 col-sm-9">
+                    <div class="col-md-12 col-lg-12">
+                        <h1 class="page-header">Likes of {{model.userProfile.firstName}}
+                            {{model.userProfile.lastName}}</h1>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-xs-6 thumb"
+                         ng-repeat="venue in model.venues track by venue.foursquareId">
+                        <a class="thumbnail btn" href="#/details/{{venue.foursquareId}}">
+                            <img class="img-responsive" ng-src="{{venue.prefix}}400x300{{venue.suffix}}" alt="">
+                            {{venue.name}}
+                        </a>
+                    </div>
+                    <footer>
+                        <div class="col-xs-12">
+                            <hr>
+                            <a href="#/">Voyager</a>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
