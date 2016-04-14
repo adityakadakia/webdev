@@ -101,7 +101,9 @@ module.exports = function (app, userModel) {
         userModel
             .findUserByUsername(username)
             .then(function (user) {
+                    console.log("localStrategy - user found: " + JSON.stringify(user));
                     if (user && bcrypt.compareSync(password, user.password)) {
+                        console.log("user authenticated")
                         return done(null, user);
                     } else {
                         return done(null, false);
