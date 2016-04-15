@@ -4,5 +4,5 @@
 "use strict";
 (function () {
     angular
-        .module('Voyager', ['ngRoute']);
+        .module('Voyager', ['ngRoute', 'vsGoogleAutocomplete']);
 })();

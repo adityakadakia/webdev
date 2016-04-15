@@ -21,6 +21,7 @@
         }
 
         function explorePlaces(searchTerm) {
+            console.log("searchTerm: " + searchTerm);
             SearchService.explorePlace(searchTerm, function (places) {
                 $rootScope.results = places.response.groups[0].items;
                 initMap(places.response.groups[0].items);

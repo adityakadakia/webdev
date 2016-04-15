@@ -5,7 +5,8 @@
         </div>
         <div class="col-xs-12 col-md-8 col-md-offset-2">
             <div class="input-group custom-search-form">
-                <input type="text" class="form-control" ng-model="model.searchTerm">
+                <input type="text" class="form-control" ng-model="model.searchTerm"
+                       vs-google-autocomplete="{ types:['(cities)'] }">
                 <span class="input-group-btn">
                 <button class="btn btn-default" type="button" ng-click="model.explorePlaces(model.searchTerm)">
                     <span class="glyphicon glyphicon-search"></span>
