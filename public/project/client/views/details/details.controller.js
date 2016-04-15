@@ -18,6 +18,7 @@
         model.findFullUserNamebyUserId = findFullUserNamebyUserId;
         model.toggleLike = toggleLike;
         model.isLiked = false;
+        model.reviewUsers = [];
 
         checkLiked();
         findAllReviewsByPlaceId(id);
@@ -99,6 +100,28 @@
                 .then(function (response) {
                     model.reviews = response.data;
                     console.log("reviews: " + JSON.stringify(model.reviews));
+                    for (var i in model.reviews) {
+                        console.log(i);
+                        UserService
+                            .userIdtoUser(model.reviews[i].userId)
+                            .then((function (response) {
+                                var u = response.data;
+                                console.log("users: " + JSON.stringify(u));
+                                model.reviewUsers.push(u);
+
+                            }, function (err) {
+                                var u = err.data;
+                                console.log("err: " + JSON.stringify(err.data));
+                                model.reviewUsers.push(u);
+                                for (var i in model.reviews) {
+                                    for (var j in model.reviewUsers) {
+                                        if (model.reviews[i].userId == model.reviewUsers[j]._id) {
+                                            model.reviews[i].fullName = model.reviewUsers[j].firstName + " " + model.reviewUsers[j].lastName;
+                                        }
+                                    }
+                                }
+                            }));
+                    }
                 });
         }
 
@@ -126,6 +149,7 @@
                 .then(function (response) {
                     model.reviews = response.data;
                     console.log(model.reviews);
+                    findAllReviewsByPlaceId(id);
                 });
             addVenue();
         }
@@ -137,6 +161,7 @@
                     model.reviews = response.data;
                     model.review = {};
                     model.selected = -1;
+                    findAllReviewsByPlaceId(id);
                 });
         }
 
@@ -152,6 +177,7 @@
                         model.reviews = response.data;
                         model.review = {};
                         model.selected = -1;
+                        findAllReviewsByPlaceId(id);
                     }
                 });
         }
