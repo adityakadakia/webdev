@@ -1,22 +1,29 @@
-<div class="container">
-    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-1">
-        <div ng-include="'client/views/users/profile/sidebar.profile.view.html'"></div>
-    </div>
-    <div class="col-lg-10 col-md-10 col-sm-9">
-        <div class="col-md-12 col-lg-12">
-            <h1 class="page-header">Following</h1>
-        </div>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb" ng-repeat="following in model.following track by following._id">
-            <a class="thumbnail btn" href="#/profile/{{following._id}}">
-                <img class="img-responsive" src="http://placehold.it/400x300" alt="">
-                {{following.firstName}} {{following.lastName}}
-            </a>
-        </div>
-        <footer>
-            <div class="col-xs-12">
-                <hr>
-                <a href="#/">Voyager</a>
+<div class="container-fluid">
+    <div id="wrapper">
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-1">
+                <div ng-include="'client/views/users/profile/sidebar.profile.view.html'"></div>
             </div>
-        </footer>
+            <div class="page-content-wrapper">
+                <div class="col-xs-12">
+                    <div class="col-xs-12">
+                        <h3 class="page-header">Following</h3>
+                    </div>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 thumb"
+                         ng-repeat="following in model.following track by following._id">
+                        <a class="thumbnail btn" href="#/profile/{{following._id}}">
+                            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+                            {{following.firstName}} {{following.lastName}}
+                        </a>
+                    </div>
+                    <footer>
+                        <div class="col-xs-12">
+                            <hr>
+                            <a href="#/">Voyager</a>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
