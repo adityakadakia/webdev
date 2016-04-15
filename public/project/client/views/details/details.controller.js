@@ -148,6 +148,8 @@
                 .addReview(review, $routeParams.id)
                 .then(function (response) {
                     model.reviews = response.data;
+                    model.review = {};
+                    model.selected = -1;
                     console.log(model.reviews);
                     findAllReviewsByPlaceId(id);
                 });
