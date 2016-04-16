@@ -37,7 +37,10 @@
                     </p>
                 </div>
                 <div class="ratings">
-                    <p class="pull-right">{{model.reviews.length}} reviews</p>
+                    <p class="pull-right">
+                        <class
+                        ="label label-default">{{model.reviews.length}} reviews
+                    </p>
                     <p>
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star"></span>
@@ -64,18 +67,17 @@
                         <a class="btn btn-warning btn-block" ng-show="model.selected != -1">Update</a>
                     </div>
                 </div>
-
-                <hr>
-
                 <div class="row" ng-repeat="review in model.reviews track by review._id">
+                    <hr>
                     <div class="col-xs-12 col-sm-8">
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span><br>
                         By <a href="#/profile/{{review.userId}}">{{review.fullName}}</a>
-                        <span> on {{ review.timestamp | date : 'mediumDate'}}</span>
+                        <span class="label label-info">on {{ review.timestamp | date : 'mediumDate'}}</span>
+                        <br/>&nbsp;<br>
                         <p>{{review.description}}</p>
                     </div>
                     <div class="col-xs-6 col-sm-2">
@@ -86,7 +88,7 @@
                         <a class="btn btn-danger btn-block review-button" ng-show="user._id == review.userId"
                            ng-click="model.deleteReview($index)">Delete</a>
                     </div>
-                    <hr width="100%">
+
                 </div>
             </div>
         </div>

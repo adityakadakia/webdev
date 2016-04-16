@@ -8,7 +8,6 @@
         $scope.$location = $location;
 
         var model = this;
-        console.log("location: " + $location.url());
         $rootScope.isToggleMenuVisible = true;
     }
 })();
