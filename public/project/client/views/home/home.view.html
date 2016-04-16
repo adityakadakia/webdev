@@ -31,7 +31,11 @@
         <div class="col-md-5">
             <h3>{{item.venue.name}}</h3>
             <h4>{{item.venue.categories[0].name}}</h4>
-            <p>{{item.tips[0].text}}</p>
+            <p class="review-style">{{item.tips[0].text}}</p>
+            <p><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;
+                <span class="label label-success" ng-show="item.venue.hours.isOpen">Open</span>
+                <span class="label label-danger" ng-show="!item.venue.hours.isOpen">Closed</span>
+            </p>
             <a class="btn btn-primary" href="#/details/{{item.venue.id}}">Find more <span
                     class="glyphicon glyphicon-chevron-right"></span></a>
         </div>
