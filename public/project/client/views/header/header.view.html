@@ -38,14 +38,17 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">{{user.firstName + " " + user.lastName}}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#/likes"><i class="fa fa-thumbs-up myicon-blue" aria-hidden="true"></i>
+                            <li><a href="#/likes/{{model.user._id}}"><i class="fa fa-thumbs-up myicon-blue"
+                                                                        aria-hidden="true"></i>
                                 Likes</a></li>
-                            <li><a href="#/followers"><i class="fa fa-users myicon-green" aria-hidden="true"></i>
+                            <li><a href="#/followers/{{model.user._id}}"><i class="fa fa-users myicon-green"
+                                                                            aria-hidden="true"></i>
                                 Followers</a></li>
-                            <li><a href="#/following"><i class="fa fa-users myicon-yellow" aria-hidden="true"></i>
+                            <li><a href="#/following/{{model.user._id}}"><i class="fa fa-users myicon-yellow"
+                                                                            aria-hidden="true"></i>
                                 Following</a></li>
-                            <li><a href="#/profile"><i class="glyphicon glyphicon-user myicon-orange"
-                                                       aria-hidden="true"></i> Update Profile</a></li>
+                            <li><a href="#/profile/{{model.user._id}}"><i class="glyphicon glyphicon-user myicon-orange"
+                                                                          aria-hidden="true"></i> Update Profile</a></li>
                             <li role="separator" class="divider"></li>
                             <li>
                                 <a ng-show="user" ng-click="model.logOut()" href="#">

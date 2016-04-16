@@ -7,17 +7,18 @@
         .module("Voyager")
         .controller("SidebarController", SidebarController);
 
-    function SidebarController($location, $routeParams, UserService) {
+    function SidebarController($location, $routeParams, $rootScope, UserService) {
         var model = this;
         model.userId = $routeParams.userId;
         console.log("userId: " + model.userId);
         model.previlege = true;
         model.toggleFollow = toggleFollow;
         model.logout = logOut;
+        $rootScope.initProfileSidebar = initProfileSidebar;
 
-        init();
+        initProfileSidebar();
 
-        function init() {
+        function initProfileSidebar() {
             console.log("Sidebar init");
             if (model.userId) {
                 UserService

@@ -12,6 +12,12 @@
         model.logOut = logOut;
         model.toggleMenu = toggleMenu;
 
+        UserService
+            .getCurrentUser()
+            .then(function (response) {
+                model.user = response.data;
+            })
+
         function toggleMenu() {
             $("#wrapper").toggleClass("toggled");
         }
