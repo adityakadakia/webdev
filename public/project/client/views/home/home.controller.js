@@ -42,10 +42,12 @@
                 .then(function (place) {
                         var city = place.data.results[3].formatted_address;
                         console.log(city);
-                        if (city)
-                            $location.url('/home/' + city);
-                        else
-                            $location.url('/home/' + 'Boston');
+                        if (city) {
+                            $location.url('/home/' + city).replace();
+                        }
+                        else {
+                            $location.url('/home/' + 'Boston').replace();
+                        }
                     },
                     function (error) {
                         console.log(error);
