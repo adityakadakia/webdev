@@ -14,7 +14,8 @@
                 controller: "HomeController",
                 controllerAs: "model",
                 resolve: {
-                    getLoggedIn: getLoggedIn
+                    getLoggedIn: getLoggedIn,
+                    checkProfile: checkProfile
                 }
             })
             .when("/home/:placeQuery", {
@@ -22,25 +23,33 @@
                 controller: "HomeController",
                 controllerAs: "model",
                 resolve: {
-                    getLoggedIn: getLoggedIn
+                    getLoggedIn: getLoggedIn,
+                    checkProfile: checkProfile
                 }
             })
             .when("/login", {
                 templateUrl: "client/views/users/login.view.html",
                 controller: "LoginController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    checkProfile: checkProfile
+                }
             })
             .when("/register", {
                 templateUrl: "client/views/users/register.view.html",
                 controller: "RegisterController",
-                controllerAs: "model"
+                controllerAs: "model",
+                resolve: {
+                    checkProfile: checkProfile
+                }
             })
             .when("/profile", {
                 templateUrl: "client/views/users/profile/profile.view.html",
                 controller: "ProfileController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn: checkLoggedIn
+                    checkLoggedIn: checkLoggedIn,
+                    checkProfile: checkProfile
                 }
             })
             .when("/profile/:userId", {
@@ -48,7 +57,8 @@
                 controller: "ProfileController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn: checkLoggedIn
+                    checkLoggedIn: checkLoggedIn,
+                    checkProfile: checkProfile
                 }
             })
             .when("/followers", {
@@ -56,7 +66,8 @@
                 controller: "FollowerController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn: checkLoggedIn
+                    checkLoggedIn: checkLoggedIn,
+                    checkProfile: checkProfile
                 }
             })
             .when("/followers/:userId", {
@@ -64,7 +75,8 @@
                 controller: "FollowerController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn: checkLoggedIn
+                    checkLoggedIn: checkLoggedIn,
+                    checkProfile: checkProfile
                 }
             })
             .when("/following", {
@@ -72,7 +84,8 @@
                 controller: "FollowingController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn: checkLoggedIn
+                    checkLoggedIn: checkLoggedIn,
+                    checkProfile: checkProfile
                 }
             })
             .when("/following/:userId", {
@@ -80,7 +93,8 @@
                 controller: "FollowingController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn: checkLoggedIn
+                    checkLoggedIn: checkLoggedIn,
+                    checkProfile: checkProfile
                 }
             })
             .when("/likes", {
@@ -88,7 +102,8 @@
                 controller: "LikesController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn: checkLoggedIn
+                    checkLoggedIn: checkLoggedIn,
+                    checkProfile: checkProfile
                 }
             })
             .when("/likes/:userId", {
@@ -96,7 +111,8 @@
                 controller: "LikesController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn: checkLoggedIn
+                    checkLoggedIn: checkLoggedIn,
+                    checkProfile: checkProfile
                 }
             })
             .when("/details/:id", {
@@ -104,13 +120,15 @@
                 controller: "DetailsController",
                 controllerAs: "model",
                 resolve: {
-                    getLoggedIn: getLoggedIn
+                    getLoggedIn: getLoggedIn,
+                    checkProfile: checkProfile
                 }
             })
             .when("/admin", {
                 templateUrl: "client/views/admin/admin.view.html",
                 resolve: {
-                    checkLoggedIn: checkLoggedIn
+                    checkLoggedIn: checkLoggedIn,
+                    checkProfile: checkProfile
                 }
             })
             .otherwise({
@@ -150,6 +168,15 @@
             });
 
         return deferred.promise;
+    }
+
+    function checkProfile($location, $rootScope) {
+        var url = $location.url();
+        if (url.indexOf("profile") > -1 || url.indexOf("like") > -1 || url.indexOf("follow") > -1) {
+            $rootScope.isProfilePage = true;
+        } else {
+            $rootScope.isProfilePage = false;
+        }
     }
 
 })();
