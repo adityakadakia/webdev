@@ -7,7 +7,7 @@
         .module("Voyager")
         .controller("ProfileController", ProfileController);
 
-    function ProfileController($routeParams, $location, UserService) {
+    function ProfileController($routeParams, $location, $rootScope, UserService) {
         var model = this;
         model.update = update;
         model.toggleFollow = toggleFollow;
@@ -70,6 +70,7 @@
                 .then(function (u) {
                     console.log("updated user: " + JSON.stringify(u.data));
                     UserService.setCurrentUser(u.data);
+                    $rootScope.initProfileSidebar();
                 });
         }
     }
