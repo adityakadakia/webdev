@@ -18,7 +18,21 @@
         <div class="form-group">
             <label for="inputPassword4" class="col-sm-3 control-label">Verify Password</label>
             <div class="col-sm-9">
-                <input type="password" class="form-control" id="inputPassword4" placeholder="Verify Password">
+                <input type="password" class="form-control" id="inputPassword4" placeholder="Verify Password"
+                       ng-model="user.verifyPassword">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="firstName" class="col-sm-3 control-label">First Name</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="firstName" placeholder="First Name"
+                       ng-model="user.firstName">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="lastName" class="col-sm-3 control-label">Last Name</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="lastName" placeholder="Last Name" ng-model="user.lastName">
             </div>
         </div>
         <div class="form-group">
