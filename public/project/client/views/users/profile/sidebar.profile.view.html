@@ -1,20 +1,36 @@
-<div id="sidebar-wrapper">
+<div id="sidebar-wrapper" ng-controller="SidebarController as sc">
     <ul class="sidebar-nav">
+        <li ng-class="{'active': $location.url() == '/profile'}">
+            <a href="#/profile/{{sc.userId}}">
+                <i class="glyphicon glyphicon-user myicon-orange"
+                   aria-hidden="true"></i><label>&nbsp; {{sc.userprofile.firstName}} {{sc.userprofile.lastName}}</label></a>
+        </li>
         <li ng-class="{'active': $location.url() == '/likes'}">
-            <a href="#/likes"><i class="fa fa-thumbs-up myicon-blue" aria-hidden="true"></i><label>&nbsp; Likes</label></a>
+            <a href="#/likes/{{sc.userId}}"><i class="fa fa-thumbs-up myicon-blue" aria-hidden="true"></i><label>&nbsp;
+                Likes</label></a>
         </li>
         <li ng-class="{'active': $location.url() == '/followers'}">
-            <a href="#/followers"><i class="fa fa-users myicon-green" aria-hidden="true"></i><label>&nbsp;
+            <a href="#/followers/{{sc.userId}}"><i class="fa fa-users myicon-green" aria-hidden="true"></i><label>&nbsp;
                 Followers</label></a>
         </li>
         <li ng-class="{'active': $location.url() == '/following'}">
-            <a href="#/following"><i class="fa fa-users myicon-yellow" aria-hidden="true"></i><label>&nbsp;
+            <a href="#/following/{{sc.userId}}"><i class="fa fa-users myicon-yellow" aria-hidden="true"></i><label>
+                &nbsp;
                 Following</label></a>
         </li>
-        <li ng-class="{'active': $location.url() == '/profile'}">
-            <a href="#/profile">
-                <i class="glyphicon glyphicon-user myicon-orange"
-                   aria-hidden="true"></i><label>&nbsp; Update Profile</a>
+        <li>
+            <a href="" ng-hide="sc.previlege || sc.isFollows"
+               ng-click="sc.toggleFollow()">
+                <i class="fa fa-user-plus myicon-green"></i>
+                <label class="myicon-green">Follow</label>
+            </a>
+        </li>
+        <li>
+            <a href="" ng-hide="sc.previlege || !sc.isFollows"
+               ng-click="sc.toggleFollow()">
+                <i class="fa fa-user-times myicon-red"></i>
+                <label class="myicon-red">Unfollow</label>
+            </a>
         </li>
         <hr>
         <li>
