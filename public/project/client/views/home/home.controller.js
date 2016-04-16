@@ -7,7 +7,7 @@
         .module("Voyager")
         .controller("HomeController", HomeController);
 
-    function HomeController(SearchService, $routeParams, $location, $rootScope) {
+    function HomeController(SearchService, $routeParams, $location, $rootScope, GoogleMapsService) {
         var model = this;
         model.searchTerm;
         model.explorePlaces = explorePlaces;
@@ -18,7 +18,38 @@
         if ($routeParams.placeQuery) {
             explorePlaces($routeParams.placeQuery);
         } else {
-            explorePlaces("Boston");
+            getLocation();
+        }
+
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showPosition(position) {
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+            console.log("Lat: " + lat + "Lon: " + lon);
+            reverseGeocode(lat, lon);
+        }
+
+        function reverseGeocode(lat, lon) {
+            GoogleMapsService
+                .reverseGeocode(lat + "," + lon)
+                .then(function (place) {
+                        var city = place.data.results[3].formatted_address;
+                        console.log(city);
+                        if (city)
+                            $location.url('/home/' + city);
+                        else
+                            $location.url('/home/' + 'Boston');
+                    },
+                    function (error) {
+                        console.log(error);
+                    });
         }
 
         function explorePlaces(searchTerm) {
