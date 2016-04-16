@@ -163,3 +163,12 @@ footer {
 .mysidebar-indent > li > a > span {
     text-indent: 0px;
 }
+
+.mylogo-a {
+    padding: 0px 0px;
+}
+
+.mylogo-a > img {
+    height: 100%;
+    margin-left: 10px
+}
