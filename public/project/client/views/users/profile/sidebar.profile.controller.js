@@ -11,8 +11,9 @@
         var model = this;
         model.userId = $routeParams.userId;
         console.log("userId: " + model.userId);
-        model.previlege = false;
+        model.previlege = true;
         model.toggleFollow = toggleFollow;
+        model.logout = logOut;
 
         init();
 
@@ -29,6 +30,8 @@
                         model.currUser = response.data;
                         if (model.currUser._id == model.userprofile._id)
                             model.previlege = true;
+                        else
+                            model.previlege = false;
                         if (model.currUser.following.indexOf(model.userprofile._id) > -1)
                             model.isFollows = true;
                         else
@@ -64,5 +67,18 @@
                 }
             }
         }
+
+
+        function logOut() {
+            console.log("HeaderController logOut");
+            UserService
+                .logOut()
+                .then(function (response) {
+                    console.log(response.data);
+                    $rootScope.user = undefined;
+                    $location.url("/home");
+                });
+        }
     }
+
 })();

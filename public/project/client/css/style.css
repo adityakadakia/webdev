@@ -114,23 +114,23 @@ footer {
 }
 
 .myicon-orange {
-    color: coral
+    color: #ff8d04
 }
 
 .myicon-green {
-    color: forestgreen;
+    color: #30d030;
 }
 
 .myicon-yellow {
-    color: #c2ae17;
+    color: #f4de1a;
 }
 
 .myicon-blue {
-    color: dodgerblue;
+    color: #1197ff;
 }
 
 .myicon-red {
-    color: darkred;
+    color: #e50000;
 }
 
 .mynavcolor > li > a {
@@ -154,4 +154,12 @@ footer {
 .login-fields {
     padding-right: 15px;
     padding-left: 15px;
+}
+
+.mysidebar-indent > li {
+    text-indent: 10px;
+}
+
+.mysidebar-indent > li > a > span {
+    text-indent: 0px;
 }

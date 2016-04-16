@@ -1,22 +1,31 @@
 <div id="sidebar-wrapper" ng-controller="SidebarController as sc">
-    <ul class="sidebar-nav">
+    <ul class="sidebar-nav mysidebar-indent">
         <li ng-class="{'active': $location.url() == '/profile'}">
             <a href="#/profile/{{sc.userId}}">
-                <i class="glyphicon glyphicon-user myicon-orange"
-                   aria-hidden="true"></i><label>&nbsp; {{sc.userprofile.firstName}} {{sc.userprofile.lastName}}</label></a>
+                <i class="glyphicon glyphicon-user myicon-orange" aria-hidden="true"></i>
+                <label class="myicon-orange">&nbsp;{{sc.userprofile.firstName}} {{sc.userprofile.lastName}}</label>
+            </a>
         </li>
         <li ng-class="{'active': $location.url() == '/likes'}">
-            <a href="#/likes/{{sc.userId}}"><i class="fa fa-thumbs-up myicon-blue" aria-hidden="true"></i><label>&nbsp;
-                Likes</label></a>
+            <a href="#/likes/{{sc.userId}}">
+                <i class="fa fa-thumbs-up myicon-blue" aria-hidden="true"></i>
+                <label class="myicon-blue">&nbsp;Likes</label>
+                <span class="badge" style="text-indent: 0px">{{sc.userprofile.likes.length}}</span>
+            </a>
         </li>
         <li ng-class="{'active': $location.url() == '/followers'}">
-            <a href="#/followers/{{sc.userId}}"><i class="fa fa-users myicon-green" aria-hidden="true"></i><label>&nbsp;
-                Followers</label></a>
+            <a href="#/followers/{{sc.userId}}">
+                <i class="fa fa-users myicon-green" aria-hidden="true"></i>
+                <label class="myicon-green">&nbsp;Followers</label>
+                <span class="badge" style="text-indent: 0px">{{sc.userprofile.followers.length}}</span>
+            </a>
         </li>
         <li ng-class="{'active': $location.url() == '/following'}">
-            <a href="#/following/{{sc.userId}}"><i class="fa fa-users myicon-yellow" aria-hidden="true"></i><label>
-                &nbsp;
-                Following</label></a>
+            <a href="#/following/{{sc.userId}}">
+                <i class="fa fa-users myicon-yellow" aria-hidden="true"></i>
+                <label class="myicon-yellow">&nbsp;Following</label>
+                <span class="badge" style="text-indent: 0px">{{sc.userprofile.following.length}}</span>
+            </a>
         </li>
         <li>
             <a href="" ng-hide="sc.previlege || sc.isFollows"
@@ -34,7 +43,9 @@
         </li>
         <hr>
         <li>
-            <a href="#/forms"><i class="fa fa-sign-out myicon-red" aria-hidden="true"></i><label>&nbsp; Sign Out</label></a>
+            <a href="#/forms"><i class="fa fa-sign-out myicon-red" aria-hidden="true"></i>
+                <label class="myicon-red">&nbsp; Sign Out</label>
+            </a>
         </li>
     </ul>
 </div>
