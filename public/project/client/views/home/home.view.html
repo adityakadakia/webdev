@@ -36,7 +36,7 @@
                 <span class="label label-success" ng-show="item.venue.hours.isOpen">Open</span>
                 <span class="label label-danger" ng-show="!item.venue.hours.isOpen">Closed</span>
                 <span class="label label-default"
-                      ng-show="item.venue.hours.status">&nbsp; {{item.venue.hours.status}}</span>
+                      ng-show="item.venue.hours.status">{{item.venue.hours.status}}</span>
             </p>
             <a class="btn btn-primary" href="#/details/{{item.venue.id}}">Find more <span
                     class="glyphicon glyphicon-chevron-right"></span></a>
