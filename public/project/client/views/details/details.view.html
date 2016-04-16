@@ -26,20 +26,21 @@
                         </button>
                     </h4>
 
-                    <p>{{model.wiki}}</p>
-                    <p>{{model.item.venue.location.formattedAddress[0]}}
+                    <p><i class="fa fa-paragraph pull-left" aria-hidden="true"></i>&nbsp; {{model.wiki}}</p>
+                    <p><i class="fa fa-map-signs" aria-hidden="true"></i>&nbsp; <label>Address: </label><br>{{model.item.venue.location.formattedAddress[0]}}
                         <br>{{model.item.venue.location.formattedAddress[1]}}
                         <br>{{model.item.venue.location.formattedAddress[2]}}
                         <br>{{model.item.venue.location.formattedAddress[3]}}</p>
-                    <p>{{model.item.venue.contact.formattedPhone}}
-                        <br><a href={{model.item.venue.url}}>{{model.item.venue.url}}
+                    <p><i class="fa fa-phone" aria-hidden="true" ng-hide="!model.item.venue.contact.formattedPhone"></i>&nbsp;
+                        {{model.item.venue.contact.formattedPhone}}
+                        <br><i class="fa fa-globe" aria-hidden="true" ng-hide="!model.item.venue.url"></i>&nbsp; <a
+                                href={{model.item.venue.url}}>{{model.item.venue.url}}
                         </a>
                     </p>
                 </div>
                 <div class="ratings">
                     <p class="pull-right">
-                        <class
-                        ="label label-default">{{model.reviews.length}} reviews
+                        {{model.reviews.length}} reviews
                     </p>
                     <p>
                         <span class="glyphicon glyphicon-star"></span>
@@ -78,7 +79,8 @@
                         By <a href="#/profile/{{review.userId}}">{{review.fullName}}</a>
                         <span class="label label-info">on {{ review.timestamp | date : 'mediumDate'}}</span>
                         <br/>&nbsp;<br>
-                        <p>{{review.description}}</p>
+                        <i class="fa fa-quote-left fa-2x fa-pull-left fa-border" aria-hidden="true"></i>
+                        <p class="review-style">{{review.description}}</p>
                     </div>
                     <div class="col-xs-6 col-sm-2">
                         <a class="btn btn-primary btn-block review-button" ng-show="user._id == review.userId"
@@ -88,7 +90,6 @@
                         <a class="btn btn-danger btn-block review-button" ng-show="user._id == review.userId"
                            ng-click="model.deleteReview($index)">Delete</a>
                     </div>
-
                 </div>
             </div>
         </div>
