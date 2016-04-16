@@ -17,13 +17,14 @@
                 <div class="caption-full">
                     <h4 class="pull-right">{{model.item.venue.categories[0].name}}</h4>
                     <h4><a href="">{{model.item.venue.name}}</a>
-                        <button type="button"
-                                class="btn btn-default"
-                                ng-class="{'active': model.isLiked == true}"
-                                aria-label="Left Align"
-                                ng-click="model.toggleLike()">
-                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
-                        </button>
+                        <i class="fa fa-thumbs-o-up"
+                           ng-click="model.toggleLike()"
+                           ng-hide="model.isLiked"
+                           aria-hidden="true"></i>
+                        <i class="fa fa-thumbs-up myicon-blue"
+                           ng-click="model.toggleLike()"
+                           ng-hide="!model.isLiked"
+                           aria-hidden="true"></i>
                     </h4>
 
                     <p><i class="fa fa-paragraph pull-left" aria-hidden="true"></i>&nbsp; {{model.wiki}}</p>
