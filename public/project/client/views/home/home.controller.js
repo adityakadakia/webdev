@@ -13,6 +13,7 @@
         model.explorePlaces = explorePlaces;
         model.imageSize = "/800X500/";
         model.initMap = initMap;
+        model.changeUrl = changeUrl;
 
         if ($routeParams.placeQuery) {
             explorePlaces($routeParams.placeQuery);
@@ -27,6 +28,10 @@
                 initMap(places.response.groups[0].items);
             })
             model.searchTerm = searchTerm;
+
+        }
+
+        function changeUrl(searchTerm) {
             $location.url("/home/" + searchTerm);
         }
 
