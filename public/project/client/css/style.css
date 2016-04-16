@@ -150,3 +150,8 @@ footer {
 .review-style {
     font-family: "Georgia", Times, serif;
 }
+
+.login-fields {
+    padding-right: 15px;
+    padding-left: 15px;
+}
