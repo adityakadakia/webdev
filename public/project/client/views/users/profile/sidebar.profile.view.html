@@ -1,12 +1,25 @@
 <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
-        <li ng-class="{'active': $location.url() == '/likes'}"><a href="#/likes">Likes</a></li>
-        <li ng-class="{'active': $location.url() == '/followers'}"><a href="#/followers">Followers</a></li>
-        <li ng-class="{'active': $location.url() == '/following'}"><a
-                href="#/following">Following</a></li>
-        <li ng-class="{'active': $location.url() == '/profile'}"><a href="#/profile">Update Profile</a></li>
+        <li ng-class="{'active': $location.url() == '/likes'}">
+            <a href="#/likes"><i class="fa fa-thumbs-up myicon-blue" aria-hidden="true"></i><label>&nbsp; Likes</label></a>
+        </li>
+        <li ng-class="{'active': $location.url() == '/followers'}">
+            <a href="#/followers"><i class="fa fa-users myicon-green" aria-hidden="true"></i><label>&nbsp;
+                Followers</label></a>
+        </li>
+        <li ng-class="{'active': $location.url() == '/following'}">
+            <a href="#/following"><i class="fa fa-users myicon-yellow" aria-hidden="true"></i><label>&nbsp;
+                Following</label></a>
+        </li>
+        <li ng-class="{'active': $location.url() == '/profile'}">
+            <a href="#/profile">
+                <i class="glyphicon glyphicon-user myicon-orange"
+                   aria-hidden="true"></i><label>&nbsp; Update Profile</a>
+        </li>
         <hr>
-        <li><a href="#/forms">Sign Out</a></li>
+        <li>
+            <a href="#/forms"><i class="fa fa-sign-out myicon-red" aria-hidden="true"></i><label>&nbsp; Sign Out</label></a>
+        </li>
     </ul>
 </div>
 <!--class="col-sm-3 col-md-2 col-lg-2 sidebar"-->
