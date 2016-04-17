@@ -57,39 +57,51 @@
 
             <div class="well">
 
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-8">
+                <div class="row" ng-hide="model.selected != -1">
+                    <div class="col-xs-12">
                         <input type="text" class="form-control" placeholder="Leave a review"
                                ng-model="model.review.description">
                     </div>
-                    <div class="col-xs-6 col-sm-3 col-md-2 review-button">
-                        <a class="btn btn-success btn-block" ng-click="model.addReview(model.review)">Leave Review</a>
+                    <div class="col-xs-12 review-button">
+                        <br>
+                        <a class="btn btn-success" ng-click="model.addReview(model.review)">Leave Review</a>
                     </div>
-                    <div class="col-xs-6 col-sm-3 col-md-2 review-button" ng-click="model.updateReview(model.review)">
-                        <a class="btn btn-warning btn-block" ng-show="model.selected != -1">Update</a>
-                    </div>
+                    <!--<div class="col-xs-6 col-sm-3 col-md-2 review-button" ng-click="model.updateReview(model.review)">-->
+                    <!--<a class="btn btn-warning btn-block" ng-show="model.selected != -1">Update</a>-->
+                    <!--</div>-->
                 </div>
                 <div class="row" ng-repeat="review in model.reviews track by review._id">
                     <hr>
-                    <div class="col-xs-12 col-sm-8">
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span><br>
+                    <div class="col-xs-12 col-sm-12" ng-hide="model.selected == $index">
                         By <a href="#/profile/{{review.userId}}">{{review.fullName}}</a>
                         <span class="label label-info">on {{ review.timestamp | date : 'mediumDate'}}</span>
                         <br/>&nbsp;<br>
                         <i class="fa fa-quote-left fa-2x fa-pull-left fa-border" aria-hidden="true"></i>
                         <p class="review-style">{{review.description}}</p>
+                        <br>
                     </div>
-                    <div class="col-xs-6 col-sm-2">
-                        <a class="btn btn-primary btn-block review-button" ng-show="user._id == review.userId"
+                    <div class="col-xs-12" ng-hide="model.selected == $index">
+                        <a class="btn btn-primary review-button" ng-show="user._id == review.userId"
                            ng-click="model.selectReview($index)">Edit</a>
-                    </div>
-                    <div class="col-xs-6 col-sm-2">
-                        <a class="btn btn-danger btn-block review-button" ng-show="user._id == review.userId"
+                        <a class="btn btn-danger review-button" ng-show="user._id == review.userId"
                            ng-click="model.deleteReview($index)">Delete</a>
+                    </div>
+                    <!--<div class="col-xs-6 col-sm-2" ng-hide="model.selected == $index">-->
+                    <!--<a class="btn btn-danger pull-right review-button" ng-show="user._id == review.userId"-->
+                    <!--ng-click="model.deleteReview($index)">Delete</a>-->
+                    <!--</div>-->
+                    <div ng-show="model.selected == $index">
+                        <div class="col-xs-12">
+                            <input type="text" class="form-control" placeholder="Leave a review"
+                                   ng-model="model.review.description">
+                        </div>
+                        <!--<div class="col-xs-6 col-sm-3 col-md-2 review-button">-->
+                        <!--<a class="btn btn-success btn-block" ng-click="model.addReview(model.review)">Leave Review</a>-->
+                        <!--</div>-->
+                        <div class="col-xs-6" ng-click="model.updateReview(model.review)">
+                            <br>
+                            <a class="btn btn-warning" ng-show="model.selected != -1">Update</a>
+                        </div>
                     </div>
                 </div>
             </div>
