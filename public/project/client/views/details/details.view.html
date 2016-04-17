@@ -66,9 +66,6 @@
                         <br>
                         <a class="btn btn-success" ng-click="model.addReview(model.review)">Leave Review</a>
                     </div>
-                    <!--<div class="col-xs-6 col-sm-3 col-md-2 review-button" ng-click="model.updateReview(model.review)">-->
-                    <!--<a class="btn btn-warning btn-block" ng-show="model.selected != -1">Update</a>-->
-                    <!--</div>-->
                 </div>
                 <div class="row" ng-repeat="review in model.reviews track by review._id">
                     <hr>
@@ -86,18 +83,11 @@
                         <a class="btn btn-danger review-button" ng-show="user._id == review.userId"
                            ng-click="model.deleteReview($index)">Delete</a>
                     </div>
-                    <!--<div class="col-xs-6 col-sm-2" ng-hide="model.selected == $index">-->
-                    <!--<a class="btn btn-danger pull-right review-button" ng-show="user._id == review.userId"-->
-                    <!--ng-click="model.deleteReview($index)">Delete</a>-->
-                    <!--</div>-->
                     <div ng-show="model.selected == $index">
                         <div class="col-xs-12">
                             <input type="text" class="form-control" placeholder="Leave a review"
                                    ng-model="model.review.description">
                         </div>
-                        <!--<div class="col-xs-6 col-sm-3 col-md-2 review-button">-->
-                        <!--<a class="btn btn-success btn-block" ng-click="model.addReview(model.review)">Leave Review</a>-->
-                        <!--</div>-->
                         <div class="col-xs-6" ng-click="model.updateReview(model.review)">
                             <br>
                             <a class="btn btn-warning" ng-show="model.selected != -1">Update</a>
