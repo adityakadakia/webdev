@@ -95,8 +95,8 @@ module.exports = function (db, mongoose) {
         console.log(user.imgUrl);
         console.log("-------------------------------------------------");
         delete user._id;
-        //var emails = user.emails.toString().split(",");
-        //user.emails = emails;
+        var emails = user.emails.toString().split(",");
+        user.emails = emails;
         return userModel.update({_id: userId}, {
             $set: {
                 username: user.username,
@@ -104,7 +104,7 @@ module.exports = function (db, mongoose) {
                 password: user.password,
                 firstName: user.firstName,
                 lastName: user.lastName,
-                //emails: user.emails,
+                emails: user.emails,
             }
         });
     }
