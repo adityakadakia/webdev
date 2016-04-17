@@ -11,6 +11,8 @@
         var model = this;
         console.log("LoginController");
         model.login = login;
+        model.authenticateFail = false;
+        model.authenticateFailReset = authenticateFailReset;
 
         function login(user) {
             console.log("LoginController login");
@@ -22,7 +24,13 @@
                         UserService.setCurrentUser(u);
                         $location.url("/profile");
                     }
+                    else model.authenticateFail = true;
                 });
+        }
+
+        function authenticateFailReset() {
+            model.authenticateFail = false;
+            console.log("reset: " + model.authenticateFail);
         }
     }
 })();
