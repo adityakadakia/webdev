@@ -30,7 +30,6 @@
 
         function authenticateFailReset() {
             model.authenticateFail = false;
-            console.log("reset: " + model.authenticateFail);
         }
     }
 })();

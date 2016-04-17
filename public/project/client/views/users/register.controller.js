@@ -11,6 +11,13 @@
         var model = this;
         model.register = register;
         model.duplicateUser = false;
+        model.authenticateFail = false;
+        model.authenticateFailReset = authenticateFailReset;
+
+        function authenticateFailReset() {
+            model.authenticateFail = false;
+            console.log("reset: " + model.authenticateFail);
+        }
 
         function validateUser(user) {
             var flag = true;
@@ -31,6 +38,7 @@
             console.log("RegisterController register");
             console.log("Submitted user: " + JSON.stringify(user));
             var flag = validateUser(user);
+            model.authenticateFail = !flag;
             if (flag == true)
                 UserService.register(user)
                     .then(function (response) {
@@ -56,9 +64,6 @@
                             if (err.data == "Duplicate User")
                                 model.duplicateUser = true;
                         });
-            else {
-                alert("Please verify your details.");
-            }
         }
     }
 })();
