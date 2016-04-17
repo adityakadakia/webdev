@@ -16,7 +16,8 @@ module.exports = function (db, mongoose) {
         deleteUserById: deleteUserById,
         updateUser: updateUser,
         findUserByUsername: findUserByUsername,
-        findUserById: findUserById
+        findUserById: findUserById,
+        updateUserProfile: updateUserProfile
     };
 
     return api;
@@ -61,26 +62,49 @@ module.exports = function (db, mongoose) {
     }
 
     function updateUser(userId, user) {
-        console.log("userModel updateUser");
-        userId = user._id;
+        console.log("userModel updateUser", user);
         console.log("userId: " + userId);
+        console.log("-------------------------------------------------");
+        console.log(userId);
+        console.log(user.imgUrl);
+        console.log("-------------------------------------------------");
         delete user._id;
-        var phones = user.phones.toString().split(",");
-        user.phones = phones;
-        var emails = user.emails.toString().split(",");
-        user.emails = emails;
+        //var emails = user.emails.toString().split(",");
+        //user.emails = emails;
         return userModel.update({_id: userId}, {
             $set: {
                 username: user.username,
+                imgUrl: user.imgUrl,
                 password: user.password,
                 firstName: user.firstName,
                 lastName: user.lastName,
-                emails: user.emails,
-                phones: user.phones,
+                //emails: user.emails,
                 likes: user.likes,
                 following: user.following,
                 followers: user.followers,
                 roles: user.roles
+            }
+        });
+    }
+
+    function updateUserProfile(userId, user) {
+        console.log("userModel updateUser", user);
+        console.log("userId: " + userId);
+        console.log("-------------------------------------------------");
+        console.log(userId);
+        console.log(user.imgUrl);
+        console.log("-------------------------------------------------");
+        delete user._id;
+        //var emails = user.emails.toString().split(",");
+        //user.emails = emails;
+        return userModel.update({_id: userId}, {
+            $set: {
+                username: user.username,
+                imgUrl: user.imgUrl,
+                password: user.password,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                //emails: user.emails,
             }
         });
     }

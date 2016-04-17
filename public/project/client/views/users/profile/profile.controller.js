@@ -22,6 +22,8 @@
                     .userIdtoUser(userId)
                     .then(function (response) {
                         model.userprofile = response.data;
+                        model.updateProfileAPI = "/api/project/user/profilepic/" + model.userprofile._id;
+                        console.log("I am here: " + model.updateProfileAPI);
                         return UserService.getCurrentUser();
                     })
                     .then(function (response) {
@@ -32,6 +34,7 @@
                             model.isFollows = true;
                         else
                             model.isFollows = false;
+
                     });
             } else {
                 console.log("User unspecified: fetching current user information.");

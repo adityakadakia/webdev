@@ -11,47 +11,54 @@
                     </h3>
                 </div>
                 <div class="col-xs-12">
-                    <form class="form-horizontal">
+                    <form class="form-horizontal" action="{{model.updateProfileAPI}}" method="post"
+                          enctype="multipart/form-data">
+                        <div class="form-group" ng-if="model.previlege">
+                            <label class="col-sm-3 control-label">Profile Picture</label>
+                            <div class="col-sm-9">
+                                <input type="file" class="form-control"
+                                       name="profilePic">
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="username3" class="col-sm-3 control-label">Username</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="username3" placeholder="Username"
-                                       ng-model="model.userprofile.username">
+                                       name="username" value="{{model.userprofile.username}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-3 control-label">Password</label>
                             <div class="col-sm-9">
                                 <input type="password" class="form-control" id="inputPassword3"
-                                       placeholder="Password"
-                                       ng-model="model.userprofile.password">
+                                       placeholder="Password" name="password"
+                                       value="{{model.userprofile.password}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="firstname" class="col-sm-3 control-label">First Name</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="firstname" placeholder="First Name"
-                                       ng-model="model.userprofile.firstName">
+                                       name="firstName" value="{{model.userprofile.firstName}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="lastname" class="col-sm-3 control-label">Last Name</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="lastname" placeholder="Last Name"
-                                       ng-model="model.userprofile.lastName">
+                                       name="lastName" value="{{model.userprofile.lastName}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email" class="col-sm-3 control-label">Email</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" id="email" placeholder="Email"
-                                       ng-model="model.userprofile.emails">
+                                       name="email" value="{{model.userprofile.emails}}">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-9">
                                 <button type="submit" class="btn btn-default btn-block"
-                                        ng-click="model.update(model.userprofile)"
                                         ng-if="model.previlege">
                                     Update
                                 </button>

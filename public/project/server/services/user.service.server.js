@@ -2,6 +2,8 @@
  * Created by Aditya on 3/22/2016.
  */
 module.exports = function (app, userModel) {
+    var multer = require('multer');
+    var upload = multer({dest: __dirname + '/../../../uploads'});
 
     app.post("/api/project/user", register);
     app.get("/api/project/user/loggedin", loggedin);
@@ -16,8 +18,40 @@ module.exports = function (app, userModel) {
     app.delete("/api/project/user/like/:placeId", unlikePlace);
     app.post("/api/project/user/follow/:followId", followUser);
     app.delete("/api/project/user/follow/:followId", unfollowUser);
+    app.post("/api/project/user/profilepic/:id", upload.single('profilePic'), updateUserWithImage);
 
     var userService = this;
+
+    function updateUserWithImage(req, res) {
+        var userId = req.params.id;
+        console.log("I am in server: " + userId);
+        var model = req.body;
+        var user = model;
+        console.log(user);
+        var imageFile = req.file;
+        if (imageFile) {
+            var destination = imageFile.destination;
+            var path = imageFile.path;
+            var originalname = imageFile.originalname;
+            var size = imageFile.size;
+            var mimetype = imageFile.mimetype;
+            var filename = imageFile.filename;
+            user.imgUrl = "/uploads/" + filename;
+        }
+        userModel.updateUserProfile(userId, user)
+            .then(function (response) {
+                    return userModel.findUserById(userId);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                })
+            .then(function (response) {
+                req.session.currentUser = response;
+                res.redirect(req.header('Referer') + "#/profile/" + userId);
+            }, function (err) {
+                res.status(400).send(err);
+            });
+    }
 
     function followUser(req, res) {
         var followId = req.params.followId;
