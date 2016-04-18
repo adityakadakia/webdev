@@ -58,12 +58,14 @@
                         .then(function (response) {
                             if (response.status == 200)
                                 model.isFollows = true;
+                            initProfileSidebar();
                         });
                 } else {
                     UserService.unfollowUser(model.userprofile._id)
                         .then(function (response) {
                             if (response.status == 200)
                                 model.isFollows = false;
+                            initProfileSidebar();
                         });
                 }
             }
