@@ -172,3 +172,15 @@ footer {
     height: 100%;
     margin-left: 10px
 }
+
+.sidebar-profile-img {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.profile-img {
+    margin-bottom: 15px
+}

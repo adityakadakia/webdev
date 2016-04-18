@@ -1,5 +1,11 @@
 <div id="sidebar-wrapper" ng-controller="SidebarController as sc">
     <ul class="sidebar-nav mysidebar-indent">
+        <li>
+            <a href="#/profile/{{sc.userId}}">
+                <img ng-src="{{sc.userprofile.imgUrl}}" class="sidebar-profile-img" width="75px"
+            </a>
+            <hr>
+        </li>
         <li ng-class="{'active': $location.url() == '/profile'}">
             <a href="#/profile/{{sc.userId}}">
                 <i class="glyphicon glyphicon-user myicon-orange" aria-hidden="true"></i>
