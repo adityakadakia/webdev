@@ -12,7 +12,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 thumb"
                          ng-repeat="following in model.following track by following._id">
                         <a class="thumbnail btn" href="#/profile/{{following._id}}">
-                            <img class="img-responsive" src="http://placehold.it/400x300" alt="">
+                            <img class="img-responsive" ng-src="{{following.imgUrl}}" alt="">
                             {{following.firstName}} {{following.lastName}}
                         </a>
                     </div>
