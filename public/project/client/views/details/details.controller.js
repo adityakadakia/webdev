@@ -117,6 +117,7 @@
                                     for (var j in model.reviewUsers) {
                                         if (model.reviews[i].userId == model.reviewUsers[j]._id) {
                                             model.reviews[i].fullName = model.reviewUsers[j].firstName + " " + model.reviewUsers[j].lastName;
+                                            model.reviews[i].usrImg = model.reviewUsers[j].imgUrl;
                                         }
                                     }
                                 }
