@@ -46,7 +46,7 @@
         }
 
         function logIn(username, password) {
-            return $http.get("/api/project/user?username=" + username + "&password=" + password);
+            return $http.post("/api/project/login", {username: username, password: password});
         }
 
         function logOut() {
@@ -77,6 +77,10 @@
 
         function userIdtoUser(userId) {
             return $http.get("/api/project/user/" + userId);
+        }
+
+        function login(user) {
+            return $http.post("/api/project/login", user);
         }
     }
 })();

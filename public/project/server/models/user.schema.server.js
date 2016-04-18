@@ -15,7 +15,8 @@ module.exports = function (mongoose) {
         likes: [String],
         following: [String],
         followers: [String],
-        roles: [String]
+        roles: [String],
+        type: {type: String, default: "project"}
         // collection property sets
         // collection name to 'user'
     }, {collection: 'project.user'});

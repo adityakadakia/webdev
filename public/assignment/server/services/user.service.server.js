@@ -1,8 +1,7 @@
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcrypt-nodejs');
-module.exports = function (app, userModel) {
+module.exports = function (app, userModel, security) {
     var auth = authorized;
+    var passport = security.getPassport();
 
     app.post("/api/assignment/user", register);
     app.get("/api/assignment/user/loggedin", loggedin);
@@ -13,17 +12,13 @@ module.exports = function (app, userModel) {
     app.get("/api/assignment/user?username=alice&password=wonderland", findUserByCredentials);
     app.delete("/api/assignment/user/:id", deleteUserById);
     app.post("/api/assignment/user/logout", logOut);
-    app.post("/api/assignment/login", passport.authenticate('local'), login);
+    app.post("/api/assignment/login", passport.authenticate('assignment'), login);
     app.post('/api/assignment/admin/user', auth, createUser);
     app.get('/api/assignment/admin/user', auth, findAllUsersAdmin);
     app.delete('/api/assignment/admin/user/:userId', auth, deleteUser);
     app.put('/api/assignment/admin/user/:userId', auth, updateUser);
 
     var userService = this;
-
-    passport.use(new LocalStrategy(localStrategy));
-    passport.serializeUser(serializeUser);
-    passport.deserializeUser(deserializeUser);
 
     function updateUser(req, res) {
         var newUser = req.body;
@@ -96,43 +91,6 @@ module.exports = function (app, userModel) {
             res.status(403);
         }
     }
-
-    function localStrategy(username, password, done) {
-        userModel
-            .findUserByUsername(username)
-            .then(function (user) {
-                    console.log("localStrategy - user found: " + JSON.stringify(user));
-                    if (user && bcrypt.compareSync(password, user.password)) {
-                        console.log("user authenticated")
-                        return done(null, user);
-                    } else {
-                        return done(null, false);
-                    }
-                },
-                function (err) {
-                    if (err) {
-                        return done(err);
-                    }
-                });
-    }
-
-    function serializeUser(user, done) {
-        done(null, user);
-    }
-
-    function deserializeUser(user, done) {
-        userModel
-            .findUserById(user._id)
-            .then(
-                function (user) {
-                    done(null, user);
-                },
-                function (err) {
-                    done(err, null);
-                }
-            );
-    }
-
 
     function authorized(req, res, next) {
         if (!req.isAuthenticated()) {
@@ -319,7 +277,7 @@ module.exports = function (app, userModel) {
     function loggedin(req, res) {
         console.log("loggedin current user: " + JSON.stringify(req.user));
         //res.json(req.session.currentUser);
-        res.send(req.isAuthenticated() ? req.user : '');
+        res.send(req.isAuthenticated() && req.user.type == 'assignment' ? req.user : '');
     }
 
     function update(req, res) {

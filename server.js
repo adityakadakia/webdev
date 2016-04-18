@@ -29,6 +29,11 @@ app.use(express.static(__dirname + '/public'));
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3001;
-require("./public/assignment/server/app.js")(app, db, mongoose, uuid);
-require("./public/project/server/app.js")(app, db, mongoose);
+
+var userModelAssignment = require("./public/assignment/server/models/user.model.server.js")(db, mongoose);
+var userModelProject = require("./public/project/server/models/user.model.server.js")(db, mongoose);
+var security = require("./public/security/security.js")(userModelAssignment, userModelProject);
+
+require("./public/assignment/server/app.js")(app, db, mongoose, uuid, userModelAssignment, security);
+require("./public/project/server/app.js")(app, db, mongoose, userModelProject, security);
 app.listen(port, ipaddress);

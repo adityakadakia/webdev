@@ -1,9 +1,11 @@
 /**
  * Created by Aditya on 3/22/2016.
  */
-module.exports = function (app, userModel) {
+module.exports = function (app, userModel, security) {
+    var passport = security.getPassport();
     var multer = require('multer');
     var upload = multer({dest: __dirname + '/../../../uploads'});
+    var auth = authorized;
 
     app.post("/api/project/user", register);
     app.get("/api/project/user/loggedin", loggedin);
@@ -19,6 +21,8 @@ module.exports = function (app, userModel) {
     app.post("/api/project/user/follow/:followId", followUser);
     app.delete("/api/project/user/follow/:followId", unfollowUser);
     app.post("/api/project/user/profilepic/:id", upload.single('profilePic'), updateUserWithImage);
+    app.post("/api/project/login", passport.authenticate('project'), login);
+
 
     var userService = this;
 
@@ -200,7 +204,9 @@ module.exports = function (app, userModel) {
 
     function logOut(req, res) {
         console.log("UserService logOut");
-        req.session.destroy();
+        //req.session.destroy();
+        //res.send(200);
+        req.logOut();
         res.send(200);
     }
 
@@ -296,8 +302,14 @@ module.exports = function (app, userModel) {
             )
             .then(
                 function (doc) {
-                    req.session.currentUser = doc;
-                    res.json(doc);
+                    req.login(doc, function (err) {
+                        if (err) {
+                            res.status(400).send(err);
+                        }
+                        else {
+                            res.json(doc);
+                        }
+                    });
                 },
                 // send error if promise rejected
                 function (err) {
@@ -308,7 +320,8 @@ module.exports = function (app, userModel) {
 
     function loggedin(req, res) {
         console.log("loggedin current user: " + JSON.stringify(req.session.currentUser));
-        res.json(req.session.currentUser);
+        //res.json(req.session.currentUser);
+        res.send(req.isAuthenticated() && req.user.type == "project" ? req.user : null);
     }
 
     function update(req, res) {
@@ -341,6 +354,19 @@ module.exports = function (app, userModel) {
 
     function findUserByUsername(req, res) {
         console.log("UserService findUserByUsername");
+    }
+
+    function authorized(req, res, next) {
+        if (!req.isAuthenticated()) {
+            res.send(401);
+        } else {
+            next();
+        }
+    };
+
+    function login(req, res) {
+        var user = req.user;
+        res.json(user);
     }
 
 }
