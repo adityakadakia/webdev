@@ -71,6 +71,8 @@
             if (user != '' && user.roles.indexOf('admin') != -1) {
                 $rootScope.user = user;
                 deferred.resolve();
+            } else {
+                $location.url('/home').replace();
             }
         });
         return deferred.promise;
