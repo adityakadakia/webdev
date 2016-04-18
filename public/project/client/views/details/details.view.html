@@ -40,18 +40,9 @@
                     </p>
                 </div>
                 <div class="ratings">
-                    <p class="pull-right">
+                    <p>
                         {{model.reviews.length}} reviews
                     </p>
-                    <p>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                        4.0 stars
-                    </p>
-
                 </div>
             </div>
 
@@ -81,7 +72,7 @@
                             <div class="media-body">
                                 <label class="media-heading">By <a
                                         href="#/profile/{{review.userId}}">{{review.fullName}}</a>
-                                    <span class="label label-info">on {{ review.timestamp | date : 'mediumDate'}}</span>
+                                    <span class="label label-info"> {{ review.timestamp | date : 'mediumDate'}}</span>
                                 </label>
                                 <div ng-hide="model.selected == $index">
                                     <p class="review-style">{{review.description}}</p>
