@@ -21,9 +21,29 @@
             likePlace: likePlace,
             unlikePlace: unlikePlace,
             followUser: followUser,
-            unfollowUser: unfollowUser
+            unfollowUser: unfollowUser,
+            createUser: createUser,
+            updateUserAdmin: updateUserAdmin,
+            deleteUser: deleteUser,
+            findAllUsers: findAllUsers
         };
         return api;
+
+        function createUser(user) {
+            return $http.post('/api/project/admin/user', user);
+        }
+
+        function updateUserAdmin(userId, user) {
+            return $http.put('/api/project/admin/user/' + userId, user);
+        }
+
+        function deleteUser(userId) {
+            return $http.delete('/api/project/admin/user/' + userId);
+        }
+
+        function findAllUsers() {
+            return $http.get("/api/project/admin/user");
+        }
 
         function followUser(followId) {
             return $http.post("/api/project/user/follow/" + followId);

@@ -22,9 +22,78 @@ module.exports = function (app, userModel, security) {
     app.delete("/api/project/user/follow/:followId", unfollowUser);
     app.post("/api/project/user/profilepic/:id", upload.single('profilePic'), updateUserWithImage);
     app.post("/api/project/login", passport.authenticate('project'), login);
-
+    app.post('/api/project/admin/user', auth, createUser);
+    app.get('/api/project/admin/user', auth, findAllUsersAdmin);
+    //app.delete('/api/project/admin/user/:userId', auth, deleteUser);
+    //app.put('/api/project/admin/user/:userId', auth, updateUser);
 
     var userService = this;
+
+    function createUser(req, res) {
+        var newUser = req.body;
+        if (newUser.roles && newUser.roles.length > 1) {
+            newUser.roles = newUser.roles.split(",");
+        } else {
+            newUser.roles = ["student"];
+        }
+        userModel
+            .findUserByUsername(newUser.username)
+            .then(
+                function (user) {
+                    // if the user does not already exist
+                    if (user == null) {
+                        return userModel.createUser(newUser)
+                            .then(
+                                function () {
+                                    return userModel.findAllUsers();
+                                },
+                                function (err) {
+                                    console.log(err);
+                                    res.status(400).send(err);
+                                }
+                            );
+                        // if the user already exists, then just fetch all the users
+                    } else {
+                        return userModel.findAllUsers();
+                    }
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (users) {
+                    res.json(users);
+                },
+                function () {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function findAllUsersAdmin(req, res) {
+        if (isAdmin(req.user)) {
+            userModel
+                .findAllUsers()
+                .then(
+                    function (users) {
+                        res.json(users);
+                    },
+                    function () {
+                        res.status(400).send(err);
+                    }
+                );
+        } else {
+            res.status(403);
+        }
+    }
+
+    function isAdmin(user) {
+        if (user.roles.indexOf("admin") > -1) {
+            return true
+        }
+        return false;
+    }
 
     function updateUserWithImage(req, res) {
         var userId = req.params.id;
@@ -287,6 +356,7 @@ module.exports = function (app, userModel, security) {
     function register(req, res) {
         console.log("UserService register");
         var user = req.body;
+        user.roles = ['user'];
         console.log("Register: " + JSON.stringify(user));
         userModel.findUserByUsername(user.username)
             .then(
