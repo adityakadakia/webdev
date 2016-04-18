@@ -24,11 +24,11 @@
                 <ul class="mynavcolor nav navbar-nav navbar-right">
                     <li ng-class="{'active':$location.url() == '/login'}">
                         <a ng-show="!user"
-                           href="#/login">Sign in</a>
+                           href="#/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>
                     </li>
                     <li ng-class="{'active':$location.url() == '/register'}">
                         <a ng-show="!user"
-                           href="#/register">Sign up</a>
+                           href="#/register"><i class="fa fa-plus" aria-hidden="true"></i> Sign Up</a>
                     </li>
                     <li>
                         <a ng-show="(user.roles.indexOf('admin') > -1)"
