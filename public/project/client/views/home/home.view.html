@@ -20,31 +20,35 @@
 
     <div id="map" class="custom-map"></div>
 
-    <div class="row" ng-repeat="item in results track by item.venue.id">
-        <div class="col-md-7">
-            <a href="#/details/{{item.venue.id}}">
-                <img class="img-responsive" width="100%"
-                     ng-src="{{item.venue.featuredPhotos.items[0].prefix}}700x300{{item.venue.featuredPhotos.items[0].suffix}}"
-                     alt="">
-            </a>
-        </div>
-        <div class="col-md-5">
-            <a href="#/details/{{item.venue.id}}" style="color: black">
-                <h3>{{item.venue.name}}</h3>
-            </a>
-            <h4>{{item.venue.categories[0].name}}</h4>
-            <p class="review-style">{{item.tips[0].text}}</p>
-            <p><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;
-                <span class="label label-success" ng-show="item.venue.hours.isOpen">Open</span>
-                <span class="label label-danger" ng-show="!item.venue.hours.isOpen">Closed</span>
+    <div infinite-scroll="model.myPagingFunction()"
+         infinite-scroll-disabled='model.busy'
+         infinite-scroll-distance="1">
+        <div class="row" ng-repeat="item in results track by item.venue.id">
+            <div class="col-md-7">
+                <a href="#/details/{{item.venue.id}}">
+                    <img class="img-responsive" width="100%"
+                         ng-src="{{item.venue.featuredPhotos.items[0].prefix}}700x300{{item.venue.featuredPhotos.items[0].suffix}}"
+                         alt="">
+                </a>
+            </div>
+            <div class="col-md-5">
+                <a href="#/details/{{item.venue.id}}" style="color: black">
+                    <h3>{{item.venue.name}}</h3>
+                </a>
+                <h4>{{item.venue.categories[0].name}}</h4>
+                <p class="review-style">{{item.tips[0].text}}</p>
+                <p><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;
+                    <span class="label label-success" ng-show="item.venue.hours.isOpen">Open</span>
+                    <span class="label label-danger" ng-show="!item.venue.hours.isOpen">Closed</span>
                 <span class="label label-default"
                       ng-show="item.venue.hours.status">{{item.venue.hours.status}}</span>
-            </p>
-            <a class="btn btn-primary" href="#/details/{{item.venue.id}}">Find more <span
-                    class="glyphicon glyphicon-chevron-right"></span></a>
-        </div>
-        <div class="col-md-12">
-            <hr>
+                </p>
+                <a class="btn btn-primary" href="#/details/{{item.venue.id}}">Find more <span
+                        class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+            <div class="col-md-12">
+                <hr>
+            </div>
         </div>
     </div>
 </div>

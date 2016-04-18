@@ -7,26 +7,51 @@
         .module("Voyager")
         .controller("HomeController", HomeController);
 
-    function HomeController(SearchService, $routeParams, $location, $rootScope, GoogleMapsService) {
+    function HomeController(SearchService, $routeParams, $location, $rootScope, GoogleMapsService, $scope) {
         var model = this;
         model.searchTerm;
-        model.explorePlaces = explorePlaces;
+        //model.explorePlaces = explorePlaces;
         model.imageSize = "/800X500/";
         model.initMap = initMap;
         model.changeUrl = changeUrl;
+        model.paginationCounter = -30;
+        model.myPagingFunction = myPagingFunction;
+        $rootScope.results = [];
 
-        if ($routeParams.placeQuery) {
-            explorePlaces($routeParams.placeQuery);
-        } else {
-            getLocation();
+        function myPagingFunction() {
+
+            if ($routeParams.placeQuery) {
+                //explorePlaces($routeParams.placeQuery);
+                model.paginationCounter = model.paginationCounter + 30;
+                model.searchTerm = $routeParams.placeQuery;
+                if ($routeParams.placeQuery) {
+                    model.busy = true;
+                    SearchService
+                        .explorePlace($routeParams.placeQuery, model.paginationCounter, function (places) {
+                            $rootScope.results.push.apply($rootScope.results, places.response.groups[0].items);
+                            model.busy = false;
+                            initMap(places.response.groups[0].items);
+                            console.log($rootScope.results.length);
+                        });
+                }
+            } else {
+                getLocation();
+            }
+
         }
 
         function getLocation() {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
+                navigator.geolocation.getCurrentPosition(showPosition, errPosition);
             } else {
-                x.innerHTML = "Geolocation is not supported by this browser.";
+                $location.url('/home/' + 'Boston').replace();
             }
+        }
+
+        function errPosition(err) {
+            console.log("Error" + JSON.stringify(err));
+            $location.url('/home/Boston').replace();
+            $scope.$apply()
         }
 
         function showPosition(position) {
@@ -54,15 +79,15 @@
                     });
         }
 
-        function explorePlaces(searchTerm) {
-            console.log("searchTerm: " + searchTerm);
-            SearchService.explorePlace(searchTerm, function (places) {
-                $rootScope.results = places.response.groups[0].items;
-                initMap(places.response.groups[0].items);
-            })
-            model.searchTerm = searchTerm;
-
-        }
+        //function explorePlaces(searchTerm) {
+        //    console.log("searchTerm: " + searchTerm);
+        //    SearchService.explorePlace(searchTerm, 0, function (places) {
+        //        $rootScope.results = places.response.groups[0].items;
+        //        initMap(places.response.groups[0].items);
+        //    })
+        //    model.searchTerm = searchTerm;
+        //
+        //}
 
         function changeUrl(searchTerm) {
             $location.url("/home/" + searchTerm);

@@ -4,5 +4,5 @@
 "use strict";
 (function () {
     angular
-        .module('Voyager', ['ngRoute', 'vsGoogleAutocomplete']);
+        .module('Voyager', ['ngRoute', 'vsGoogleAutocomplete', 'infinite-scroll']);
 })();
