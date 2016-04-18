@@ -204,7 +204,7 @@ module.exports = function (app, userModel, security) {
 
     function logOut(req, res) {
         console.log("UserService logOut");
-        //req.session.destroy();
+        req.session.destroy();
         //res.send(200);
         req.logOut();
         res.send(200);
