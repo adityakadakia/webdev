@@ -24,8 +24,8 @@ module.exports = function (app, userModel, security) {
     app.post("/api/project/login", passport.authenticate('project'), login);
     app.post('/api/project/admin/user', auth, createUser);
     app.get('/api/project/admin/user', auth, findAllUsersAdmin);
-    //app.delete('/api/project/admin/user/:userId', auth, deleteUser);
-    //app.put('/api/project/admin/user/:userId', auth, updateUser);
+    app.delete('/api/project/admin/user/:userId', auth, deleteUser);
+    app.put('/api/project/admin/user/:userId', auth, updateUser);
 
     var userService = this;
 
@@ -87,6 +87,62 @@ module.exports = function (app, userModel, security) {
             res.status(403);
         }
     }
+
+    function updateUser(req, res) {
+        var newUser = req.body;
+        if (!isAdmin(req.user)) {
+            delete newUser.roles;
+        }
+        if (typeof newUser.roles == "string") {
+            newUser.roles = newUser.roles.split(",");
+        }
+
+        userModel
+            .updateUser(req.params.userId, newUser)
+            .then(
+                function (user) {
+                    return userModel.findAllUsers();
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (users) {
+                    res.json(users);
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
+    }
+
+    function deleteUser(req, res) {
+        if (isAdmin(req.user)) {
+            console.log("userService deleteUser: " + req.params.userId)
+            userModel
+                .deleteUserById(req.params.userId)
+                .then(
+                    function (user) {
+                        return userModel.findAllUsers();
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    }
+                )
+                .then(
+                    function (users) {
+                        res.json(users);
+                    },
+                    function (err) {
+                        res.status(400).send(err);
+                    }
+                );
+        } else {
+            res.status(403);
+        }
+    }
+
 
     function isAdmin(user) {
         if (user.roles.indexOf("admin") > -1) {
