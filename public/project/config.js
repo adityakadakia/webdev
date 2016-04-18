@@ -129,14 +129,30 @@
                 controller: "AdminController",
                 controllerAs: "model",
                 resolve: {
-                    checkLoggedIn: checkLoggedIn,
-                    checkProfile: checkProfile
+                    checkAdmin: checkAdmin,
+                    checkProfile: checkProfile,
                 }
             })
             .otherwise({
                 redirectTo: "/home"
             });
     }
+
+    var checkAdmin = function ($q, $timeout, $http, $location, $rootScope) {
+        var deferred = $q.defer();
+
+        $http.get('/api/project/user/loggedin').success(function (user) {
+            $rootScope.errorMessage = null;
+            // User is Authenticated
+            if (user != '' && user.roles.indexOf('admin') != -1) {
+                $rootScope.user = user;
+                deferred.resolve();
+            } else {
+                $location.url('/home').replace();
+            }
+        });
+        return deferred.promise;
+    };
 
     function getLoggedIn(UserService, $q) {
         var deferred = $q.defer();
