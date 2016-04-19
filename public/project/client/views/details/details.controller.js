@@ -22,6 +22,7 @@
 
         checkLiked();
         findAllReviewsByPlaceId(id);
+        $('[data-toggle="tooltip"]').tooltip();
 
         SearchService
             .findPlaceDetailsByPlaceId(id)

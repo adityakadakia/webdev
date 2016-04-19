@@ -70,9 +70,17 @@
                                 </a>
                             </div>
                             <div class="media-body">
-                                <label class="media-heading">By <a
-                                        href="#/profile/{{review.userId}}">{{review.fullName}}</a>
-                                    <span class="label label-info"> {{ review.timestamp | date : 'mediumDate'}}</span>
+
+
+                                <label class="media-heading">By
+                                    <a href=""
+                                       ng-show="!user.id"
+                                       data-toggle="tooltip"
+                                       data-placement="top"
+                                       title="Please login"
+                                       ng-disabled="!user._id">{{review.fullName}}</a>
+                                    &nbsp;<span
+                                            class="label label-info">{{ review.timestamp | date : 'mediumDate'}}</span>
                                 </label>
                                 <div ng-hide="model.selected == $index">
                                     <p class="review-style">{{review.description}}</p>
