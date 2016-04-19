@@ -99,14 +99,7 @@ module.exports = function (db, mongoose) {
         var emails = user.emails.toString().split(",");
         user.emails = emails;
         return userModel.update({_id: userId}, {
-            $set: {
-                username: user.username,
-                imgUrl: user.imgUrl,
-                password: user.password,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                emails: user.emails,
-            }
+            $set: user
         });
     }
 }
