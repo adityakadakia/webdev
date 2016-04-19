@@ -73,11 +73,7 @@
 
 
                                 <label class="media-heading">By
-                                    <a href=""
-                                       ng-show="!user.id"
-                                       data-toggle="tooltip"
-                                       data-placement="top"
-                                       title="Please login"
+                                    <a href="#/profile/{{review.userId}}"
                                        ng-disabled="!user._id">{{review.fullName}}</a>
                                     &nbsp;<span
                                             class="label label-info">{{ review.timestamp | date : 'mediumDate'}}</span>
