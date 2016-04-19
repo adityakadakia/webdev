@@ -24,36 +24,64 @@
                 <ul class="mynavcolor nav navbar-nav navbar-right">
                     <li ng-class="{'active':$location.url() == '/login'}">
                         <a ng-show="!user"
-                           href="#/login"><i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>
+                           href="#/login" class="hidden-xs">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>
+                        <a ng-show="!user" href="#/login" data-toggle="collapse"
+                           data-target="#bs-example-navbar-collapse-1" class="visible-xs">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i> Sign In</a>
                     </li>
                     <li ng-class="{'active':$location.url() == '/register'}">
-                        <a ng-show="!user"
-                           href="#/register"><i class="fa fa-plus" aria-hidden="true"></i> Sign Up</a>
+                        <a ng-show="!user" href="#/register" class="hidden-xs">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Sign Up
+                        </a>
+                        <a ng-show="!user" href="#/register" class="visible-xs" data-toggle="collapse"
+                           data-target="#bs-example-navbar-collapse-1">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Sign Up
+                        </a>
                     </li>
                     <li>
                         <a ng-show="(user.roles.indexOf('admin') > -1)"
-                           ng-class="{'active':$location.url() == '/admin'}" href="#/admin">Admin</a>
+                           ng-class="{'active':$location.url() == '/admin'}"
+                           href="#/admin" class="hidden-xs">
+                            Admin
+                        </a>
+                        <a ng-show="(user.roles.indexOf('admin') > -1)"
+                           ng-class="{'active':$location.url() == '/admin'}"
+                           href="#/admin" class="visible-xs" data-toggle="collapse"
+                           data-target="#bs-example-navbar-collapse-1">
+                            Admin
+                        </a>
                     </li>
                     <li class="dropdown" ng-show="user">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">{{user.firstName + " " + user.lastName}}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#/likes/{{model.user._id}}"><i class="fa fa-thumbs-up myicon-blue"
-                                                                        aria-hidden="true"></i>
-                                Likes</a></li>
-                            <li><a href="#/followers/{{model.user._id}}"><i class="fa fa-users myicon-green"
-                                                                            aria-hidden="true"></i>
+                            <li><a href="#/likes/{{model.user._id}}">
+                                <i class="fa fa-thumbs-up myicon-blue" aria-hidden="true"></i>
+                                Likes</a>
+                            </li>
+                            <li>
+                                <a href="#/followers/{{model.user._id}}">
+                                    <i class="fa fa-users myicon-green" aria-hidden="true"></i>
                                 Followers</a></li>
-                            <li><a href="#/following/{{model.user._id}}"><i class="fa fa-users myicon-yellow"
-                                                                            aria-hidden="true"></i>
-                                Following</a></li>
-                            <li><a href="#/profile/{{model.user._id}}"><i class="glyphicon glyphicon-user myicon-orange"
-                                                                          aria-hidden="true"></i> Update Profile</a></li>
+                            <li>
+                                <a href="#/following/{{model.user._id}}">
+                                    <i class="fa fa-users myicon-yellow" aria-hidden="true"></i>
+                                    Following
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#/profile/{{model.user._id}}">
+                                    <i class="glyphicon glyphicon-user myicon-orange" aria-hidden="true"></i>
+                                    Update Profile
+                                </a>
+                            </li>
                             <li role="separator" class="divider"></li>
                             <li>
                                 <a ng-show="user" ng-click="model.logOut()" href="#">
                                     <i class="fa fa-sign-out myicon-red" aria-hidden="true"></i>
-                                    Sign Out</a>
+                                    Sign Out
+                                </a>
                             </li>
                         </ul>
                     </li>
