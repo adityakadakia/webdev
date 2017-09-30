@@ -8,12 +8,12 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 
 var connectionString = 'mongodb://127.0.0.1:27017/webdev';
-if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
-    connectionString = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
-        process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
-        process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
-        process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
-        process.env.OPENSHIFT_APP_NAME;
+if(process.env.MONGODB_PASSWORD) {
+    connectionString = process.env.MONGODB_USER + ":" +
+        process.env.MONGODB_PASSWORD + "@" +
+        process.env.MONGODB_SERVICE_HOST + ':' +
+        process.env.MONGODB_SERVICE_PORT + '/' +
+        'webdevelopment';
 }
 var db = mongoose.connect(connectionString);
 
@@ -27,8 +27,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + '/public'));
 
-var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-var port = process.env.OPENSHIFT_NODEJS_PORT || 3001;
+var ipaddress = 0.0.0.0;
+var port = 8080;
 
 var userModelAssignment = require("./public/assignment/server/models/user.model.server.js")(db, mongoose);
 var userModelProject = require("./public/project/server/models/user.model.server.js")(db, mongoose);
