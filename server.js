@@ -27,7 +27,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + '/public'));
 
-var ipaddress = 0.0.0.0;
+var ipaddress = '0.0.0.0';
 var port = 8080;
 
 var userModelAssignment = require("./public/assignment/server/models/user.model.server.js")(db, mongoose);
