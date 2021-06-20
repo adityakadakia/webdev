@@ -21,6 +21,6 @@ Install Node.js, npm and MongoDB
 - MongoDB: No-SQL data store for user information, reviews, likes and followers
 
 ## 3P APIs
-- Foursquare: Search points of interest
+- Foursquare: search points of interest
 - Google Maps: map with pins, search autocomplete and location
 - Wikipedia: short descriptions
